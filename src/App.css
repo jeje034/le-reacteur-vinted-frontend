@@ -1,0 +1,53 @@
+/* ------------------- */
+/* GLOBAL RULES */
+/* ------------------- */
+
+/* ------------------- */
+/* HEADER */
+/* ------------------- */
+.header-logo {
+    height: 42px;
+}
+
+/* ------------------- */
+/* HOME */
+/* ------------------- */
+
+.home-top-big-image {
+    height: 455px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.home-before-cards {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.home-card {
+    display: flex;
+    flex-direction: column;
+    width: 232px;
+    height: 450px;
+}
+
+.home-offer-owner {
+    display: flex;
+}
+.home-offer-owner-photo {
+    width: 25px;
+    height: 25px;
+    object-fit: cover;
+}
+.home-card-photo {
+    width: 100%;
+    height: 360px;
+    object-fit: cover;
+}
+/* ------------------- */
+/* OFFER */
+/* ------------------- */
+
+/* ------------------- */
+/* MEDIA QUERIES ? */
+/* ------------------- */
