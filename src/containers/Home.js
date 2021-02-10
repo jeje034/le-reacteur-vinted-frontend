@@ -47,15 +47,28 @@ const Home = () => {
     return (
         <div>
             <Header />
-            <img
-                src={TopBigImage}
-                alt="Des personnes et des vêtements"
-                className="home-top-big-image"
-            />
+            <div>
+                <img
+                    src={TopBigImage}
+                    alt="Des personnes et des vêtements"
+                    className="home-top-big-image"
+                />
+                <div className="home-div-dans-image">
+                    <div className="home-text-to-sell">
+                        Prêts à faire du tri dans vos placards ?
+                    </div>
+                    <button className="button-text-to-sell">
+                        Commencer à vendre
+                    </button>
+                </div>
+            </div>
+
             {isDownloading ? (
-                <div>Chargement en cours...</div>
+                <div className="home-before-cards container">
+                    Chargement en cours...
+                </div>
             ) : (
-                <div className="home-before-cards">
+                <div className="home-before-cards container">
                     {offers.map((offer, index) => {
                         return (
                             <Link key={offer._id} to={`/offer/${offer._id}`}>
@@ -69,7 +82,7 @@ const Home = () => {
                                             }
                                             alt={offer.product_name}
                                         />
-                                        <div>
+                                        <div className="home-offer-owner-unsername">
                                             {offer.owner.account.username}
                                         </div>
                                     </div>

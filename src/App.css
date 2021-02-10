@@ -1,12 +1,65 @@
 /* ------------------- */
 /* GLOBAL RULES */
 /* ------------------- */
+:root {
+    --vinted-color: #2baeb7;
+    --opposite-of-vinted-color: white;
+}
+
+.container {
+    width: 1240px;
+    margin: 0 auto;
+    /* background-color: red; */
+}
 
 /* ------------------- */
 /* HEADER */
 /* ------------------- */
+.header-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 50px;
+}
+
 .header-logo {
-    height: 42px;
+    height: 30px;
+}
+
+.header-button-group {
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+}
+
+.header-sign-up-login {
+    color: var(--vinted-color);
+    background-color: var(--opposite-of-vinted-color);
+    width: 117px;
+    height: 27px;
+    border-color: var(--vinted-color);
+    cursor: pointer;
+    outline: none;
+    border-radius: 5px;
+}
+.header-sell-your-products {
+    color: var(--opposite-of-vinted-color);
+    background-color: var(--vinted-color);
+    width: 117px;
+    height: 27px;
+    cursor: pointer;
+
+    border: 1px solid var(--vinted-color) a;
+    border-radius: 5px;
+
+    font-size: 12px;
+    outline: none;
+}
+
+.header-horizontal-line {
+    width: calc(100% - 2px);
+    border: 1px solid #e5e5e5;
+    /* margin-bottom: 10px; */
 }
 
 /* ------------------- */
@@ -17,11 +70,45 @@
     height: 455px;
     width: 100%;
     object-fit: cover;
+    margin-bottom: 25px;
+    position: relative;
 }
 
+/* Msgjs21 Faire suivre ce div dans image et le logo Vinted avec le container */
+.home-div-dans-image {
+    position: absolute;
+    left: 130px;
+    top: 130px;
+    background-color: white;
+    width: 400px;
+    height: 260px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.home-text-to-sell {
+    font-size: 35px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.button-text-to-sell {
+    font-size: 16px;
+    background-color: var(--vinted-color);
+    color: var(--opposite-of-vinted-color);
+    margin-left: 25px;
+    margin-right: 25px;
+    width: 187px;
+    height: 45px;
+    outline: none;
+    border-color: var(--vinted-color);
+    border-radius: 5px;
+}
 .home-before-cards {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .home-card {
@@ -33,11 +120,21 @@
 
 .home-offer-owner {
     display: flex;
+    text-decoration: none;
+    margin-bottom: 10px;
+    margin-left: 10px;
 }
 .home-offer-owner-photo {
     width: 25px;
     height: 25px;
     object-fit: cover;
+    margin-right: 10px;
+    border-radius: 50px;
+}
+
+.home-offer-owner-unsername {
+    text-decoration: none;
+    /* msgjs21 ne fonctionne pas */
 }
 .home-card-photo {
     width: 100%;
