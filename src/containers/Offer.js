@@ -56,23 +56,45 @@ const Offer = () => {
 
                     <div className="offer-big-text-zone">
                         <div className="offer-top-description">
-                            {offer.product_price.toFixed(2) + " €"}
-                            {offer.product_details.map(
-                                (productDetail, index) => {
-                                    return (
-                                        <div key={index}>
-                                            {Object.keys(productDetail)[0] +
-                                                " - " +
-                                                Object.values(productDetail)[0]}
-                                        </div>
-                                    );
-                                }
-                            )}
+                            <div className="offer-price">
+                                {offer.product_price.toFixed(2) + " €"}
+                            </div>
+                            <div className="offer-product-details">
+                                {offer.product_details.map(
+                                    (productDetail, index) => {
+                                        return (
+                                            <div
+                                                className="offer-product-detail"
+                                                key={index}
+                                            >
+                                                <div className="offer-product-detail-key">
+                                                    {
+                                                        Object.keys(
+                                                            productDetail
+                                                        )[0]
+                                                    }
+                                                </div>
+                                                <div className="offer-product-detail-value">
+                                                    {
+                                                        Object.values(
+                                                            productDetail
+                                                        )[0]
+                                                    }
+                                                </div>
+                                            </div>
+                                        );
+                                    }
+                                )}
+                            </div>
                         </div>
                         <div className="offer-delimiter"></div>
                         <div className="offer-bottom-description">
-                            <div>{offer.product_name}</div>
-                            <div>{offer.product_description}</div>
+                            <div className="offer-title">
+                                {offer.product_name}
+                            </div>
+                            <div className="offer-description">
+                                {offer.product_description}
+                            </div>
                             <div className="offer-owner-image-and-surname">
                                 {offer.owner &&
                                     offer.owner.account &&
@@ -95,7 +117,7 @@ const Offer = () => {
                                 </div>
                             </div>
                         </div>
-                        <button>Acheter</button>
+                        <button className="offer-buy">Acheter</button>
                     </div>
 
                     {/* <Link to="/">Home</Link> */}
