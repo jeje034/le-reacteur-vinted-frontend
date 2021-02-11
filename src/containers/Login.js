@@ -2,8 +2,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 
-const Signup = ({ setTokenInMemoryAndInCookie }) => {
-    const [username, setUsername] = useState("");
+const Login = ({ setTokenInMemoryAndInCookie }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     let history = useHistory();
@@ -12,9 +11,8 @@ const Signup = ({ setTokenInMemoryAndInCookie }) => {
         let newToken = "";
         try {
             const response = await axios.post(
-                "http://localhost:3000/user/signup",
+                "http://localhost:3000/user/login",
                 {
-                    username: username,
                     email: email,
                     password: password,
                 }
@@ -37,10 +35,6 @@ const Signup = ({ setTokenInMemoryAndInCookie }) => {
         handleToken();
     };
 
-    const handleUsernameChange = (event) => {
-        const value = event.target.value;
-        setUsername(value);
-    };
     const handleEmailChange = (event) => {
         const value = event.target.value;
         setEmail(value);
@@ -53,15 +47,8 @@ const Signup = ({ setTokenInMemoryAndInCookie }) => {
 
     return (
         <div>
-            <div>S'inscrire</div>
+            <div>Se connecter</div>
             <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    name="username"
-                    placeholder="Nom d'utilisateur"
-                    value={username}
-                    onChange={handleUsernameChange}
-                />
                 <input
                     type="email"
                     name="email"
@@ -77,11 +64,11 @@ const Signup = ({ setTokenInMemoryAndInCookie }) => {
                     onChange={handlePasswordChange}
                 />
                 <button type="submit" className="signup-button">
-                    S'inscrire
+                    Se connecter
                 </button>
             </form>
         </div>
     );
 };
 
-export default Signup;
+export default Login;
