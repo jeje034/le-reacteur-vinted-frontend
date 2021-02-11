@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Header from "../components/Header";
 import TopBigImage from "../assets/hero.09bfd0f9.jpg";
 
 const Home = () => {
@@ -46,15 +45,12 @@ const Home = () => {
 
     return (
         <div>
-            <Header />
             <div>
-                <Link to="/">
-                    <img
-                        src={TopBigImage}
-                        alt="Des personnes et des vêtements"
-                        className="home-top-big-image"
-                    />
-                </Link>
+                <img
+                    src={TopBigImage}
+                    alt="Des personnes et des vêtements"
+                    className="home-top-big-image"
+                />
 
                 <div className="home-div-dans-image">
                     <div className="home-text-to-sell">

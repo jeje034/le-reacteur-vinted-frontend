@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Header from "../components/Header";
 import axios from "axios";
 
 const Offer = () => {
@@ -26,10 +25,8 @@ const Offer = () => {
         fetchData();
     }, [id]);
 
-    //450 * 600
     return (
         <div className="offer-main">
-            <Header />
             {isDownloading ? (
                 <div className="offer-main-when-downloading">
                     <div>Chargement en cours ...</div>

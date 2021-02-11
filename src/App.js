@@ -2,16 +2,22 @@ import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./containers/Home";
 import Offer from "./containers/Offer";
+import Header from "./components/Header";
+import Signup from "./containers/Signup";
 
 function App() {
     return (
         <Router>
+            <Header />
             <Switch>
                 <Route path="/offer/:id">
-                    <Offer></Offer>
+                    <Offer />
+                </Route>
+                <Route path="/signup">
+                    <Signup />
                 </Route>
                 <Route path="/">
-                    <Home></Home>
+                    <Home />
                 </Route>
             </Switch>
         </Router>

@@ -10,7 +10,12 @@ const Header = () => {
                 </Link>
 
                 <div className="header-button-group">
-                    <button className="header-sign-up-login">S'inscrire</button>
+                    <Link to="/signup">
+                        <button className="header-sign-up-login">
+                            S'inscrire
+                        </button>
+                    </Link>
+
                     <button className="header-sign-up-login">
                         Se connecter
                     </button>
