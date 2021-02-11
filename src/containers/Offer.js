@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Header from "../components/Header";
 import axios from "axios";
 
@@ -26,29 +26,81 @@ const Offer = () => {
         fetchData();
     }, []);
 
-    //450 * 600
-    return isDownloading ? (
-        <div>Chargement en cours ...</div>
-    ) : (
-        <div>
-            <Header />
-            {"Page Offer, id : " + id}
-            <br />
-            <div>
-                {offer.product_pictures.map((elem, index) => {
-                    return (
-                        <div key={index}>
-                            <img
-                                src={elem.secure_url}
-                                alt={elem.product_name}
-                            />
-                        </div>
-                    );
-                })}
-            </div>
-            <div>{offer.product_name}</div>
+    const getProductDetail = (productDetail) => {};
 
-            <Link to="/">Home</Link>
+    //450 * 600
+    return (
+        <div className="offer-main">
+            <Header />
+            {isDownloading ? (
+                <div className="offer-main-when-downloading">
+                    <div>Chargement en cours ...</div>
+                </div>
+            ) : (
+                <div className="offer-main-when-downloaded">
+                    {/* {offer.product_pictures.map((elem, index) => {
+                            return (
+                                <div key={index}>
+                                    <img
+                                        src={elem.secure_url}
+                                        alt={elem.product_name}
+                                    />
+                                </div>
+                            );
+                        })} */}
+                    <img
+                        className="offer-big-picture"
+                        src={offer.product_pictures[0].secure_url}
+                        alt={offer.product_pictures[0].product_name}
+                    />
+
+                    <div className="offer-big-text-zone">
+                        <div className="offer-top-description">
+                            {offer.product_price.toFixed(2) + " €"}
+                            {offer.product_details.map(
+                                (productDetail, index) => {
+                                    return (
+                                        <div key={index}>
+                                            {Object.keys(productDetail)[0] +
+                                                " - " +
+                                                Object.values(productDetail)[0]}
+                                        </div>
+                                    );
+                                }
+                            )}
+                        </div>
+                        <div className="offer-delimiter"></div>
+                        <div className="offer-bottom-description">
+                            <div>{offer.product_name}</div>
+                            <div>{offer.product_description}</div>
+                            <div className="offer-owner-image-and-surname">
+                                {offer.owner &&
+                                    offer.owner.account &&
+                                    offer.owner.account.avatar &&
+                                    offer.owner.account.avatar.secure_url && (
+                                        <img
+                                            className="offer-avatar-image"
+                                            src={
+                                                offer.owner.account.avatar
+                                                    .secure_url
+                                            }
+                                            alt="Owner"
+                                        />
+                                    )}
+
+                                <div>
+                                    {offer.owner &&
+                                        offer.owner.account &&
+                                        offer.owner.account.username}
+                                </div>
+                            </div>
+                        </div>
+                        <button>Acheter</button>
+                    </div>
+
+                    {/* <Link to="/">Home</Link> */}
+                </div>
+            )}
         </div>
     );
 };

@@ -48,11 +48,14 @@ const Home = () => {
         <div>
             <Header />
             <div>
-                <img
-                    src={TopBigImage}
-                    alt="Des personnes et des vêtements"
-                    className="home-top-big-image"
-                />
+                <Link to="/">
+                    <img
+                        src={TopBigImage}
+                        alt="Des personnes et des vêtements"
+                        className="home-top-big-image"
+                    />
+                </Link>
+
                 <div className="home-div-dans-image">
                     <div className="home-text-to-sell">
                         Prêts à faire du tri dans vos placards ?
@@ -91,14 +94,16 @@ const Home = () => {
                                         src={offer.product_image.secure_url}
                                         alt={offer.product_name}
                                     />
-                                    <div>{"" + offer.product_price + " €"}</div>
-                                    <div>
+                                    <div className="home-price">
+                                        {"" + offer.product_price + " €"}
+                                    </div>
+                                    <div className="home-taille-marque">
                                         {getPoductDetail(
                                             offer.product_details,
                                             "TAILLE"
                                         )}
                                     </div>
-                                    <div>
+                                    <div className="home-taille-marque">
                                         {getPoductDetail(
                                             offer.product_details,
                                             "MARQUE"

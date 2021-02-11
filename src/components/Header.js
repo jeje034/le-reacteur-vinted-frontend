@@ -1,10 +1,14 @@
+import { Link } from "react-router-dom";
 import Logo from "../assets/logo.3dcf8b02.png";
 
 const Header = () => {
     return (
         <>
             <div className="header-main">
-                <img src={Logo} alt="Vinted" className="header-logo" />
+                <Link to="/">
+                    <img src={Logo} alt="Vinted" className="header-logo" />
+                </Link>
+
                 <div className="header-button-group">
                     <button className="header-sign-up-login">S'inscrire</button>
                     <button className="header-sign-up-login">
@@ -15,7 +19,7 @@ const Header = () => {
                     </button>
                 </div>
             </div>
-            <div className="header-horizontal-line"></div>
+            {/* <div className="header-horizontal-line"></div> */}
         </>
     );
 };
