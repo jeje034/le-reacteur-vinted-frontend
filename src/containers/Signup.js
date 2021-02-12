@@ -5,20 +5,15 @@ import axios from "axios";
 const Signup = ({ setTokenInMemoryAndInCookie }) => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
     const [password, setPassword] = useState("");
     const [newsletterSubscription, setNewsletterSubscription] = useState(false);
     let history = useHistory();
 
     const handleToken = async () => {
-        let newToken = "";
-        let response = null;
+        let newToken = null;
         try {
-            console.log("ce qui va être posté : ", {
-                username: username,
-                email: email,
-                password: password,
-            });
-            response = await axios.post(
+            const response = await axios.post(
                 //"http://localhost:3000/user/signup",
                 "https://le-reacteur-vinted.herokuapp.com/user/signup",
                 //"https://lereacteur-vinted-api.herokuapp.com/user/signup",
@@ -29,7 +24,6 @@ const Signup = ({ setTokenInMemoryAndInCookie }) => {
                 }
             );
             newToken = response.data.token;
-            console.log("resp dat", response.data);
             if (newToken) {
                 setTokenInMemoryAndInCookie(newToken);
                 history.push("/");
@@ -37,11 +31,25 @@ const Signup = ({ setTokenInMemoryAndInCookie }) => {
                 setTokenInMemoryAndInCookie(newToken);
             }
         } catch (error) {
-            console.log("An error occured : ", error);
-            if (response) {
-                console.log("resp", response);
-            } else {
-                console.log("no resp");
+            console.log("An error occured :", error.message);
+            if (
+                error &&
+                error.response &&
+                error.response.data &&
+                error.response.data.error
+            ) {
+                if (
+                    error.response.data.error.message ===
+                    "this email has already an account."
+                ) {
+                    setErrorMessage("Cet email a déjà un compte chez nous !");
+                } else if (
+                    error.response.data.error.message === "Missing parameters."
+                ) {
+                    setErrorMessage(
+                        "Le nom d'utilisateur, l'email et le mot de passe sont obligatoires."
+                    );
+                }
             }
             setTokenInMemoryAndInCookie(newToken);
         }
@@ -59,6 +67,7 @@ const Signup = ({ setTokenInMemoryAndInCookie }) => {
     const handleEmailChange = (event) => {
         const value = event.target.value;
         setEmail(value);
+        setErrorMessage(false);
     };
 
     const handlePasswordChange = (event) => {
@@ -91,6 +100,11 @@ const Signup = ({ setTokenInMemoryAndInCookie }) => {
                     onChange={handleEmailChange}
                     className="signup-login-input"
                 />
+                {errorMessage && (
+                    <div className="signup-login-error-message">
+                        {errorMessage}
+                    </div>
+                )}
                 <input
                     type="password"
                     name="password"
@@ -104,9 +118,11 @@ const Signup = ({ setTokenInMemoryAndInCookie }) => {
                     name="newsletterSubscription"
                     value={newsletterSubscription}
                     onChange={handleNewsletterSubscriptionChange}
-                    className="signup-login-checkbox"
+                    className="signup-checkbox"
                 />
-                <label>S'inscrire à notre newsletter</label>
+                <label className="signup-checkbox-label">
+                    S'inscrire à notre newsletter
+                </label>
                 <div className="signup-i-confirm-sentence">
                     En m'inscrivant je confirme avoir lu et accepté les Termes &
                     Conditions et Politique de Confidentialité de Vinted. Je

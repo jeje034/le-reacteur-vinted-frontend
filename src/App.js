@@ -9,7 +9,7 @@ import Signup from "./containers/Signup";
 import Login from "./containers/Login";
 
 function App() {
-    const [token, setToken] = useState("");
+    const [token, setToken] = useState(Cookies.get("token") || null);
 
     const setTokenInMemoryAndInCookie = (token) => {
         setToken(token);

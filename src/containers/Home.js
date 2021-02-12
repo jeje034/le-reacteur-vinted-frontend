@@ -15,7 +15,7 @@ const Home = () => {
             setOffers(response.data.offers);
             setIsDownloading(false);
         } catch (error) {
-            console.log("An error occured : ", error);
+            console.log("An error occured :", error.message);
         }
     };
 

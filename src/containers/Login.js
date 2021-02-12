@@ -9,7 +9,7 @@ const Login = ({ setTokenInMemoryAndInCookie }) => {
     let history = useHistory();
 
     const handleToken = async () => {
-        let newToken = "";
+        let newToken = null;
         try {
             const response = await axios.post(
                 //"http://localhost:3000/user/login",
@@ -30,7 +30,7 @@ const Login = ({ setTokenInMemoryAndInCookie }) => {
             }
         } catch (error) {
             setLoginError(true);
-            console.log("An error occured : ", error);
+            console.log("An error occured:", error.message);
             setTokenInMemoryAndInCookie(newToken);
         }
     };

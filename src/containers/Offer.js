@@ -14,11 +14,10 @@ const Offer = () => {
                     //"https://le-reacteur-vinted.herokuapp.com/offer" + id
                     "https://lereacteur-vinted-api.herokuapp.com/offer/" + id
                 );
-                console.log("rp :", response.data);
                 setOffer(response.data);
                 setIsDownloading(false);
             } catch (error) {
-                console.log("An error occured : ", error);
+                console.log("An error occured:", error.message);
             }
         };
 
