@@ -1,18 +1,27 @@
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import axios from "axios";
 
 const Signup = ({ setTokenInMemoryAndInCookie }) => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [newsletterSubscription, setNewsletterSubscription] = useState(false);
     let history = useHistory();
 
     const handleToken = async () => {
         let newToken = "";
+        let response = null;
         try {
-            const response = await axios.post(
-                "http://localhost:3000/user/signup",
+            console.log("ce qui va être posté : ", {
+                username: username,
+                email: email,
+                password: password,
+            });
+            response = await axios.post(
+                //"http://localhost:3000/user/signup",
+                "https://le-reacteur-vinted.herokuapp.com/user/signup",
+                //"https://lereacteur-vinted-api.herokuapp.com/user/signup",
                 {
                     username: username,
                     email: email,
@@ -20,6 +29,7 @@ const Signup = ({ setTokenInMemoryAndInCookie }) => {
                 }
             );
             newToken = response.data.token;
+            console.log("resp dat", response.data);
             if (newToken) {
                 setTokenInMemoryAndInCookie(newToken);
                 history.push("/");
@@ -28,6 +38,11 @@ const Signup = ({ setTokenInMemoryAndInCookie }) => {
             }
         } catch (error) {
             console.log("An error occured : ", error);
+            if (response) {
+                console.log("resp", response);
+            } else {
+                console.log("no resp");
+            }
             setTokenInMemoryAndInCookie(newToken);
         }
     };
@@ -51,9 +66,14 @@ const Signup = ({ setTokenInMemoryAndInCookie }) => {
         setPassword(value);
     };
 
+    const handleNewsletterSubscriptionChange = (event) => {
+        const value = event.target.value;
+        setNewsletterSubscription(value);
+    };
+
     return (
-        <div>
-            <div>S'inscrire</div>
+        <div className="container-login-signup">
+            <div className="signup-login-page-title">S'inscrire</div>
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
@@ -61,6 +81,7 @@ const Signup = ({ setTokenInMemoryAndInCookie }) => {
                     placeholder="Nom d'utilisateur"
                     value={username}
                     onChange={handleUsernameChange}
+                    className="signup-login-input"
                 />
                 <input
                     type="email"
@@ -68,6 +89,7 @@ const Signup = ({ setTokenInMemoryAndInCookie }) => {
                     placeholder="Email"
                     value={email}
                     onChange={handleEmailChange}
+                    className="signup-login-input"
                 />
                 <input
                     type="password"
@@ -75,11 +97,28 @@ const Signup = ({ setTokenInMemoryAndInCookie }) => {
                     placeholder="Mot de passe"
                     value={password}
                     onChange={handlePasswordChange}
+                    className="signup-login-input"
                 />
-                <button type="submit" className="signup-button">
+                <input
+                    type="checkbox"
+                    name="newsletterSubscription"
+                    value={newsletterSubscription}
+                    onChange={handleNewsletterSubscriptionChange}
+                    className="signup-login-checkbox"
+                />
+                <label>S'inscrire à notre newsletter</label>
+                <div className="signup-i-confirm-sentence">
+                    En m'inscrivant je confirme avoir lu et accepté les Termes &
+                    Conditions et Politique de Confidentialité de Vinted. Je
+                    confirme avoir au moins 18 ans.
+                </div>
+                <button type="submit" className="signup-login-button">
                     S'inscrire
                 </button>
             </form>
+            <Link to="/login" className="signup-login-switch">
+                <div>Tu as déjà un compte ? Connecte-toi !</div>
+            </Link>
         </div>
     );
 };

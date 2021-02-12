@@ -1,17 +1,20 @@
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import axios from "axios";
 
 const Login = ({ setTokenInMemoryAndInCookie }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loginError, setLoginError] = useState(false);
     let history = useHistory();
 
     const handleToken = async () => {
         let newToken = "";
         try {
             const response = await axios.post(
-                "http://localhost:3000/user/login",
+                //"http://localhost:3000/user/login",
+                "https://le-reacteur-vinted.herokuapp.com/user/login",
+                //"https://lereacteur-vinted-api.herokuapp.com/user/login",
                 {
                     email: email,
                     password: password,
@@ -22,9 +25,11 @@ const Login = ({ setTokenInMemoryAndInCookie }) => {
                 setTokenInMemoryAndInCookie(newToken);
                 history.push("/");
             } else {
+                setLoginError(true);
                 setTokenInMemoryAndInCookie(newToken);
             }
         } catch (error) {
+            setLoginError(true);
             console.log("An error occured : ", error);
             setTokenInMemoryAndInCookie(newToken);
         }
@@ -46,8 +51,8 @@ const Login = ({ setTokenInMemoryAndInCookie }) => {
     };
 
     return (
-        <div>
-            <div>Se connecter</div>
+        <div className="container-login-signup">
+            <div className="signup-login-page-title">Se connecter</div>
             <form onSubmit={handleSubmit}>
                 <input
                     type="email"
@@ -55,6 +60,7 @@ const Login = ({ setTokenInMemoryAndInCookie }) => {
                     placeholder="Email"
                     value={email}
                     onChange={handleEmailChange}
+                    className="signup-login-input"
                 />
                 <input
                     type="password"
@@ -62,11 +68,26 @@ const Login = ({ setTokenInMemoryAndInCookie }) => {
                     placeholder="Mot de passe"
                     value={password}
                     onChange={handlePasswordChange}
+                    className="signup-login-input"
                 />
-                <button type="submit" className="signup-button">
+                <div
+                    className={
+                        loginError
+                            ? "signup-login-error-message"
+                            : "signup-login-error-message visibility-hidden"
+                    }
+                >
+                    Email ou mot de passe incorrect
+                </div>
+                <button type="submit" className="signup-login-button">
                     Se connecter
                 </button>
             </form>
+            {
+                <Link to="/signup" className="signup-login-switch">
+                    <div>Pas encore de compte ? Inscris-toi !</div>
+                </Link>
+            }
         </div>
     );
 };
