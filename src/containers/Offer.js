@@ -32,16 +32,6 @@ const Offer = () => {
                 </div>
             ) : (
                 <div className="offer-main-when-downloaded">
-                    {/* {offer.product_pictures.map((elem, index) => {
-                            return (
-                                <div key={index}>
-                                    <img
-                                        src={elem.secure_url}
-                                        alt={elem.product_name}
-                                    />
-                                </div>
-                            );
-                        })} */}
                     <img
                         className="offer-big-picture"
                         src={offer.product_pictures[0].secure_url}

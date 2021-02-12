@@ -5,6 +5,7 @@
     --vinted-color: #2baeb7;
     --opposite-of-vinted-color: white;
     --header-height: 50px;
+    font-family: "Maison Neue";
 }
 
 .container {
@@ -21,6 +22,33 @@
 
 .visibility-hidden {
     visibility: hidden;
+}
+
+@font-face {
+    font-family: "Maison Neue";
+    src: url("./assets/fonts/MaisonNeue.woff2") format("woff2"),
+        url("./assets/fonts/MaisonNeue.woff") format("woff");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Maison Neue";
+    src: url("./assets/fonts/MaisonNeue.woff2") format("woff2"),
+        url("./assets/fonts/MaisonNeue.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Maison Neue";
+    src: url("./assets/fonts/MaisonNeue.woff2") format("woff2"),
+        url("./assets/fonts/MaisonNeue.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
 }
 
 /* ------------------- */
@@ -102,7 +130,7 @@
 }
 
 .home-text-to-sell {
-    font-size: 35px;
+    font-size: 34px;
     padding-left: 25px;
     padding-right: 25px;
 }
@@ -149,6 +177,7 @@
 
 .home-offer-owner-unsername {
     text-decoration: none;
+    font-size: 12px;
     /* msgjs21 ne fonctionne pas */
 }
 .home-card-photo {
@@ -315,7 +344,7 @@
 .signup-checkbox {
     transform: scale(2);
     margin-right: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 .signup-checkbox-label {
     color: #666;
@@ -323,11 +352,10 @@
 }
 
 .signup-i-confirm-sentence {
-    margin-top: 10px;
     text-align: left;
     color: #999;
     font-size: 12px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
 .signup-login-button {
