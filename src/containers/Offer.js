@@ -103,8 +103,6 @@ const Offer = () => {
                         </div>
                         <button className="offer-buy">Acheter</button>
                     </div>
-
-                    {/* <Link to="/">Home</Link> */}
                 </div>
             )}
         </div>

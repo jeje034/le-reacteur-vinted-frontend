@@ -3,25 +3,29 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import TopBigImage from "../assets/hero.09bfd0f9.jpg";
 
-const Home = () => {
+const Home = ({ titleSearch, setShowFilterAndSortTool }) => {
     const [isDownloading, setIsDownloading] = useState(true);
     const [offers, setOffers] = useState([]);
-    const fetchData = async () => {
-        try {
-            const response = await axios.get(
-                //"https://le-reacteur-vinted.herokuapp.com/offers"
-                "https://lereacteur-vinted-api.herokuapp.com/offers"
-            );
-            setOffers(response.data.offers);
-            setIsDownloading(false);
-        } catch (error) {
-            console.log("An error occured :", error.message);
-        }
-    };
 
     useEffect(() => {
+        const fetchData = async () => {
+            //"https://le-reacteur-vinted.herokuapp.com/offers"
+            let request = "https://lereacteur-vinted-api.herokuapp.com/offers";
+
+            if (titleSearch) {
+                request += `?title=${titleSearch}`;
+            }
+
+            try {
+                const response = await axios.get(request);
+                setOffers(response.data.offers);
+                setIsDownloading(false);
+            } catch (error) {
+                console.log("An error occured :", error.message);
+            }
+        };
         fetchData();
-    }, []);
+    }, [titleSearch]);
 
     const getPoductDetail = (productDetails, productDetailId) => {
         if (

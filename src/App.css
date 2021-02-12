@@ -104,6 +104,12 @@
 }
 */
 
+.filter-and-sort-tool-search-icon {
+    width: 25px;
+    height: 25px;
+    object-fit: cover;
+}
+
 /* ------------------- */
 /* HOME */
 /* ------------------- */
@@ -176,9 +182,10 @@
 }
 
 .home-offer-owner-unsername {
+    /* msgjs21 text-decoration: none ne fonctionne pas */
     text-decoration: none;
+
     font-size: 12px;
-    /* msgjs21 ne fonctionne pas */
 }
 .home-card-photo {
     width: 100%;

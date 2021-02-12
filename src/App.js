@@ -10,6 +10,7 @@ import Login from "./containers/Login";
 
 function App() {
     const [token, setToken] = useState(Cookies.get("token") || null);
+    const [titleSearch, setTitleSearch] = useState("");
 
     const setTokenInMemoryAndInCookie = (token) => {
         setToken(token);
@@ -25,6 +26,8 @@ function App() {
             <Header
                 token={token}
                 setTokenInMemoryAndInCookie={setTokenInMemoryAndInCookie}
+                titleSearch={titleSearch}
+                setTitleSearch={setTitleSearch}
             />
             <Switch>
                 <Route path="/offer/:id">
@@ -45,7 +48,7 @@ function App() {
                     />
                 </Route>
                 <Route path="/">
-                    <Home />
+                    <Home titleSearch={titleSearch} />
                 </Route>
             </Switch>
         </Router>
