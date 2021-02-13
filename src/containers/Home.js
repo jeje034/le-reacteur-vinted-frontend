@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import TopBigImage from "../assets/hero.09bfd0f9.jpg";
 
-const Home = ({ titleSearch, setShowFilterAndSortTool }) => {
+const Home = ({ titleSearch, priceRange }) => {
     const [isDownloading, setIsDownloading] = useState(true);
     const [offers, setOffers] = useState([]);
 
@@ -12,8 +12,10 @@ const Home = ({ titleSearch, setShowFilterAndSortTool }) => {
             //"https://le-reacteur-vinted.herokuapp.com/offers"
             let request = "https://lereacteur-vinted-api.herokuapp.com/offers";
 
+            request += `?priceMin=${priceRange[0]}&priceMax=${priceRange[1]}`;
+
             if (titleSearch) {
-                request += `?title=${titleSearch}`;
+                request += `&title=${titleSearch}`;
             }
 
             try {
@@ -25,7 +27,7 @@ const Home = ({ titleSearch, setShowFilterAndSortTool }) => {
             }
         };
         fetchData();
-    }, [titleSearch]);
+    }, [titleSearch, priceRange]);
 
     const getPoductDetail = (productDetails, productDetailId) => {
         if (
@@ -37,9 +39,6 @@ const Home = ({ titleSearch, setShowFilterAndSortTool }) => {
         }
 
         for (let i = 0; i < productDetails.length; i++) {
-            // if (Object.keys(offer.product_details[i]).indexOf(
-            //     productDetailId
-            // ) >= 0 )
             if (productDetails[i][productDetailId]) {
                 return productDetails[i][productDetailId];
             }

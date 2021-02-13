@@ -11,6 +11,7 @@ import Login from "./containers/Login";
 function App() {
     const [token, setToken] = useState(Cookies.get("token") || null);
     const [titleSearch, setTitleSearch] = useState("");
+    const [priceRange, setPriceRange] = useState([0, 500]); //msgjs21 voir pour constantes en fonction de la réponse sur la route "/"
 
     const setTokenInMemoryAndInCookie = (token) => {
         setToken(token);
@@ -28,6 +29,8 @@ function App() {
                 setTokenInMemoryAndInCookie={setTokenInMemoryAndInCookie}
                 titleSearch={titleSearch}
                 setTitleSearch={setTitleSearch}
+                priceRange={priceRange}
+                setPriceRange={setPriceRange}
             />
             <Switch>
                 <Route path="/offer/:id">
@@ -48,7 +51,7 @@ function App() {
                     />
                 </Route>
                 <Route path="/">
-                    <Home titleSearch={titleSearch} />
+                    <Home titleSearch={titleSearch} priceRange={priceRange} />
                 </Route>
             </Switch>
         </Router>

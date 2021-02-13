@@ -8,6 +8,8 @@ const Header = ({
     setTokenInMemoryAndInCookie,
     titleSearch,
     setTitleSearch,
+    priceRange,
+    setPriceRange,
 }) => {
     const [withFilterAndSortTool, setWithFilterAndSortTool] = useState(false);
 
@@ -27,7 +29,13 @@ const Header = ({
 
     return (
         <>
-            <div className="header-main">
+            <div
+                className={
+                    withFilterAndSortTool
+                        ? "header-main header-max-size"
+                        : "header-main"
+                }
+            >
                 <Link to="/">
                     <img src={Logo} alt="Vinted" className="header-logo" />
                 </Link>
@@ -35,6 +43,8 @@ const Header = ({
                     <FilterAndSortTool
                         titleSearch={titleSearch}
                         setTitleSearch={setTitleSearch}
+                        priceRange={priceRange}
+                        setPriceRange={setPriceRange}
                     />
                 )}
 
