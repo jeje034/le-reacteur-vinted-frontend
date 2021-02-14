@@ -16,7 +16,6 @@ const Header = ({
     function usePageViews() {
         let location = useLocation();
         useEffect(() => {
-            console.log("path depuis header:", location.pathname);
             if (location.pathname === "/") {
                 setWithFilterAndSortTool(true);
             } else {

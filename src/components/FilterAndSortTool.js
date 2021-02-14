@@ -39,6 +39,8 @@ const FilterAndSortTool = ({
             </div>
             <div className="filter-and-sort-tool-bottom-group">
                 <div className="filter-and-sort-tool-price-range-text">{`Prix entre ${priceRange[0]} et ${priceRange[1]} € :`}</div>
+
+                {/* Cette Balise Range provient du package react-range de Vojtech Miksu : https://www.npmjs.com/package/react-range.*/}
                 <Range
                     step={5}
                     min={0}

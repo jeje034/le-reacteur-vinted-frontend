@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import axios from "axios";
 
-const Login = ({ setTokenInMemoryAndInCookie }) => {
+const Login = ({ setTokenInMemoryAndInCookie, baseUrl }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loginError, setLoginError] = useState(false);
@@ -11,15 +11,10 @@ const Login = ({ setTokenInMemoryAndInCookie }) => {
     const handleToken = async () => {
         let newToken = null;
         try {
-            const response = await axios.post(
-                //"http://localhost:3000/user/login",
-                "https://le-reacteur-vinted.herokuapp.com/user/login",
-                //"https://lereacteur-vinted-api.herokuapp.com/user/login",
-                {
-                    email: email,
-                    password: password,
-                }
-            );
+            const response = await axios.post(baseUrl + "/user/login", {
+                email: email,
+                password: password,
+            });
             newToken = response.data.token;
             if (newToken) {
                 setTokenInMemoryAndInCookie(newToken);

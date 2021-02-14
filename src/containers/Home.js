@@ -3,14 +3,13 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import TopBigImage from "../assets/hero.09bfd0f9.jpg";
 
-const Home = ({ titleSearch, priceRange }) => {
+const Home = ({ titleSearch, priceRange, baseUrl }) => {
     const [isDownloading, setIsDownloading] = useState(true);
     const [offers, setOffers] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
-            //"https://le-reacteur-vinted.herokuapp.com/offers"
-            let request = "https://lereacteur-vinted-api.herokuapp.com/offers";
+            let request = baseUrl + "/offers";
 
             request += `?priceMin=${priceRange[0]}&priceMax=${priceRange[1]}`;
 
@@ -76,23 +75,30 @@ const Home = ({ titleSearch, priceRange }) => {
                             <Link key={offer._id} to={`/offer/${offer._id}`}>
                                 <div className="home-card">
                                     <div className="home-offer-owner">
-                                        <img
-                                            className="home-offer-owner-photo"
-                                            src={
-                                                offer.owner.account.avatar
-                                                    .secure_url
-                                            }
-                                            alt={offer.product_name}
-                                        />
+                                        {offer.owner.account.avatar && (
+                                            <img
+                                                className="home-offer-owner-photo"
+                                                src={
+                                                    offer.owner.account.avatar
+                                                        .secure_url
+                                                }
+                                                alt={offer.product_name}
+                                            />
+                                        )}
                                         <div className="home-offer-owner-unsername">
                                             {offer.owner.account.username}
                                         </div>
                                     </div>
-                                    <img
-                                        className="home-card-photo"
-                                        src={offer.product_image.secure_url}
-                                        alt={offer.product_name}
-                                    />
+                                    {offer.product_image ? (
+                                        <img
+                                            className="home-card-photo"
+                                            src={offer.product_image.secure_url}
+                                            alt={offer.product_name}
+                                        />
+                                    ) : (
+                                        <div>Sans image</div>
+                                    )}
+
                                     <div className="home-price">
                                         {"" + offer.product_price + " €"}
                                     </div>

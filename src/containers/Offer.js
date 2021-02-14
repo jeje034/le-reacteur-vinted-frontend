@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-const Offer = () => {
+const Offer = ({ baseUrl }) => {
     const [isDownloading, setIsDownloading] = useState(true);
     const { id } = useParams();
     const [offer, setOffer] = useState({});
@@ -10,10 +10,7 @@ const Offer = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(
-                    //"https://le-reacteur-vinted.herokuapp.com/offer" + id
-                    "https://lereacteur-vinted-api.herokuapp.com/offer/" + id
-                );
+                const response = await axios.get(baseUrl + "/offer/" + id);
                 setOffer(response.data);
                 setIsDownloading(false);
             } catch (error) {
@@ -32,11 +29,25 @@ const Offer = () => {
                 </div>
             ) : (
                 <div className="offer-main-when-downloaded">
-                    <img
-                        className="offer-big-picture"
-                        src={offer.product_pictures[0].secure_url}
-                        alt={offer.product_pictures[0].product_name}
-                    />
+                    {offer.product_pictures &&
+                    offer.product_pictures.length > 0 &&
+                    offer.product_pictures[0] &&
+                    offer.product_pictures[0].secure_url ? (
+                        <img
+                            className="offer-big-picture"
+                            src={offer.product_pictures[0].secure_url}
+                            alt={offer.product_name}
+                        />
+                    ) : offer.product_image &&
+                      offer.product_image.secure_url ? (
+                        <img
+                            className="offer-big-picture"
+                            src={offer.product_image.secure_url}
+                            alt={offer.product_name}
+                        />
+                    ) : (
+                        <div>Sans image</div>
+                    )}
 
                     <div className="offer-big-text-zone">
                         <div className="offer-top-description">

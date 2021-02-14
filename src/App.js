@@ -12,6 +12,9 @@ function App() {
     const [token, setToken] = useState(Cookies.get("token") || null);
     const [titleSearch, setTitleSearch] = useState("");
     const [priceRange, setPriceRange] = useState([0, 500]); //msgjs21 voir pour constantes en fonction de la réponse sur la route "/"
+    const baseUrl = "https://le-reacteur-vinted.herokuapp.com"; //Site distant Jérôme
+    //const baseUrl = "https://lereacteur-vinted-api.herokuapp.com"; //Site distant Le Reacteur
+    //const baseUrl = "http://localhost:3000"; //Site local Jérôme
 
     const setTokenInMemoryAndInCookie = (token) => {
         setToken(token);
@@ -34,13 +37,14 @@ function App() {
             />
             <Switch>
                 <Route path="/offer/:id">
-                    <Offer />
+                    <Offer baseUrl={baseUrl} />
                 </Route>
                 <Route path="/signup">
                     <Signup
                         setTokenInMemoryAndInCookie={
                             setTokenInMemoryAndInCookie
                         }
+                        baseUrl={baseUrl}
                     />
                 </Route>
                 <Route path="/login">
@@ -48,10 +52,15 @@ function App() {
                         setTokenInMemoryAndInCookie={
                             setTokenInMemoryAndInCookie
                         }
+                        baseUrl={baseUrl}
                     />
                 </Route>
                 <Route path="/">
-                    <Home titleSearch={titleSearch} priceRange={priceRange} />
+                    <Home
+                        titleSearch={titleSearch}
+                        priceRange={priceRange}
+                        baseUrl={baseUrl}
+                    />
                 </Route>
             </Switch>
         </Router>
