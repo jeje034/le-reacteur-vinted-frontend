@@ -19,7 +19,7 @@ const Offer = ({ baseUrl }) => {
         };
 
         fetchData();
-    }, [id]);
+    }, [id, baseUrl]);
 
     return (
         <div className="offer-main">

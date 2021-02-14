@@ -2,16 +2,18 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import TopBigImage from "../assets/hero.09bfd0f9.jpg";
+import NavigationBar from "../components/NavigationBar";
 
 const Home = ({ titleSearch, priceRange, baseUrl }) => {
     const [isDownloading, setIsDownloading] = useState(true);
     const [offers, setOffers] = useState([]);
+    const [page, setPage] = useState(1);
 
     useEffect(() => {
         const fetchData = async () => {
             let request = baseUrl + "/offers";
 
-            request += `?priceMin=${priceRange[0]}&priceMax=${priceRange[1]}`;
+            request += `?priceMin=${priceRange[0]}&priceMax=${priceRange[1]}&page=${page}&limit=5`;
 
             if (titleSearch) {
                 request += `&title=${titleSearch}`;
@@ -26,7 +28,7 @@ const Home = ({ titleSearch, priceRange, baseUrl }) => {
             }
         };
         fetchData();
-    }, [titleSearch, priceRange]);
+    }, [titleSearch, priceRange, baseUrl, page]);
 
     const getPoductDetail = (productDetails, productDetailId) => {
         if (
@@ -69,56 +71,75 @@ const Home = ({ titleSearch, priceRange, baseUrl }) => {
                     Chargement en cours...
                 </div>
             ) : (
-                <div className="home-before-cards container">
-                    {offers.map((offer, index) => {
-                        return (
-                            <Link key={offer._id} to={`/offer/${offer._id}`}>
-                                <div className="home-card">
-                                    <div className="home-offer-owner">
-                                        {offer.owner.account.avatar && (
+                <>
+                    <div className="home-before-cards container">
+                        {offers.map((offer, index) => {
+                            return (
+                                <Link
+                                    key={offer._id}
+                                    to={`/offer/${offer._id}`}
+                                >
+                                    <div
+                                        className={
+                                            (index + 1) % 5 === 0
+                                                ? "home-card home-card-no-margin-right"
+                                                : "home-card"
+                                        }
+                                    >
+                                        <div className="home-offer-owner">
+                                            {offer.owner.account.avatar && (
+                                                <img
+                                                    className="home-offer-owner-photo"
+                                                    src={
+                                                        offer.owner.account
+                                                            .avatar.secure_url
+                                                    }
+                                                    alt={offer.product_name}
+                                                />
+                                            )}
+                                            <div className="home-offer-owner-unsername">
+                                                {offer.owner.account.username}
+                                            </div>
+                                        </div>
+                                        {offer.product_image ? (
                                             <img
-                                                className="home-offer-owner-photo"
+                                                className="home-card-photo"
                                                 src={
-                                                    offer.owner.account.avatar
+                                                    offer.product_image
                                                         .secure_url
                                                 }
                                                 alt={offer.product_name}
                                             />
+                                        ) : (
+                                            <div>Sans image</div>
                                         )}
-                                        <div className="home-offer-owner-unsername">
-                                            {offer.owner.account.username}
+
+                                        <div className="home-price">
+                                            {"" + offer.product_price + " €"}
+                                        </div>
+                                        <div className="home-taille-marque">
+                                            {getPoductDetail(
+                                                offer.product_details,
+                                                "TAILLE"
+                                            )}
+                                        </div>
+                                        <div className="home-taille-marque">
+                                            {getPoductDetail(
+                                                offer.product_details,
+                                                "MARQUE"
+                                            )}
                                         </div>
                                     </div>
-                                    {offer.product_image ? (
-                                        <img
-                                            className="home-card-photo"
-                                            src={offer.product_image.secure_url}
-                                            alt={offer.product_name}
-                                        />
-                                    ) : (
-                                        <div>Sans image</div>
-                                    )}
+                                </Link>
+                            );
+                        })}
+                    </div>
 
-                                    <div className="home-price">
-                                        {"" + offer.product_price + " €"}
-                                    </div>
-                                    <div className="home-taille-marque">
-                                        {getPoductDetail(
-                                            offer.product_details,
-                                            "TAILLE"
-                                        )}
-                                    </div>
-                                    <div className="home-taille-marque">
-                                        {getPoductDetail(
-                                            offer.product_details,
-                                            "MARQUE"
-                                        )}
-                                    </div>
-                                </div>
-                            </Link>
-                        );
-                    })}
-                </div>
+                    <NavigationBar
+                        page={page}
+                        setPage={setPage}
+                    ></NavigationBar>
+                </>
             )}
         </div>
     );
