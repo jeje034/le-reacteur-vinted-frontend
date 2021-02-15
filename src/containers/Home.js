@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import TopBigImage from "../assets/hero.09bfd0f9.jpg";
@@ -11,6 +11,11 @@ const Home = ({ titleSearch, priceRange, baseUrl }) => {
     const [numberOfOffers, setNumberOfOffers] = useState(0);
 
     const limit = 10;
+    let history = useHistory();
+
+    const handleSellButtonClick = () => {
+        history.push("/Publish");
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -65,7 +70,12 @@ const Home = ({ titleSearch, priceRange, baseUrl }) => {
                     <div className="home-text-to-sell">
                         Prêts à faire du tri dans vos placards ?
                     </div>
-                    <button className="button-text-to-sell">
+                    <button
+                        className="button-text-to-sell"
+                        onClick={() => {
+                            handleSellButtonClick();
+                        }}
+                    >
                         Commencer à vendre
                     </button>
                 </div>

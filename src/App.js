@@ -7,6 +7,7 @@ import Offer from "./containers/Offer";
 import Header from "./components/Header";
 import Signup from "./containers/Signup";
 import Login from "./containers/Login";
+import Publish from "./containers/Publish";
 
 function App() {
     const [token, setToken] = useState(Cookies.get("token") || null);
@@ -49,11 +50,22 @@ function App() {
                 </Route>
                 <Route path="/login">
                     <Login
+                        token={token}
                         setTokenInMemoryAndInCookie={
                             setTokenInMemoryAndInCookie
                         }
                         baseUrl={baseUrl}
                     />
+                </Route>
+                <Route path="/publish">
+                    <Publish
+                        baseUrl={baseUrl}
+                        token={token}
+                        setTokenInMemoryAndInCookie={
+                            setTokenInMemoryAndInCookie
+                        }
+                    />
+                    )}
                 </Route>
                 <Route path="/">
                     <Home
@@ -68,3 +80,21 @@ function App() {
 }
 
 export default App;
+
+/*
+
+ {token ? <div>token</div> : <div>Pas token</div>}
+
+
+    {token ? (
+                        <Publish baseUrl={baseUrl} />
+                    ) : (
+                        <Login
+                            setTokenInMemoryAndInCookie={
+                                setTokenInMemoryAndInCookie
+                            }
+                            baseUrl={baseUrl}
+                        />
+                    )}
+                    
+                    */
