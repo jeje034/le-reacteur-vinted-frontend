@@ -8,12 +8,15 @@ const Home = ({ titleSearch, priceRange, baseUrl }) => {
     const [isDownloading, setIsDownloading] = useState(true);
     const [offers, setOffers] = useState([]);
     const [page, setPage] = useState(1);
+    const [numberOfOffers, setNumberOfOffers] = useState(0);
+
+    const limit = 10;
 
     useEffect(() => {
         const fetchData = async () => {
             let request = baseUrl + "/offers";
 
-            request += `?priceMin=${priceRange[0]}&priceMax=${priceRange[1]}&page=${page}&limit=5`;
+            request += `?priceMin=${priceRange[0]}&priceMax=${priceRange[1]}&page=${page}&limit=${limit}`;
 
             if (titleSearch) {
                 request += `&title=${titleSearch}`;
@@ -22,6 +25,8 @@ const Home = ({ titleSearch, priceRange, baseUrl }) => {
             try {
                 const response = await axios.get(request);
                 setOffers(response.data.offers);
+                setNumberOfOffers(response.data.count);
+
                 setIsDownloading(false);
             } catch (error) {
                 console.log("An error occured :", error.message);
@@ -138,6 +143,8 @@ const Home = ({ titleSearch, priceRange, baseUrl }) => {
                     <NavigationBar
                         page={page}
                         setPage={setPage}
+                        limit={limit}
+                        numberOfOffers={numberOfOffers}
                     ></NavigationBar>
                 </>
             )}

@@ -190,6 +190,7 @@
     outline: none;
     border-color: var(--vinted-color);
     border-radius: 5px;
+    cursor: pointer;
 }
 .home-before-cards {
     display: flex;
@@ -273,6 +274,7 @@
     outline: none;
     border-color: var(--vinted-color);
     border-radius: 5px;
+    cursor: pointer;
 }
 
 /* ------------------- */
