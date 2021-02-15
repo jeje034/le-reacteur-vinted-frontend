@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import axios from "axios";
+import React, { useCallback } from "react";
+import { useDropzone } from "react-dropzone";
 
 const Publish = ({ baseUrl, token }) => {
     const [file, setFile] = useState({});
+    const [files, setFiles] = useState([]);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [brand, setBrand] = useState("");
@@ -12,6 +15,25 @@ const Publish = ({ baseUrl, token }) => {
     const [city, setCity] = useState("");
     const [price, setPrice] = useState(0);
     const [interestedInExchanges, setInterestedInExchanges] = useState(false);
+
+    const onDrop = useCallback((acceptedFiles) => {
+        // Do something with the files
+        console.log(acceptedFiles);
+        setFile(acceptedFiles[0]);
+
+        setFiles(
+            acceptedFiles.map((file) =>
+                Object.assign(file, {
+                    preview: URL.createObjectURL(file),
+                })
+            )
+        );
+    }, []);
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+        onDrop,
+        //maxFiles: 1, A ajouter si on veut 1 seule image comme c'est prévu par le composant. Le problème est que si l'on glisse plus d'une image, alors aucune n'est séletionnée.
+        //=> je fais autrement, je sélectionne moi même la 1ere image.
+    });
 
     let history = useHistory();
 
@@ -95,13 +117,34 @@ const Publish = ({ baseUrl, token }) => {
 
                     <form className="publish-form" onSubmit={handleSubmit}>
                         <section className="publish-label-and-input publish-image-section">
-                            <input
-                                className="publish-add-image-button"
-                                type="file"
-                                onChange={(event) => {
-                                    setFile(event.target.files[0]);
-                                }}
-                            />
+                            <div className="publish-preview-zone">
+                                {files && files.length >= 1 && (
+                                    <img
+                                        src={files[0].preview}
+                                        alt="Article"
+                                        className="publish-img"
+                                    />
+                                )}
+                            </div>
+
+                            <div
+                                {...getRootProps()}
+                                className="publish-drag-and-drop-zone"
+                            >
+                                <input {...getInputProps()} />
+                                {isDragActive ? (
+                                    <div className="publish-input-for-image publish-input-for-active-image">
+                                        Ajoute une photo
+                                    </div>
+                                ) : (
+                                    <div className="publish-input-for-image">
+                                        <div>
+                                            Clique ou glisse et dépose pour
+                                            ajouter une photo
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
                         </section>
 
                         <section>
@@ -193,14 +236,21 @@ const Publish = ({ baseUrl, token }) => {
                             </div>
 
                             <div className="publish-label-and-input">
-                                <input
-                                    className="publish-input"
-                                    type="checkbox"
-                                    placeholder="ex:"
-                                    value={interestedInExchanges}
-                                    onChange={handleInterestedInExchangesChange}
-                                />
-                                <div>Je suis intéressé(e) par les échanges</div>
+                                <div className="publish-next-to-checkbox"></div>
+                                <div className="publish-checkbox-and-label">
+                                    <input
+                                        className="publish-checkbox"
+                                        type="checkbox"
+                                        placeholder="ex:"
+                                        value={interestedInExchanges}
+                                        onChange={
+                                            handleInterestedInExchangesChange
+                                        }
+                                    />
+                                    <div>
+                                        Je suis intéressé(e) par les échanges
+                                    </div>
+                                </div>
                             </div>
                         </section>
 
