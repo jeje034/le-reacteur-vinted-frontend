@@ -4,6 +4,7 @@
 :root {
     --vinted-color: #2baeb7;
     --opposite-of-vinted-color: white;
+    --background-color-publish-offer: #ebedee;
     --header-min-height: 50px;
     --header-max-height: 120px;
     font-family: "Maison Neue";
@@ -281,7 +282,7 @@
 /* OFFER */
 /* ------------------- */
 .offer-main {
-    background-color: #ebedee;
+    background-color: var(--background-color-publish-offer);
     height: 100vh;
 }
 .offer-main-when-downloading {
@@ -460,10 +461,33 @@
     text-decoration: none;
 }
 
-/* au survol */
 a:hover {
     text-decoration: underline;
 }
+
+/* ------------------- */
+/* PUBLISH */
+/* ------------------- */
+.publish-main {
+    background-color: var(--background-color-publish-offer);
+    height: 100vh;
+}
+
+.publish-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.publish-form section {
+    background-color: white;
+    margin-bottom: 16px;
+    /* border: solid 1px red; */
+}
+
+.publish-label-and-input {
+    display: flex;
+}
+
 /* ------------------- */
 /* MEDIA QUERIES ? */
 /* ------------------- */

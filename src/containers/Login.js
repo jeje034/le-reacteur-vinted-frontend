@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory, Link, useLocation } from "react-router-dom";
 import axios from "axios";
 
 const Login = ({ setTokenInMemoryAndInCookie, baseUrl }) => {
@@ -7,6 +7,7 @@ const Login = ({ setTokenInMemoryAndInCookie, baseUrl }) => {
     const [password, setPassword] = useState("");
     const [loginError, setLoginError] = useState(false);
     let history = useHistory();
+    let location = useLocation();
 
     const handleToken = async () => {
         let newToken = null;
@@ -18,7 +19,12 @@ const Login = ({ setTokenInMemoryAndInCookie, baseUrl }) => {
             newToken = response.data.token;
             if (newToken) {
                 setTokenInMemoryAndInCookie(newToken);
-                history.push("/");
+                if (location && location.state && location.state.fromPublish) {
+                    //msgjs21 Il faudrait aussi regarder la redirection depuis l'inscription
+                    history.push("/publish");
+                } else {
+                    history.push("/");
+                }
             } else {
                 setLoginError(true);
                 setTokenInMemoryAndInCookie(newToken);

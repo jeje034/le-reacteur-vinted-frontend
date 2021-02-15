@@ -58,14 +58,7 @@ function App() {
                     />
                 </Route>
                 <Route path="/publish">
-                    <Publish
-                        baseUrl={baseUrl}
-                        token={token}
-                        setTokenInMemoryAndInCookie={
-                            setTokenInMemoryAndInCookie
-                        }
-                    />
-                    )}
+                    <Publish baseUrl={baseUrl} token={token} />
                 </Route>
                 <Route path="/">
                     <Home
