@@ -94,8 +94,9 @@ const Publish = ({ baseUrl, token }) => {
                     <h1>Vends ton article</h1>
 
                     <form className="publish-form" onSubmit={handleSubmit}>
-                        <section>
+                        <section className="publish-label-and-input publish-image-section">
                             <input
+                                className="publish-add-image-button"
                                 type="file"
                                 onChange={(event) => {
                                     setFile(event.target.files[0]);
@@ -105,8 +106,9 @@ const Publish = ({ baseUrl, token }) => {
 
                         <section>
                             <div className="publish-label-and-input">
-                                <div>Titre</div>
+                                <div className="publish-input-label">Titre</div>
                                 <input
+                                    className="publish-input"
                                     type="text"
                                     placeholder="ex: Chemise Sézanne verte"
                                     value={title}
@@ -114,10 +116,13 @@ const Publish = ({ baseUrl, token }) => {
                                 />
                             </div>
 
-                            <div className="publish-label-and-input">
-                                <div>Description</div>
-                                <input
-                                    type="text"
+                            <div className="publish-label-and-input publish-label-and-input-description">
+                                <div className="publish-input-label">
+                                    Décrit ton article
+                                </div>
+                                <textarea
+                                    className="publish-input-label publish-textarea"
+                                    className="publish-input"
                                     placeholder="ex: porté quelquefois, taille correctement"
                                     value={description}
                                     onChange={handleDescriptionChange}
@@ -127,8 +132,11 @@ const Publish = ({ baseUrl, token }) => {
 
                         <section>
                             <div className="publish-label-and-input">
-                                <div>Marque</div>
+                                <div className="publish-input-label">
+                                    Marque
+                                </div>
                                 <input
+                                    className="publish-input"
                                     type="text"
                                     placeholder="ex: Zara"
                                     value={brand}
@@ -137,8 +145,11 @@ const Publish = ({ baseUrl, token }) => {
                             </div>
 
                             <div className="publish-label-and-input">
-                                <div>Couleur</div>
+                                <div className="publish-input-label">
+                                    Couleur
+                                </div>
                                 <input
+                                    className="publish-input"
                                     type="text"
                                     placeholder="ex: Fusia"
                                     value={color}
@@ -147,8 +158,9 @@ const Publish = ({ baseUrl, token }) => {
                             </div>
 
                             <div className="publish-label-and-input">
-                                <div>Etat</div>
+                                <div className="publish-input-label">Etat</div>
                                 <input
+                                    className="publish-input"
                                     type="text"
                                     placeholder="ex: Neuf avec étiquette"
                                     value={condition}
@@ -157,8 +169,9 @@ const Publish = ({ baseUrl, token }) => {
                             </div>
 
                             <div className="publish-label-and-input">
-                                <div>Lieu</div>
+                                <div className="publish-input-label">Lieu</div>
                                 <input
+                                    className="publish-input"
                                     type="text"
                                     placeholder="ex: Montpellier"
                                     value={city}
@@ -169,8 +182,9 @@ const Publish = ({ baseUrl, token }) => {
 
                         <section>
                             <div className="publish-label-and-input">
-                                <div>Prix</div>
+                                <div className="publish-input-label">Prix</div>
                                 <input
+                                    className="publish-input"
                                     type="text"
                                     placeholder="0.00 €"
                                     value={price}
@@ -180,6 +194,7 @@ const Publish = ({ baseUrl, token }) => {
 
                             <div className="publish-label-and-input">
                                 <input
+                                    className="publish-input"
                                     type="checkbox"
                                     placeholder="ex:"
                                     value={interestedInExchanges}
@@ -189,7 +204,9 @@ const Publish = ({ baseUrl, token }) => {
                             </div>
                         </section>
 
-                        <button type="Submit">Ajouter</button>
+                        <div className="publish-around-add-offer-button">
+                            <button type="Submit">Ajouter</button>
+                        </div>
                     </form>
                 </div>
             ) : (

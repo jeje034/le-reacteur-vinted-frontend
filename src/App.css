@@ -472,6 +472,12 @@ a:hover {
     background-color: var(--background-color-publish-offer);
     height: 100vh;
 }
+.publish-main h1 {
+    padding-top: 45px;
+    margin-bottom: 20px;
+    font-size: 24px;
+    /* background-color: red; */
+}
 
 .publish-form {
     display: flex;
@@ -481,13 +487,70 @@ a:hover {
 .publish-form section {
     background-color: white;
     margin-bottom: 16px;
+    box-shadow: 0 0 2px grey;
     /* border: solid 1px red; */
 }
 
 .publish-label-and-input {
     display: flex;
+
+    height: 25px;
+    border-bottom: 1px solid #ebedee;
+    vertical-align: center;
+    padding: 24px;
 }
 
+.publish-image-section {
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.publish-add-image-button {
+    width: 400px;
+    /* background-color: #2baeb7; */
+}
+
+.publish-label-and-input-description {
+    height: 120px;
+}
+
+.publish-input-label {
+    width: 50%;
+}
+
+.publish-input {
+    width: 50%;
+
+    border: none;
+    border-bottom: 1px solid #ebedee;
+    color: #000;
+    font-size: 16px;
+    outline: none;
+    padding: 1px 2px;
+}
+
+.publish-textarea {
+    height: 120px;
+}
+
+.publish-form button {
+    padding: 12px;
+    width: 100px;
+    background-color: var(--vinted-color);
+    color: var(--background-color-publish-offer);
+    border: none;
+    border-radius: 4px;
+    margin: 50px 0;
+    font-size: 16px;
+}
+
+.publish-around-add-offer-button {
+    display: flex;
+    justify-content: flex-end;
+    /* border: solid 1px red; */
+}
 /* ------------------- */
 /* MEDIA QUERIES ? */
 /* ------------------- */
