@@ -58,34 +58,65 @@ const Payment = ({ baseUrl, token }) => {
     return (
         <div className="payment-main">
             {token ? (
-                <div className="container ">
-                    <h1>Résumé de la commande</h1>
-                    <div>Commande</div>
-                    <div>{price.toFixed(2) + " €"}</div>
-                    <div>Frais protection acheteurs</div>
-                    <div>0.40 €</div>
-                    <div>Frais de port</div>
-                    <div>0.80 €</div>
-                    <div>Total</div>
-                    <div>{amount.toFixed(2) + " €"}</div>
-                    {isCompleted ? (
-                        <div>Paiement effectué. Merci pour votre achat.</div>
-                    ) : (
-                        <>
-                            <form onSubmit={handleSubmit}>
-                                <div>
-                                    Il ne vous reste plus qu'une étape pour vous
-                                    offrir <strong>{productName}</strong>. Vous
-                                    allez payer{" "}
-                                    <strong>{amount.toFixed(2) + " €"}</strong>{" "}
-                                    (frais de protection et frais de port
-                                    inclus).
-                                </div>
-                                <CardElement />
-                                <button type="submit">Payer</button>
-                            </form>
-                        </>
-                    )}
+                <div>
+                    <div className="payment-margin-top"></div>
+                    <div className="payment-container">
+                        <h1>Résumé de la commande</h1>
+                        <div className="payment-amount1-2-3">
+                            <div>Commande</div>
+                            <div>{price.toFixed(2) + " €"}</div>
+                        </div>
+                        <div className="payment-amount1-2-3">
+                            <div>Frais protection acheteurs</div>
+                            <div>0.40 €</div>
+                        </div>
+
+                        <div className="payment-amount1-2-3">
+                            <div>Frais de port</div>
+                            <div>0.80 €</div>
+                        </div>
+
+                        <div className="payment-separator-1"></div>
+
+                        <div className="payment-total-line">
+                            <div>Total</div>
+                            <div>{amount.toFixed(2) + " €"}</div>
+                        </div>
+
+                        {isCompleted ? (
+                            <div>
+                                Paiement effectué. Merci pour votre achat.
+                            </div>
+                        ) : (
+                            <>
+                                <form onSubmit={handleSubmit}>
+                                    <span className="payment-std">
+                                        Il ne vous reste plus qu'une étape pour
+                                        vous offrir{" "}
+                                        <span className="payment-bold">
+                                            {productName}
+                                        </span>
+                                        . Vous allez payer{" "}
+                                        <span className="payment-bold">
+                                            {amount.toFixed(2) + " €"}
+                                        </span>{" "}
+                                        (frais de protection et frais de port
+                                        inclus).
+                                    </span>
+                                    <div className="payment-separator-2"></div>
+                                    <div className="payment-around-card-element">
+                                        <CardElement />
+                                    </div>
+                                    <button
+                                        className="payment-button-pay"
+                                        type="submit"
+                                    >
+                                        Payer
+                                    </button>
+                                </form>
+                            </>
+                        )}
+                    </div>
                 </div>
             ) : (
                 <Redirect
