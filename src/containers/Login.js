@@ -25,6 +25,13 @@ const Login = ({ setuserInformationsInMemoryAndInCookie, baseUrl }) => {
                 if (location && location.state && location.state.fromPublish) {
                     //msgjs21 Il faudrait aussi regarder la redirection depuis l'inscription
                     history.push("/publish");
+                } else if (
+                    location &&
+                    location.state &&
+                    location.state.fromPayment
+                ) {
+                    //history.push("/payment"); msgjs21 : si je vais vers payment, il me manque les paramètres (prix, produit) => je fais pour l'instant un go back
+                    history.goBack();
                 } else {
                     history.push("/");
                 }

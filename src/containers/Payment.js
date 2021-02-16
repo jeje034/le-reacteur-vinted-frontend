@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Redirect, useLocation } from "react-router-dom";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -56,31 +56,41 @@ const Payment = ({ baseUrl, token }) => {
     };
 
     return (
-        <div>
-            <h1>Résumé de la commande</h1>
-            <div>Commande</div>
-            <div>{price.toFixed(2) + " €"}</div>
-            <div>Frais protection acheteurs</div>
-            <div>0.40 €</div>
-            <div>Frais de port</div>
-            <div>0.80 €</div>
-            <div>Total</div>
-            <div>{amount.toFixed(2) + " €"}</div>
-            {isCompleted ? (
-                <div>Paiement effectué. Merci pour votre achat.</div>
+        <div className="payment-main">
+            {token ? (
+                <div className="container ">
+                    <h1>Résumé de la commande</h1>
+                    <div>Commande</div>
+                    <div>{price.toFixed(2) + " €"}</div>
+                    <div>Frais protection acheteurs</div>
+                    <div>0.40 €</div>
+                    <div>Frais de port</div>
+                    <div>0.80 €</div>
+                    <div>Total</div>
+                    <div>{amount.toFixed(2) + " €"}</div>
+                    {isCompleted ? (
+                        <div>Paiement effectué. Merci pour votre achat.</div>
+                    ) : (
+                        <>
+                            <form onSubmit={handleSubmit}>
+                                <div>
+                                    Il ne vous reste plus qu'une étape pour vous
+                                    offrir <strong>{productName}</strong>. Vous
+                                    allez payer{" "}
+                                    <strong>{amount.toFixed(2) + " €"}</strong>{" "}
+                                    (frais de protection et frais de port
+                                    inclus).
+                                </div>
+                                <CardElement />
+                                <button type="submit">Payer</button>
+                            </form>
+                        </>
+                    )}
+                </div>
             ) : (
-                <>
-                    <form onSubmit={handleSubmit}>
-                        <div>
-                            Il ne vous reste plus qu'une étape pour vous offrir{" "}
-                            <strong>{productName}</strong>. Vous allez payer{" "}
-                            <strong>{amount.toFixed(2) + " €"}</strong> (frais
-                            de protection et frais de port inclus).
-                        </div>
-                        <CardElement />
-                        <button type="submit">Payer</button>
-                    </form>
-                </>
+                <Redirect
+                    to={{ pathname: "/login", state: { fromPayment: true } }}
+                />
             )}
         </div>
     );
