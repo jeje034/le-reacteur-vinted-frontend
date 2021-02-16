@@ -66,7 +66,7 @@ const Header = ({
 
                     {token && (
                         <button
-                            className="header-sign-up-login"
+                            className="header-sign-up-login header-log-out"
                             onClick={() => {
                                 setTokenInMemoryAndInCookie("");
                             }}
@@ -75,9 +75,11 @@ const Header = ({
                         </button>
                     )}
 
-                    <button className="header-sell-your-products">
-                        Vends tes produits
-                    </button>
+                    <Link to="/publish">
+                        <button className="header-sell-your-products">
+                            Vends tes produits
+                        </button>
+                    </Link>
                 </div>
             </div>
         </>

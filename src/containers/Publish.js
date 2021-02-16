@@ -164,8 +164,7 @@ const Publish = ({ baseUrl, token }) => {
                                     Décrit ton article
                                 </div>
                                 <textarea
-                                    className="publish-input-label publish-textarea"
-                                    className="publish-input"
+                                    className="publish-input publish-textarea"
                                     placeholder="ex: porté quelquefois, taille correctement"
                                     value={description}
                                     onChange={handleDescriptionChange}

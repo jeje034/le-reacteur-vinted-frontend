@@ -89,6 +89,12 @@
     outline: none;
     border-radius: 5px;
 }
+
+.header-log-out {
+    color: white;
+    background-color: #c2175b;
+    border-color: #c2175b;
+}
 .header-sell-your-products {
     color: var(--opposite-of-vinted-color);
     background-color: var(--vinted-color);
