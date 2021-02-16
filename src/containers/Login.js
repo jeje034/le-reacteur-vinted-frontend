@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useHistory, Link, useLocation } from "react-router-dom";
 import axios from "axios";
 
-const Login = ({ setTokenInMemoryAndInCookie, baseUrl }) => {
+const Login = ({ setuserInformationsInMemoryAndInCookie, baseUrl }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loginError, setLoginError] = useState(false);
@@ -18,7 +18,10 @@ const Login = ({ setTokenInMemoryAndInCookie, baseUrl }) => {
             });
             newToken = response.data.token;
             if (newToken) {
-                setTokenInMemoryAndInCookie(newToken);
+                setuserInformationsInMemoryAndInCookie(
+                    newToken,
+                    response.data._id
+                );
                 if (location && location.state && location.state.fromPublish) {
                     //msgjs21 Il faudrait aussi regarder la redirection depuis l'inscription
                     history.push("/publish");
@@ -27,12 +30,15 @@ const Login = ({ setTokenInMemoryAndInCookie, baseUrl }) => {
                 }
             } else {
                 setLoginError(true);
-                setTokenInMemoryAndInCookie(newToken);
+                setuserInformationsInMemoryAndInCookie(
+                    newToken,
+                    response.data._id
+                );
             }
         } catch (error) {
             setLoginError(true);
             console.log("An error occured:", error.message);
-            setTokenInMemoryAndInCookie(newToken);
+            setuserInformationsInMemoryAndInCookie(newToken, "");
         }
     };
 

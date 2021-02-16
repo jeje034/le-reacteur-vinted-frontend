@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import axios from "axios";
 
-const Signup = ({ setTokenInMemoryAndInCookie, baseUrl }) => {
+const Signup = ({ setuserInformationsInMemoryAndInCookie, baseUrl }) => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
@@ -19,11 +19,9 @@ const Signup = ({ setTokenInMemoryAndInCookie, baseUrl }) => {
                 password: password,
             });
             newToken = response.data.token;
+            setuserInformationsInMemoryAndInCookie(newToken, response.data._id);
             if (newToken) {
-                setTokenInMemoryAndInCookie(newToken);
                 history.push("/");
-            } else {
-                setTokenInMemoryAndInCookie(newToken);
             }
         } catch (error) {
             console.log("An error occured :", error.message);
@@ -46,7 +44,7 @@ const Signup = ({ setTokenInMemoryAndInCookie, baseUrl }) => {
                     );
                 }
             }
-            setTokenInMemoryAndInCookie(newToken);
+            setuserInformationsInMemoryAndInCookie(newToken, "");
         }
     };
 

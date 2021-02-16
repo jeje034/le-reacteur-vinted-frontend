@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 
 const Header = ({
     token,
-    setTokenInMemoryAndInCookie,
+    setuserInformationsInMemoryAndInCookie,
     titleSearch,
     setTitleSearch,
     priceRange,
@@ -68,7 +68,7 @@ const Header = ({
                         <button
                             className="header-sign-up-login header-log-out"
                             onClick={() => {
-                                setTokenInMemoryAndInCookie("");
+                                setuserInformationsInMemoryAndInCookie("", "");
                             }}
                         >
                             Se déconnecter

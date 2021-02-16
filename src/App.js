@@ -1,6 +1,8 @@
 import "./App.css";
 import { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 import Cookies from "js-cookie";
 import Home from "./containers/Home";
 import Offer from "./containers/Offer";
@@ -8,6 +10,12 @@ import Header from "./components/Header";
 import Signup from "./containers/Signup";
 import Login from "./containers/Login";
 import Publish from "./containers/Publish";
+import Payment from "./containers/Payment";
+
+const stripePromise = loadStripe(
+    //Clé plublique
+    "pk_test_51ILTyoFNedoBHlEJ39mM23X3wmMbSH8mBS43llwX3Wn1UARP03f6II0Z5pF6nGUzxcppHT1YKYWgwSgyol3LFmJv00T3uTYOl6"
+);
 
 function App() {
     const [token, setToken] = useState(Cookies.get("token") || null);
@@ -17,12 +25,14 @@ function App() {
     //const baseUrl = "https://lereacteur-vinted-api.herokuapp.com"; //Site distant Le Reacteur
     //const baseUrl = "http://localhost:3000"; //Site local Jérôme
 
-    const setTokenInMemoryAndInCookie = (token) => {
-        setToken(token);
-        if (token) {
-            Cookies.set("token", token, { expires: 7 });
+    const setuserInformationsInMemoryAndInCookie = (userToken, userId) => {
+        setToken(userToken);
+        if (userToken) {
+            Cookies.set("token", userToken, { expires: 7 });
+            Cookies.set("userId", userId, { expires: 7 });
         } else {
             Cookies.remove("token");
+            Cookies.remove("userId");
         }
     };
 
@@ -30,7 +40,9 @@ function App() {
         <Router>
             <Header
                 token={token}
-                setTokenInMemoryAndInCookie={setTokenInMemoryAndInCookie}
+                setuserInformationsInMemoryAndInCookie={
+                    setuserInformationsInMemoryAndInCookie
+                }
                 titleSearch={titleSearch}
                 setTitleSearch={setTitleSearch}
                 priceRange={priceRange}
@@ -42,8 +54,8 @@ function App() {
                 </Route>
                 <Route path="/signup">
                     <Signup
-                        setTokenInMemoryAndInCookie={
-                            setTokenInMemoryAndInCookie
+                        setuserInformationsInMemoryAndInCookie={
+                            setuserInformationsInMemoryAndInCookie
                         }
                         baseUrl={baseUrl}
                     />
@@ -51,14 +63,19 @@ function App() {
                 <Route path="/login">
                     <Login
                         token={token}
-                        setTokenInMemoryAndInCookie={
-                            setTokenInMemoryAndInCookie
+                        setuserInformationsInMemoryAndInCookie={
+                            setuserInformationsInMemoryAndInCookie
                         }
                         baseUrl={baseUrl}
                     />
                 </Route>
                 <Route path="/publish">
                     <Publish baseUrl={baseUrl} token={token} />
+                </Route>
+                <Route path="/payment">
+                    <Elements stripe={stripePromise}>
+                        <Payment baseUrl={baseUrl} token={token} />
+                    </Elements>
                 </Route>
                 <Route path="/">
                     <Home
@@ -73,21 +90,3 @@ function App() {
 }
 
 export default App;
-
-/*
-
- {token ? <div>token</div> : <div>Pas token</div>}
-
-
-    {token ? (
-                        <Publish baseUrl={baseUrl} />
-                    ) : (
-                        <Login
-                            setTokenInMemoryAndInCookie={
-                                setTokenInMemoryAndInCookie
-                            }
-                            baseUrl={baseUrl}
-                        />
-                    )}
-                    
-                    */
