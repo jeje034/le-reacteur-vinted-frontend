@@ -93,6 +93,10 @@ const Home = ({ titleSearch, priceRange, baseUrl }) => {
                                 <Link
                                     key={offer._id}
                                     to={`/offer/${offer._id}`}
+                                    style={{
+                                        textDecoration: "none",
+                                        color: "black",
+                                    }}
                                 >
                                     <div
                                         className={
