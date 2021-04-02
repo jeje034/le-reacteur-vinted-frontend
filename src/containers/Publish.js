@@ -102,8 +102,7 @@ const Publish = ({ baseUrl, token }) => {
                     },
                 }
             );
-            //alert(JSON.stringify(response.data)); //msgjs21 mettre JSON.stringify dans aide
-            console.log(response.data);
+            //console.log(response.data);
             history.push("/Offer/" + response.data._id);
         } catch (error) {
             console.log(error);
@@ -261,7 +260,7 @@ const Publish = ({ baseUrl, token }) => {
                 </div>
             ) : (
                 <Redirect
-                    to={{ pathname: "/login", state: { fromPublish: true } }} //msgjs21 à indiquer dans aide react
+                    to={{ pathname: "/login", state: { fromPublish: true } }}
                 />
             )}
         </div>
