@@ -233,9 +233,7 @@
 }
 
 .home-offer-owner-unsername {
-    /* msgjs21 text-decoration: none ne fonctionne pas */
     text-decoration: none;
-
     font-size: 12px;
 }
 .home-card-photo {
@@ -316,7 +314,7 @@
     height: 600px;
     background-color: white;
     padding: 40px;
-    box-sizing: border-box; /* Pour que le padding n'agrandisse pas le rectangle; msgjs21 à noter */
+    box-sizing: border-box; /* Pour que le padding n'agrandisse pas le rectangle; */
     display: flex;
     flex-direction: column;
     justify-content: space-between;

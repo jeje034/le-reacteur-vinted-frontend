@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import TopBigImage from "../assets/hero.09bfd0f9.jpg";
 import NavigationBar from "../components/NavigationBar";
+import { IProductDetail } from "./Offer";
 
 const Home = ({
     titleSearch,
@@ -48,8 +49,10 @@ const Home = ({
         fetchData();
     }, [titleSearch, priceRange, baseUrl, page]);
 
-    //msgjs21
-    const getPoductDetail = (productDetails: any, productDetailId: string) => {
+    const getPoductDetail = (
+        productDetails: IProductDetail[],
+        productDetailId: string
+    ) => {
         if (
             !productDetailId ||
             !productDetails ||

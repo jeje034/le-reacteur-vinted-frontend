@@ -2,6 +2,10 @@ import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import axios from "axios";
 
+export interface IProductDetail {
+    [name: string]: string;
+}
+
 const Offer = ({ baseUrl }: { baseUrl: string }) => {
     interface IProductPicture {
         secure_url: string;
@@ -15,15 +19,11 @@ const Offer = ({ baseUrl }: { baseUrl: string }) => {
         product_name: string;
         product_image: IProductImage;
         product_price: number;
-        product_details: IProductDetails[];
+        product_details: IProductDetail[];
         product_description: string;
         owner: {
             account: { avatar: { secure_url: string }; username: string };
         };
-    }
-
-    interface IProductDetails {
-        [name: string]: string;
     }
 
     const defaultOffer: IOffer = {

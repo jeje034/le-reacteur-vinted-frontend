@@ -11,6 +11,7 @@ import Signup from "./containers/Signup";
 import Login from "./containers/Login";
 import Publish from "./containers/Publish";
 import Payment from "./containers/Payment";
+import * as Constants from "./constants/constants";
 
 const stripePromise = loadStripe(
     //Clé plublique
@@ -20,7 +21,10 @@ const stripePromise = loadStripe(
 function App() {
     const [token, setToken] = useState(Cookies.get("token") || null);
     const [titleSearch, setTitleSearch] = useState("");
-    const [priceRange, setPriceRange] = useState([0, 500]); //msgjs21 voir pour constantes en fonction de la réponse sur la route "/"
+    const [priceRange, setPriceRange] = useState([
+        Constants.MIN_PRICE_IN_FILTER,
+        Constants.MAX_PRICE_IN_FILTER,
+    ]);
     const baseUrl = "https://le-reacteur-vinted.herokuapp.com"; //Site distant Jérôme
     //const baseUrl = "https://lereacteur-vinted-api.herokuapp.com"; //Site distant Le Reacteur
     //const baseUrl = "http://localhost:3001"; //Site local Jérôme

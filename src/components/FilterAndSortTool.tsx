@@ -1,4 +1,5 @@
 import { Range } from "react-range";
+import * as Constants from "../constants/constants";
 
 const FilterAndSortTool = ({
     titleSearch,
@@ -50,8 +51,8 @@ const FilterAndSortTool = ({
                 {/* Cette Balise Range provient du package react-range de Vojtech Miksu : https://www.npmjs.com/package/react-range.*/}
                 <Range
                     step={5}
-                    min={0}
-                    max={500}
+                    min={Constants.MIN_PRICE_IN_FILTER}
+                    max={Constants.MAX_PRICE_IN_FILTER}
                     values={priceRange}
                     onChange={(priceRange) => setPriceRange(priceRange)}
                     renderTrack={({ props, children }) => (
