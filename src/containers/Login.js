@@ -1,8 +1,17 @@
-import { useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import { useHistory, Link, useLocation } from "react-router-dom";
 import axios from "axios";
 
-const Login = ({ setuserInformationsInMemoryAndInCookie, baseUrl }) => {
+const Login = ({
+    setuserInformationsInMemoryAndInCookie,
+    baseUrl,
+}: {
+    setuserInformationsInMemoryAndInCookie: (
+        userToken: string,
+        userId: string
+    ) => void;
+    baseUrl: string;
+}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loginError, setLoginError] = useState(false);
@@ -22,16 +31,24 @@ const Login = ({ setuserInformationsInMemoryAndInCookie, baseUrl }) => {
                     newToken,
                     response.data._id
                 );
-                if (location && location.state && location.state.fromPublish) {
-                    //msgjs21 Il faudrait aussi regarder la redirection depuis l'inscription
-                    history.push("/publish");
-                } else if (
-                    location &&
-                    location.state &&
-                    location.state.fromPayment
-                ) {
-                    //history.push("/payment"); msgjs21 : si je vais vers payment, il me manque les paramètres (prix, produit) => je fais pour l'instant un go back
-                    history.goBack();
+
+                interface ICustomState {
+                    fromPublish: boolean;
+                    fromPayment: boolean;
+                }
+
+                if (location) {
+                    const customState = location.state as ICustomState;
+
+                    if (customState && customState.fromPublish) {
+                        //msgjs21 Il faudrait aussi regarder la redirection depuis l'inscription
+                        history.push("/publish");
+                    } else if (customState && customState.fromPayment) {
+                        //history.push("/payment"); msgjs21 : si je vais vers payment, il me manque les paramètres (prix, produit) => je fais pour l'instant un go back
+                        history.goBack();
+                    } else {
+                        history.push("/");
+                    }
                 } else {
                     history.push("/");
                 }
@@ -49,17 +66,19 @@ const Login = ({ setuserInformationsInMemoryAndInCookie, baseUrl }) => {
         }
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: SyntheticEvent) => {
         event.preventDefault();
         handleToken();
     };
 
-    const handleEmailChange = (event) => {
+    const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
         setEmail(value);
     };
 
-    const handlePasswordChange = (event) => {
+    const handlePasswordChange = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
         const value = event.target.value;
         setPassword(value);
     };

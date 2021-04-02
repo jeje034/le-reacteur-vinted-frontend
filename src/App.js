@@ -23,9 +23,12 @@ function App() {
     const [priceRange, setPriceRange] = useState([0, 500]); //msgjs21 voir pour constantes en fonction de la réponse sur la route "/"
     const baseUrl = "https://le-reacteur-vinted.herokuapp.com"; //Site distant Jérôme
     //const baseUrl = "https://lereacteur-vinted-api.herokuapp.com"; //Site distant Le Reacteur
-    //const baseUrl = "http://localhost:3000"; //Site local Jérôme
+    //const baseUrl = "http://localhost:3001"; //Site local Jérôme
 
-    const setuserInformationsInMemoryAndInCookie = (userToken, userId) => {
+    const setuserInformationsInMemoryAndInCookie = (
+        userToken: string,
+        userId: string
+    ) => {
         setToken(userToken);
         if (userToken) {
             Cookies.set("token", userToken, { expires: 7 });
@@ -62,7 +65,6 @@ function App() {
                 </Route>
                 <Route path="/login">
                     <Login
-                        token={token}
                         setuserInformationsInMemoryAndInCookie={
                             setuserInformationsInMemoryAndInCookie
                         }

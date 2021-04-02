@@ -5,8 +5,15 @@ const FilterAndSortTool = ({
     setTitleSearch,
     priceRange,
     setPriceRange,
+}: {
+    titleSearch: string;
+    setTitleSearch: React.Dispatch<React.SetStateAction<string>>;
+    priceRange: number[];
+    setPriceRange: React.Dispatch<React.SetStateAction<number[]>>;
 }) => {
-    const handleTitleSearchChange = (event) => {
+    const handleTitleSearchChange = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
         const value = event.target.value;
         setTitleSearch(value);
     };

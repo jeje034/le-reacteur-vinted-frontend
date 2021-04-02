@@ -2,10 +2,43 @@ import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import axios from "axios";
 
-const Offer = ({ baseUrl }) => {
+const Offer = ({ baseUrl }: { baseUrl: string }) => {
+    interface IProductPicture {
+        secure_url: string;
+    }
+    interface IProductImage {
+        secure_url: string;
+    }
+
+    interface IOffer {
+        product_pictures: IProductPicture[];
+        product_name: string;
+        product_image: IProductImage;
+        product_price: number;
+        product_details: IProductDetails[];
+        product_description: string;
+        owner: {
+            account: { avatar: { secure_url: string }; username: string };
+        };
+    }
+
+    interface IProductDetails {
+        [name: string]: string;
+    }
+
+    const defaultOffer: IOffer = {
+        product_name: "",
+        product_price: 0,
+        product_pictures: [],
+        product_image: { secure_url: "" },
+        product_details: [],
+        product_description: "",
+        owner: { account: { avatar: { secure_url: "" }, username: "" } },
+    };
+
     const [isDownloading, setIsDownloading] = useState(true);
-    const { id } = useParams();
-    const [offer, setOffer] = useState({});
+    const { id }: { id: string } = useParams();
+    const [offer, setOffer] = useState<IOffer>(defaultOffer);
     let history = useHistory();
 
     useEffect(() => {

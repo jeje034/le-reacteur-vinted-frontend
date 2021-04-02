@@ -4,9 +4,17 @@ import axios from "axios";
 import TopBigImage from "../assets/hero.09bfd0f9.jpg";
 import NavigationBar from "../components/NavigationBar";
 
-const Home = ({ titleSearch, priceRange, baseUrl }) => {
+const Home = ({
+    titleSearch,
+    priceRange,
+    baseUrl,
+}: {
+    titleSearch: string;
+    priceRange: number[];
+    baseUrl: string;
+}) => {
     const [isDownloading, setIsDownloading] = useState(true);
-    const [offers, setOffers] = useState([]);
+    const [offers, setOffers] = useState<any[]>([]);
     const [page, setPage] = useState(1);
     const [numberOfOffers, setNumberOfOffers] = useState(0);
 
@@ -40,7 +48,8 @@ const Home = ({ titleSearch, priceRange, baseUrl }) => {
         fetchData();
     }, [titleSearch, priceRange, baseUrl, page]);
 
-    const getPoductDetail = (productDetails, productDetailId) => {
+    //msgjs21
+    const getPoductDetail = (productDetails: any, productDetailId: string) => {
         if (
             !productDetailId ||
             !productDetails ||

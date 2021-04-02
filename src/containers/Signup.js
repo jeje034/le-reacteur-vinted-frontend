@@ -1,8 +1,17 @@
-import { useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import axios from "axios";
 
-const Signup = ({ setuserInformationsInMemoryAndInCookie, baseUrl }) => {
+const Signup = ({
+    setuserInformationsInMemoryAndInCookie,
+    baseUrl,
+}: {
+    setuserInformationsInMemoryAndInCookie: (
+        userToken: string,
+        userId: string
+    ) => void;
+    baseUrl: string;
+}) => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
@@ -48,29 +57,37 @@ const Signup = ({ setuserInformationsInMemoryAndInCookie, baseUrl }) => {
         }
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: SyntheticEvent) => {
         event.preventDefault();
         handleToken();
     };
 
-    const handleUsernameChange = (event) => {
+    const handleUsernameChange = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
         const value = event.target.value;
         setUsername(value);
     };
-    const handleEmailChange = (event) => {
+    const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
         setEmail(value);
-        setErrorMessage(false);
+        setErrorMessage("");
     };
 
-    const handlePasswordChange = (event) => {
+    const handlePasswordChange = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
         const value = event.target.value;
         setPassword(value);
     };
 
-    const handleNewsletterSubscriptionChange = (event) => {
+    const handleNewsletterSubscriptionChange = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
         const value = event.target.value;
-        setNewsletterSubscription(value);
+        console.log("v1 value", value);
+        console.log("v2 value === true", value === "true");
+        setNewsletterSubscription(value === "true"); //msgjs21 vérifier si la conversion fonctionne
     };
 
     return (
@@ -109,7 +126,7 @@ const Signup = ({ setuserInformationsInMemoryAndInCookie, baseUrl }) => {
                 <input
                     type="checkbox"
                     name="newsletterSubscription"
-                    value={newsletterSubscription}
+                    value={newsletterSubscription.toString()}
                     onChange={handleNewsletterSubscriptionChange}
                     className="signup-checkbox"
                 />

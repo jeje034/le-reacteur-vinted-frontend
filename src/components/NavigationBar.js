@@ -1,5 +1,15 @@
-const NavigationBar = ({ page, setPage, limit, numberOfOffers }) => {
-    const changePage = (numberOfPageToAdd) => {
+const NavigationBar = ({
+    page,
+    setPage,
+    limit,
+    numberOfOffers,
+}: {
+    page: number;
+    setPage: React.Dispatch<React.SetStateAction<number>>;
+    limit: number;
+    numberOfOffers: number;
+}) => {
+    const changePage = (numberOfPageToAdd: number) => {
         let newPage = page + numberOfPageToAdd;
         if (newPage < 1) {
             newPage = 1;

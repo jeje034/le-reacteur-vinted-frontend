@@ -10,6 +10,16 @@ const Header = ({
     setTitleSearch,
     priceRange,
     setPriceRange,
+}: {
+    token: string | null;
+    setuserInformationsInMemoryAndInCookie: (
+        userToken: string,
+        userId: string
+    ) => void;
+    titleSearch: string;
+    setTitleSearch: React.Dispatch<React.SetStateAction<string>>;
+    priceRange: number[];
+    setPriceRange: React.Dispatch<React.SetStateAction<number[]>>;
 }) => {
     const [withFilterAndSortTool, setWithFilterAndSortTool] = useState(false);
 
