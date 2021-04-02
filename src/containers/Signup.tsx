@@ -84,7 +84,7 @@ const Signup = ({
     const handleNewsletterSubscriptionChange = (
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
-        const value = event.target.value; //Ne fonctionne pas : value vaut toujours "false"
+        //const value = event.target.value; Ne fonctionne pas : value vaut toujours "false"
         const newNewsletterSubscription = !newsletterSubscription;
         setNewsletterSubscription(newNewsletterSubscription);
     };

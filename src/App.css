@@ -459,6 +459,7 @@
     border-radius: 5px;
     color: #fff;
     margin-bottom: 20px;
+    cursor: pointer;
 }
 
 .signup-login-switch {
@@ -593,6 +594,7 @@ a:hover {
     border-radius: 4px;
     margin: 50px 0;
     font-size: 16px;
+    cursor: pointer;
 }
 
 .publish-around-add-offer-button {

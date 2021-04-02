@@ -4,6 +4,7 @@ import axios from "axios";
 import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 
+//Pas de TypeScript à cause de react-dropzone
 const Publish = ({ baseUrl, token }) => {
     const [file, setFile] = useState({});
     const [files, setFiles] = useState([]);
@@ -73,8 +74,8 @@ const Publish = ({ baseUrl, token }) => {
     };
 
     const handleInterestedInExchangesChange = (event) => {
-        const value = event.target.value;
-        setInterestedInExchanges(value);
+        //console.log("interestedInExchanges  : ", !interestedInExchanges);
+        setInterestedInExchanges(!interestedInExchanges);
     };
 
     const handleSubmit = async (event) => {
