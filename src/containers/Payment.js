@@ -13,8 +13,6 @@ const Payment = ({ baseUrl, token }) =>
 
         //const customState = location.state as ICustomState;
 
-        //msgjs21: tester identification
-
         //const { price, productName } = customState;
         const { price, productName } = location.state;
 
@@ -50,7 +48,6 @@ const Payment = ({ baseUrl, token }) =>
                     stripeToken: stripeToken,
                     productName: productName,
                     amount: amount, //Si la transaction s'est bien passée, elle sera visible en https://dashboard.stripe.com/test/events
-                    //   msgjs21 si temps passer l'id du produit au lieu de amount (par sécurité)
                 });
 
                 //console.log(response.data);
@@ -136,5 +133,4 @@ const Payment = ({ baseUrl, token }) =>
             </div>
         );
     };
-//msgjs21 strong HS
 export default Payment;
