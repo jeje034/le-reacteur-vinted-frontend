@@ -84,10 +84,9 @@ const Signup = ({
     const handleNewsletterSubscriptionChange = (
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
-        const value = event.target.value;
-        console.log("v1 value", value);
-        console.log("v2 value === true", value === "true");
-        setNewsletterSubscription(value === "true"); //msgjs21 vérifier si la conversion fonctionne
+        const value = event.target.value; //Ne fonctionne pas : value vaut toujours "false"
+        const newNewsletterSubscription = !newsletterSubscription;
+        setNewsletterSubscription(newNewsletterSubscription);
     };
 
     return (
