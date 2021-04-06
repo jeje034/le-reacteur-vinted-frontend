@@ -11,12 +11,13 @@ import {
     loginFail,
 } from "../app/connectedUserSlice";
 
-const Login = ({ baseUrl }: { baseUrl: string }) => {
+const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const { loginError } = useAppSelector(
         (state: RootState) => state.connectedUser
     );
+    const { baseUrl } = useAppSelector((state: RootState) => state.environment);
 
     const dispatch = useAppDispatch();
 
@@ -26,8 +27,6 @@ const Login = ({ baseUrl }: { baseUrl: string }) => {
     const loginUser = (email: string, password: string): AppThunk => async (
         dispatch
     ) => {
-        const baseUrl = "https://le-reacteur-vinted.herokuapp.com"; //msgjs21
-
         try {
             //D'abord on indique que la requête est en cours
             dispatch(loginRequest());

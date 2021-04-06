@@ -15,6 +15,7 @@ import Payment from "./containers/Payment";
 import { useAppSelector, useAppDispatch } from "./app/hooks";
 import { RootState } from "./app/store";
 import { initToken } from "./app/connectedUserSlice";
+import { setBaseUrl } from "./app/environmentSlice";
 
 const stripePromise = loadStripe(
     //Clé plublique
@@ -29,35 +30,34 @@ function App() {
     useEffect(() => {
         let token = Cookies.get("token");
         dispatch(initToken(token));
+        dispatch(setBaseUrl("https://le-reacteur-vinted.herokuapp.com")); //Site distant Jérôme
+        //dispatch(setBaseUrl("https://lereacteur-vinted-api.herokuapp.com")); //Site distant Le Reacteur
+        //dispatch(setBaseUrl("http://localhost:3001")); //Site local Jérôme
     }, [dispatch]);
-
-    const baseUrl = "https://le-reacteur-vinted.herokuapp.com"; //Site distant Jérôme
-    //const baseUrl = "https://lereacteur-vinted-api.herokuapp.com"; //Site distant Le Reacteur
-    //const baseUrl = "http://localhost:3001"; //Site local Jérôme
 
     return (
         <Router>
             <Header />
             <Switch>
                 <Route path="/offer/:id">
-                    <Offer baseUrl={baseUrl} />
+                    <Offer />
                 </Route>
                 <Route path="/signup">
-                    <Signup baseUrl={baseUrl} />
+                    <Signup />
                 </Route>
                 <Route path="/login">
-                    <Login baseUrl={baseUrl} />
+                    <Login />
                 </Route>
                 <Route path="/publish">
-                    <Publish baseUrl={baseUrl} token={token} />
+                    <Publish />
                 </Route>
                 <Route path="/payment">
                     <Elements stripe={stripePromise}>
-                        <Payment baseUrl={baseUrl} token={token} />
+                        <Payment token={token} />
                     </Elements>
                 </Route>
                 <Route path="/">
-                    <Home baseUrl={baseUrl} />
+                    <Home />
                 </Route>
             </Switch>
         </Router>

@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import axios from "axios";
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
+import { useAppSelector } from "../app/hooks";
 
 //Pas de TypeScript à cause de react-dropzone
-const Publish = ({ baseUrl, token }) => {
+const Publish = (token) => {
     const [file, setFile] = useState({});
     const [files, setFiles] = useState([]);
     const [title, setTitle] = useState("");
@@ -16,6 +17,8 @@ const Publish = ({ baseUrl, token }) => {
     const [city, setCity] = useState("");
     const [price, setPrice] = useState(0);
     const [interestedInExchanges, setInterestedInExchanges] = useState(false);
+
+    const { baseUrl } = useAppSelector((state) => state.environment);
 
     const onDrop = useCallback((acceptedFiles) => {
         // Do something with the files

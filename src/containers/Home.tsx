@@ -7,7 +7,7 @@ import { IProductDetail } from "./Offer";
 import { useAppSelector } from "../app/hooks";
 import { RootState } from "../app/store";
 
-const Home = ({ baseUrl }: { baseUrl: string }) => {
+const Home = () => {
     const [isDownloading, setIsDownloading] = useState(true);
     const [offers, setOffers] = useState<any[]>([]);
     const [page, setPage] = useState(1);
@@ -16,6 +16,7 @@ const Home = ({ baseUrl }: { baseUrl: string }) => {
     const { priceRange, titleSearch } = useAppSelector(
         (state: RootState) => state.offerFilter
     );
+    const { baseUrl } = useAppSelector((state: RootState) => state.environment);
 
     const limit = 10;
     let history = useHistory();
@@ -35,11 +36,14 @@ const Home = ({ baseUrl }: { baseUrl: string }) => {
             }
 
             try {
-                const response = await axios.get(request);
-                setOffers(response.data.offers);
-                setNumberOfOffers(response.data.count);
+                if (baseUrl) {
+                    //Sans ce if (baseUrl), la requête se lance une 1ere fois avec une baseUrl vide (avant que baseUrl ait eu le temps d'être initialisé)
+                    const response = await axios.get(request);
+                    setOffers(response.data.offers);
+                    setNumberOfOffers(response.data.count);
 
-                setIsDownloading(false);
+                    setIsDownloading(false);
+                }
             } catch (error) {
                 console.log("An error occured :", error.message);
             }

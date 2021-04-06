@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import axios from "axios";
+import { RootState } from "../app/store";
+import { useAppSelector } from "../app/hooks";
 
 export interface IProductDetail {
     [name: string]: string;
 }
 
-const Offer = ({ baseUrl }: { baseUrl: string }) => {
+const Offer = () => {
     interface IProductPicture {
         secure_url: string;
     }
@@ -39,14 +41,20 @@ const Offer = ({ baseUrl }: { baseUrl: string }) => {
     const [isDownloading, setIsDownloading] = useState(true);
     const { id }: { id: string } = useParams();
     const [offer, setOffer] = useState<IOffer>(defaultOffer);
+
+    const { baseUrl } = useAppSelector((state: RootState) => state.environment);
+
     let history = useHistory();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(baseUrl + "/offer/" + id);
-                setOffer(response.data);
-                setIsDownloading(false);
+                if (baseUrl) {
+                    //Sans ce if (baseUrl), la requête se lance une 1ere fois avec une baseUrl vide (avant que baseUrl ait eu le temps d'être initialisé)
+                    const response = await axios.get(baseUrl + "/offer/" + id);
+                    setOffer(response.data);
+                    setIsDownloading(false);
+                }
             } catch (error) {
                 console.log("An error occured:", error.message);
             }

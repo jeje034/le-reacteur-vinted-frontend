@@ -5,13 +5,18 @@ import axios from "axios";
 import { useAppDispatch } from "../app/hooks";
 import { setUserIds } from "../app/connectedUserSlice";
 import SaveUserIds from "../functions/SaveUserIds";
+import { RootState } from "../app/store";
+import { useAppSelector } from "../app/hooks";
 
-const Signup = ({ baseUrl }: { baseUrl: string }) => {
+const Signup = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [password, setPassword] = useState("");
     const [newsletterSubscription, setNewsletterSubscription] = useState(false);
+
+    const { baseUrl } = useAppSelector((state: RootState) => state.environment);
+
     let history = useHistory();
 
     const dispatch = useAppDispatch();

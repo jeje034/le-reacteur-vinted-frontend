@@ -3,10 +3,13 @@ import { Redirect, useLocation } from "react-router-dom";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { useAppSelector } from "../app/hooks";
 
-const Payment = ({ baseUrl, token }) =>
-    //: {baseUrl: string; token: string | null; }
+const Payment = ({ token }) =>
+    //: { token: string | null; }
     {
+        const { baseUrl } = useAppSelector((state) => state.environment);
+
         //interface ICustomState {price: number; productName: string; }
 
         const location = useLocation();
