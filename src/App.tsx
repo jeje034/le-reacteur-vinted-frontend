@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
@@ -13,43 +13,38 @@ import Publish from "./containers/Publish";
 import Payment from "./containers/Payment";
 import * as Constants from "./constants/constants";
 
+import { useAppSelector, useAppDispatch } from "./app/hooks";
+import { RootState } from "./app/store";
+import { initToken } from "./app/connectedUserSlice";
+
 const stripePromise = loadStripe(
     //Clé plublique
     "pk_test_51ILTyoFNedoBHlEJ39mM23X3wmMbSH8mBS43llwX3Wn1UARP03f6II0Z5pF6nGUzxcppHT1YKYWgwSgyol3LFmJv00T3uTYOl6"
 );
 
 function App() {
-    const [token, setToken] = useState(Cookies.get("token") || null);
     const [titleSearch, setTitleSearch] = useState("");
     const [priceRange, setPriceRange] = useState([
         Constants.MIN_PRICE_IN_FILTER,
         Constants.MAX_PRICE_IN_FILTER,
     ]);
+
+    const { token } = useAppSelector((state: RootState) => state.connectedUser);
+
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        let token = Cookies.get("token");
+        dispatch(initToken(token));
+    }, [dispatch]);
+
     const baseUrl = "https://le-reacteur-vinted.herokuapp.com"; //Site distant Jérôme
     //const baseUrl = "https://lereacteur-vinted-api.herokuapp.com"; //Site distant Le Reacteur
     //const baseUrl = "http://localhost:3001"; //Site local Jérôme
 
-    const setuserInformationsInMemoryAndInCookie = (
-        userToken: string,
-        userId: string
-    ) => {
-        setToken(userToken);
-        if (userToken) {
-            Cookies.set("token", userToken, { expires: 7 });
-            Cookies.set("userId", userId, { expires: 7 });
-        } else {
-            Cookies.remove("token");
-            Cookies.remove("userId");
-        }
-    };
-
     return (
         <Router>
             <Header
-                token={token}
-                setuserInformationsInMemoryAndInCookie={
-                    setuserInformationsInMemoryAndInCookie
-                }
                 titleSearch={titleSearch}
                 setTitleSearch={setTitleSearch}
                 priceRange={priceRange}
@@ -60,20 +55,10 @@ function App() {
                     <Offer baseUrl={baseUrl} />
                 </Route>
                 <Route path="/signup">
-                    <Signup
-                        setuserInformationsInMemoryAndInCookie={
-                            setuserInformationsInMemoryAndInCookie
-                        }
-                        baseUrl={baseUrl}
-                    />
+                    <Signup baseUrl={baseUrl} />
                 </Route>
                 <Route path="/login">
-                    <Login
-                        setuserInformationsInMemoryAndInCookie={
-                            setuserInformationsInMemoryAndInCookie
-                        }
-                        baseUrl={baseUrl}
-                    />
+                    <Login baseUrl={baseUrl} />
                 </Route>
                 <Route path="/publish">
                     <Publish baseUrl={baseUrl} token={token} />

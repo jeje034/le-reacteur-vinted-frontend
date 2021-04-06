@@ -2,22 +2,19 @@ import { SyntheticEvent, useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import axios from "axios";
 
-const Signup = ({
-    setuserInformationsInMemoryAndInCookie,
-    baseUrl,
-}: {
-    setuserInformationsInMemoryAndInCookie: (
-        userToken: string,
-        userId: string
-    ) => void;
-    baseUrl: string;
-}) => {
+import { useAppDispatch } from "../app/hooks";
+import { setUserIds } from "../app/connectedUserSlice";
+import SaveUserIds from "../functions/SaveUserIds";
+
+const Signup = ({ baseUrl }: { baseUrl: string }) => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [password, setPassword] = useState("");
     const [newsletterSubscription, setNewsletterSubscription] = useState(false);
     let history = useHistory();
+
+    const dispatch = useAppDispatch();
 
     const handleToken = async () => {
         let newToken = null;
@@ -28,7 +25,8 @@ const Signup = ({
                 password: password,
             });
             newToken = response.data.token;
-            setuserInformationsInMemoryAndInCookie(newToken, response.data._id);
+            dispatch(setUserIds({ token: newToken, id: response.data.id }));
+            SaveUserIds(newToken, response.data._id);
             if (newToken) {
                 history.push("/");
             }
@@ -53,7 +51,8 @@ const Signup = ({
                     );
                 }
             }
-            setuserInformationsInMemoryAndInCookie(newToken, "");
+            dispatch(setUserIds({ token: "", id: "" }));
+            SaveUserIds("", "");
         }
     };
 
@@ -121,6 +120,7 @@ const Signup = ({
                     value={password}
                     onChange={handlePasswordChange}
                     className="signup-login-input"
+                    autoComplete="off"
                 />
                 <input
                     type="checkbox"

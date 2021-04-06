@@ -3,25 +3,26 @@ import Logo from "../assets/logo.3dcf8b02.png";
 import FilterAndSortTool from "./FilterAndSortTool";
 import { useState, useEffect } from "react";
 
+import { useAppSelector, useAppDispatch } from "../app/hooks";
+import { RootState } from "../app/store";
+import { disconnect } from "../app/connectedUserSlice";
+import SaveUserIds from "../functions/SaveUserIds";
+
 const Header = ({
-    token,
-    setuserInformationsInMemoryAndInCookie,
     titleSearch,
     setTitleSearch,
     priceRange,
     setPriceRange,
 }: {
-    token: string | null;
-    setuserInformationsInMemoryAndInCookie: (
-        userToken: string,
-        userId: string
-    ) => void;
     titleSearch: string;
     setTitleSearch: React.Dispatch<React.SetStateAction<string>>;
     priceRange: number[];
     setPriceRange: React.Dispatch<React.SetStateAction<number[]>>;
 }) => {
     const [withFilterAndSortTool, setWithFilterAndSortTool] = useState(false);
+    const { token } = useAppSelector((state: RootState) => state.connectedUser);
+
+    const dispatch = useAppDispatch();
 
     function usePageViews() {
         let location = useLocation();
@@ -78,7 +79,8 @@ const Header = ({
                         <button
                             className="header-sign-up-login header-log-out"
                             onClick={() => {
-                                setuserInformationsInMemoryAndInCookie("", "");
+                                dispatch(disconnect());
+                                SaveUserIds("", "");
                             }}
                         >
                             Se déconnecter

@@ -1,36 +1,45 @@
 import { SyntheticEvent, useState } from "react";
 import { useHistory, Link, useLocation } from "react-router-dom";
 import axios from "axios";
+import SaveUserIds from "../functions/SaveUserIds";
 
-const Login = ({
-    setuserInformationsInMemoryAndInCookie,
-    baseUrl,
-}: {
-    setuserInformationsInMemoryAndInCookie: (
-        userToken: string,
-        userId: string
-    ) => void;
-    baseUrl: string;
-}) => {
+import { useAppSelector, useAppDispatch } from "../app/hooks";
+import { AppThunk, RootState } from "../app/store";
+import {
+    loginRequest,
+    loginSucces,
+    loginFail,
+} from "../app/connectedUserSlice";
+
+const Login = ({ baseUrl }: { baseUrl: string }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [loginError, setLoginError] = useState(false);
+    const { loginError } = useAppSelector(
+        (state: RootState) => state.connectedUser
+    );
+
+    const dispatch = useAppDispatch();
+
     let history = useHistory();
     let location = useLocation();
 
-    const handleToken = async () => {
-        let newToken = null;
+    const loginUser = (email: string, password: string): AppThunk => async (
+        dispatch
+    ) => {
+        const baseUrl = "https://le-reacteur-vinted.herokuapp.com"; //msgjs21
+
         try {
+            //D'abord on indique que la requête est en cours
+            dispatch(loginRequest());
+
+            //Puis on appelle l'API
             const response = await axios.post(baseUrl + "/user/login", {
                 email: email,
                 password: password,
             });
-            newToken = response.data.token;
-            if (newToken) {
-                setuserInformationsInMemoryAndInCookie(
-                    newToken,
-                    response.data._id
-                );
+            if (response.data.token) {
+                dispatch(loginSucces(response.data));
+                SaveUserIds(response.data.token, response.data.id);
 
                 interface ICustomState {
                     fromPublish: boolean;
@@ -53,17 +62,17 @@ const Login = ({
                     history.push("/");
                 }
             } else {
-                setLoginError(true);
-                setuserInformationsInMemoryAndInCookie(
-                    newToken,
-                    response.data._id
-                );
+                dispatch(loginFail("Impossible de se connecter : token vide."));
+                SaveUserIds("", "");
             }
-        } catch (error) {
-            setLoginError(true);
-            console.log("An error occured:", error.message);
-            setuserInformationsInMemoryAndInCookie(newToken, "");
+        } catch (err) {
+            dispatch(loginFail(err.message));
+            SaveUserIds("", "");
         }
+    };
+
+    const handleToken = async () => {
+        dispatch(loginUser(email, password));
     };
 
     const handleSubmit = (event: SyntheticEvent) => {
@@ -102,6 +111,7 @@ const Login = ({
                     value={password}
                     onChange={handlePasswordChange}
                     className="signup-login-input"
+                    autoComplete="off"
                 />
                 <div
                     className={
