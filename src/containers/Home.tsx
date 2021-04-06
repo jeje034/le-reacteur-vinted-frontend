@@ -4,20 +4,18 @@ import axios from "axios";
 import TopBigImage from "../assets/hero.09bfd0f9.jpg";
 import NavigationBar from "../components/NavigationBar";
 import { IProductDetail } from "./Offer";
+import { useAppSelector } from "../app/hooks";
+import { RootState } from "../app/store";
 
-const Home = ({
-    titleSearch,
-    priceRange,
-    baseUrl,
-}: {
-    titleSearch: string;
-    priceRange: number[];
-    baseUrl: string;
-}) => {
+const Home = ({ baseUrl }: { baseUrl: string }) => {
     const [isDownloading, setIsDownloading] = useState(true);
     const [offers, setOffers] = useState<any[]>([]);
     const [page, setPage] = useState(1);
     const [numberOfOffers, setNumberOfOffers] = useState(0);
+
+    const { priceRange, titleSearch } = useAppSelector(
+        (state: RootState) => state.offerFilter
+    );
 
     const limit = 10;
     let history = useHistory();

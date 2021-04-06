@@ -1,5 +1,5 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
@@ -11,7 +11,6 @@ import Signup from "./containers/Signup";
 import Login from "./containers/Login";
 import Publish from "./containers/Publish";
 import Payment from "./containers/Payment";
-import * as Constants from "./constants/constants";
 
 import { useAppSelector, useAppDispatch } from "./app/hooks";
 import { RootState } from "./app/store";
@@ -23,12 +22,6 @@ const stripePromise = loadStripe(
 );
 
 function App() {
-    const [titleSearch, setTitleSearch] = useState("");
-    const [priceRange, setPriceRange] = useState([
-        Constants.MIN_PRICE_IN_FILTER,
-        Constants.MAX_PRICE_IN_FILTER,
-    ]);
-
     const { token } = useAppSelector((state: RootState) => state.connectedUser);
 
     const dispatch = useAppDispatch();
@@ -44,12 +37,7 @@ function App() {
 
     return (
         <Router>
-            <Header
-                titleSearch={titleSearch}
-                setTitleSearch={setTitleSearch}
-                priceRange={priceRange}
-                setPriceRange={setPriceRange}
-            />
+            <Header />
             <Switch>
                 <Route path="/offer/:id">
                     <Offer baseUrl={baseUrl} />
@@ -69,11 +57,7 @@ function App() {
                     </Elements>
                 </Route>
                 <Route path="/">
-                    <Home
-                        titleSearch={titleSearch}
-                        priceRange={priceRange}
-                        baseUrl={baseUrl}
-                    />
+                    <Home baseUrl={baseUrl} />
                 </Route>
             </Switch>
         </Router>

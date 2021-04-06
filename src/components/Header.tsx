@@ -8,17 +8,7 @@ import { RootState } from "../app/store";
 import { disconnect } from "../app/connectedUserSlice";
 import SaveUserIds from "../functions/SaveUserIds";
 
-const Header = ({
-    titleSearch,
-    setTitleSearch,
-    priceRange,
-    setPriceRange,
-}: {
-    titleSearch: string;
-    setTitleSearch: React.Dispatch<React.SetStateAction<string>>;
-    priceRange: number[];
-    setPriceRange: React.Dispatch<React.SetStateAction<number[]>>;
-}) => {
+const Header = () => {
     const [withFilterAndSortTool, setWithFilterAndSortTool] = useState(false);
     const { token } = useAppSelector((state: RootState) => state.connectedUser);
 
@@ -49,14 +39,7 @@ const Header = ({
                 <Link to="/">
                     <img src={Logo} alt="Vinted" className="header-logo" />
                 </Link>
-                {withFilterAndSortTool && (
-                    <FilterAndSortTool
-                        titleSearch={titleSearch}
-                        setTitleSearch={setTitleSearch}
-                        priceRange={priceRange}
-                        setPriceRange={setPriceRange}
-                    />
-                )}
+                {withFilterAndSortTool && <FilterAndSortTool />}
 
                 <div className="header-button-group">
                     {!token && (

@@ -1,22 +1,21 @@
 import { Range } from "react-range";
 import * as Constants from "../constants/constants";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { setPriceRange, setTitleSearch } from "../app/offerFilterSlice";
+import { RootState } from "../app/store";
 
-const FilterAndSortTool = ({
-    titleSearch,
-    setTitleSearch,
-    priceRange,
-    setPriceRange,
-}: {
-    titleSearch: string;
-    setTitleSearch: React.Dispatch<React.SetStateAction<string>>;
-    priceRange: number[];
-    setPriceRange: React.Dispatch<React.SetStateAction<number[]>>;
-}) => {
+const FilterAndSortTool = () => {
+    const { priceRange, titleSearch } = useAppSelector(
+        (state: RootState) => state.offerFilter
+    );
+
+    const dispatch = useAppDispatch();
+
     const handleTitleSearchChange = (
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
         const value = event.target.value;
-        setTitleSearch(value);
+        dispatch(setTitleSearch(value));
     };
 
     return (
@@ -54,7 +53,9 @@ const FilterAndSortTool = ({
                     min={Constants.MIN_PRICE_IN_FILTER}
                     max={Constants.MAX_PRICE_IN_FILTER}
                     values={priceRange}
-                    onChange={(priceRange) => setPriceRange(priceRange)}
+                    onChange={(priceRange) =>
+                        dispatch(setPriceRange(priceRange))
+                    }
                     renderTrack={({ props, children }) => (
                         <div
                             {...props}
