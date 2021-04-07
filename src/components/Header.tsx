@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import Logo from "../assets/logo.3dcf8b02.png";
+import Logo from "../assets/images/logo.3dcf8b02.png";
 import FilterAndSortTool from "./FilterAndSortTool";
 import { useState, useEffect } from "react";
 

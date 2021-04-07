@@ -1,11 +1,12 @@
 import { Link, useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import TopBigImage from "../assets/hero.09bfd0f9.jpg";
+import TopBigImage from "../assets/images/hero.09bfd0f9.jpg";
 import NavigationBar from "../components/NavigationBar";
 import { IProductDetail } from "./Offer";
 import { useAppSelector } from "../app/hooks";
 import { RootState } from "../app/store";
+import HomeOfferOwner from "../components/HomeOfferOwner";
 
 const Home = () => {
     const [isDownloading, setIsDownloading] = useState(true);
@@ -119,21 +120,7 @@ const Home = () => {
                                                 : "home-card"
                                         }
                                     >
-                                        <div className="home-offer-owner">
-                                            {offer.owner.account.avatar && (
-                                                <img
-                                                    className="home-offer-owner-photo"
-                                                    src={
-                                                        offer.owner.account
-                                                            .avatar.secure_url
-                                                    }
-                                                    alt={offer.product_name}
-                                                />
-                                            )}
-                                            <div className="home-offer-owner-unsername">
-                                                {offer.owner.account.username}
-                                            </div>
-                                        </div>
+                                        <HomeOfferOwner offer={offer} />
                                         {offer.product_image ? (
                                             <img
                                                 className="home-card-photo"
@@ -146,7 +133,6 @@ const Home = () => {
                                         ) : (
                                             <div>Sans image</div>
                                         )}
-
                                         <div className="home-price">
                                             {"" + offer.product_price + " €"}
                                         </div>

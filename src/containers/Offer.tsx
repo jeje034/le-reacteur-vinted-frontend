@@ -7,27 +7,26 @@ import { useAppSelector } from "../app/hooks";
 export interface IProductDetail {
     [name: string]: string;
 }
+export interface IProductPicture {
+    secure_url: string;
+}
+export interface IProductImage {
+    secure_url: string;
+}
+
+export interface IOffer {
+    product_pictures: IProductPicture[];
+    product_name: string;
+    product_image: IProductImage;
+    product_price: number;
+    product_details: IProductDetail[];
+    product_description: string;
+    owner: {
+        account: { avatar: { secure_url: string }; username: string };
+    };
+}
 
 const Offer = () => {
-    interface IProductPicture {
-        secure_url: string;
-    }
-    interface IProductImage {
-        secure_url: string;
-    }
-
-    interface IOffer {
-        product_pictures: IProductPicture[];
-        product_name: string;
-        product_image: IProductImage;
-        product_price: number;
-        product_details: IProductDetail[];
-        product_description: string;
-        owner: {
-            account: { avatar: { secure_url: string }; username: string };
-        };
-    }
-
     const defaultOffer: IOffer = {
         product_name: "",
         product_price: 0,
