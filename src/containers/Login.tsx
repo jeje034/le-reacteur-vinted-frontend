@@ -38,7 +38,7 @@ const Login = () => {
             });
             if (response.data.token) {
                 dispatch(loginSucces(response.data));
-                SaveUserIds(response.data.token, response.data.id);
+                SaveUserIds(response.data.token, response.data._id);
 
                 interface ICustomState {
                     fromPublish: boolean;

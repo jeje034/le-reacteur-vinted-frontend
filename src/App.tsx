@@ -12,8 +12,7 @@ import Login from "./containers/Login";
 import Publish from "./containers/Publish";
 import Payment from "./containers/Payment";
 
-import { useAppSelector, useAppDispatch } from "./app/hooks";
-import { RootState } from "./app/store";
+import { useAppDispatch } from "./app/hooks";
 import { initToken } from "./app/connectedUserSlice";
 import { setBaseUrl } from "./app/environmentSlice";
 
@@ -23,8 +22,6 @@ const stripePromise = loadStripe(
 );
 
 function App() {
-    const { token } = useAppSelector((state: RootState) => state.connectedUser);
-
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -53,7 +50,7 @@ function App() {
                 </Route>
                 <Route path="/payment">
                     <Elements stripe={stripePromise}>
-                        <Payment token={token} />
+                        <Payment />
                     </Elements>
                 </Route>
                 <Route path="/">

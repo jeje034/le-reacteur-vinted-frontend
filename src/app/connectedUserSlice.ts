@@ -38,7 +38,7 @@ const connectedUserSlice = createSlice({
         },
         loginSucces(state, action) {
             state.token = action.payload.token;
-            state.id = action.payload.id;
+            state.id = action.payload._id;
             state.isLoading = false;
             state.loginError = "";
         },

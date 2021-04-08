@@ -30,7 +30,7 @@ const Signup = () => {
                 password: password,
             });
             newToken = response.data.token;
-            dispatch(setUserIds({ token: newToken, id: response.data.id }));
+            dispatch(setUserIds({ token: newToken, id: response.data._id }));
             SaveUserIds(newToken, response.data._id);
             if (newToken) {
                 history.push("/");
