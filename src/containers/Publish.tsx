@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useState, SyntheticEvent } from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import axios from "axios";
 import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { useAppSelector } from "../app/hooks";
+import { RootState } from "../app/store";
 
-//Pas de TypeScript à cause de react-dropzone
-const Publish = (token) => {
-    const [file, setFile] = useState({});
-    const [files, setFiles] = useState([]);
+interface iFileWithPreview extends File {
+    preview: string;
+}
+
+const Publish = () => {
+    const [file, setFile] = useState<File | null>(null);
+    const [files, setFiles] = useState<iFileWithPreview[]>([]);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [brand, setBrand] = useState("");
@@ -19,14 +23,14 @@ const Publish = (token) => {
     const [interestedInExchanges, setInterestedInExchanges] = useState(false);
 
     const { baseUrl } = useAppSelector((state) => state.environment);
+    const { token } = useAppSelector((state: RootState) => state.connectedUser);
 
     const onDrop = useCallback((acceptedFiles) => {
         // Do something with the files
-        console.log(acceptedFiles);
         setFile(acceptedFiles[0]);
 
         setFiles(
-            acceptedFiles.map((file) =>
+            acceptedFiles.map((file: File) =>
                 Object.assign(file, {
                     preview: URL.createObjectURL(file),
                 })
@@ -41,58 +45,67 @@ const Publish = (token) => {
 
     let history = useHistory();
 
-    const handleTitleChange = (event) => {
+    const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
         setTitle(value);
     };
 
-    const handleDescriptionChange = (event) => {
+    const handleDescriptionChange = (
+        event: React.ChangeEvent<HTMLTextAreaElement>
+    ) => {
         const value = event.target.value;
         setDescription(value);
     };
 
-    const handleBrandChange = (event) => {
+    const handleBrandChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
         setBrand(value);
     };
 
-    const handleColorChange = (event) => {
+    const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
         setColor(value);
     };
 
-    const handleConditionChange = (event) => {
+    const handleConditionChange = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
         const value = event.target.value;
         setCondition(value);
     };
 
-    const handleCityChange = (event) => {
+    const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
         setCity(value);
     };
 
-    const handlePriceChange = (event) => {
+    const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
-        setPrice(value);
+        setPrice(Number(value)); //msgjs21 tester avec bb par ex
     };
 
-    const handleInterestedInExchangesChange = (event) => {
+    const handleInterestedInExchangesChange = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
         //console.log("interestedInExchanges  : ", !interestedInExchanges);
         setInterestedInExchanges(!interestedInExchanges);
     };
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: SyntheticEvent) => {
         event.preventDefault();
 
         const formData = new FormData();
-        formData.append("picture", file);
+        let notNullFile: File | null = file;
+        if (notNullFile !== null) {
+            formData.append("picture", notNullFile);
+        }
         formData.append("title", title);
         formData.append("description", description);
         formData.append("brand", brand);
         formData.append("color", brand);
         formData.append("condition", condition);
         formData.append("city", city);
-        formData.append("price", price);
+        formData.append("price", price.toString());
 
         try {
             const response = await axios.post(
@@ -244,7 +257,7 @@ const Publish = (token) => {
                                         className="publish-checkbox"
                                         type="checkbox"
                                         placeholder="ex:"
-                                        value={interestedInExchanges}
+                                        value={interestedInExchanges.toString()}
                                         onChange={
                                             handleInterestedInExchangesChange
                                         }
@@ -257,7 +270,7 @@ const Publish = (token) => {
                         </section>
 
                         <div className="publish-around-add-offer-button">
-                            <button type="Submit">Ajouter</button>
+                            <button type="submit">Ajouter</button>
                         </div>
                     </form>
                 </div>
