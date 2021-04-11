@@ -19,7 +19,7 @@ const Publish = () => {
     const [color, setColor] = useState("");
     const [condition, setCondition] = useState("");
     const [city, setCity] = useState("");
-    const [price, setPrice] = useState(0);
+    const [price, setPrice] = useState("");
     const [interestedInExchanges, setInterestedInExchanges] = useState(false);
 
     const { baseUrl } = useAppSelector((state) => state.environment);
@@ -80,8 +80,7 @@ const Publish = () => {
     };
 
     const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-        setPrice(Number(value)); //msgjs21 tester avec bb par ex
+        setPrice(event.target.value);
     };
 
     const handleInterestedInExchangesChange = (
@@ -94,6 +93,12 @@ const Publish = () => {
     const handleSubmit = async (event: SyntheticEvent) => {
         event.preventDefault();
 
+        alert(price);
+        if (isNaN(Number(price))) {
+            alert("Le prix saisi est incorrect.");
+            return;
+        }
+
         const formData = new FormData();
         let notNullFile: File | null = file;
         if (notNullFile !== null) {
@@ -105,7 +110,7 @@ const Publish = () => {
         formData.append("color", brand);
         formData.append("condition", condition);
         formData.append("city", city);
-        formData.append("price", price.toString());
+        formData.append("price", Number(price).toString()); //ainsi un prix vide devient un prix à 0. Sans ça l serveur nous renvoie un prix null qui fait planter.
 
         try {
             const response = await axios.post(
@@ -245,7 +250,6 @@ const Publish = () => {
                                     className="publish-input"
                                     type="text"
                                     placeholder="0.00 €"
-                                    value={price}
                                     onChange={handlePriceChange}
                                 />
                             </div>
