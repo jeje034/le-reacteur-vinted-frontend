@@ -40,10 +40,13 @@ const Home = () => {
                 if (baseUrl) {
                     //Sans ce if (baseUrl), la requête se lance une 1ere fois avec une baseUrl vide (avant que baseUrl ait eu le temps d'être initialisé)
                     const response = await axios.get(request);
-                    setOffers(response.data.offers);
-                    setNumberOfOffers(response.data.count);
 
-                    setIsDownloading(false);
+                    //if (response) ajouté pour les tests
+                    if (response) {
+                        setOffers(response.data.offers);
+                        setNumberOfOffers(response.data.count);
+                        setIsDownloading(false);
+                    }
                 }
             } catch (error) {
                 console.log("An error occured :", error.message);

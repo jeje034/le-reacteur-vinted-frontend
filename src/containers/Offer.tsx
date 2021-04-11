@@ -26,7 +26,12 @@ export interface IOffer {
     };
 }
 
-const Offer = () => {
+const GetId = () => {
+    const { id }: { id: string } = useParams();
+    return id;
+};
+
+const Offer = ({ isTesting }: { isTesting?: boolean }) => {
     const defaultOffer: IOffer = {
         product_name: "",
         product_price: 0,
@@ -37,11 +42,18 @@ const Offer = () => {
         owner: { account: { avatar: { secure_url: "" }, username: "" } },
     };
 
-    const [isDownloading, setIsDownloading] = useState(true);
-    const { id }: { id: string } = useParams();
-    const [offer, setOffer] = useState<IOffer>(defaultOffer);
+    let { baseUrl } = useAppSelector((state: RootState) => state.environment);
 
-    const { baseUrl } = useAppSelector((state: RootState) => state.environment);
+    const [isDownloading, setIsDownloading] = useState(true);
+    let id: string;
+    if (isTesting) {
+        id = "falseIdForTests";
+        baseUrl = "notEmptyForTests";
+    } else {
+        id = GetId();
+    }
+
+    const [offer, setOffer] = useState<IOffer>(defaultOffer);
 
     let history = useHistory();
 
@@ -51,8 +63,12 @@ const Offer = () => {
                 if (baseUrl) {
                     //Sans ce if (baseUrl), la requête se lance une 1ere fois avec une baseUrl vide (avant que baseUrl ait eu le temps d'être initialisé)
                     const response = await axios.get(baseUrl + "/offer/" + id);
-                    setOffer(response.data);
-                    setIsDownloading(false);
+
+                    //if (response) ajouté pour les tests
+                    if (response) {
+                        setOffer(response.data);
+                        setIsDownloading(false);
+                    }
                 }
             } catch (error) {
                 console.log("An error occured:", error.message);
@@ -63,13 +79,19 @@ const Offer = () => {
     }, [id, baseUrl]);
 
     return (
-        <div className="offer-main">
+        <div className="offer-main" data-testid="offer-debug-id">
             {isDownloading ? (
-                <div className="offer-main-when-downloading">
+                <div
+                    className="offer-main-when-downloading"
+                    data-testid="offer-is-downloading"
+                >
                     <div>Chargement en cours ...</div>
                 </div>
             ) : (
-                <div className="offer-main-when-downloaded">
+                <div
+                    className="offer-main-when-downloaded"
+                    data-testid="offer-is-downloaded"
+                >
                     {offer.product_pictures &&
                     offer.product_pictures.length > 0 &&
                     offer.product_pictures[0] &&
@@ -125,7 +147,10 @@ const Offer = () => {
                         </div>
                         <div className="offer-delimiter"></div>
                         <div className="offer-bottom-description">
-                            <div className="offer-title">
+                            <div
+                                className="offer-title"
+                                data-testid="offer-product-name"
+                            >
                                 {offer.product_name}
                             </div>
                             <div className="offer-description">
