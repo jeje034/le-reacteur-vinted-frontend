@@ -77,7 +77,7 @@ const Home = () => {
 
     return (
         <div>
-            <div>
+            <div className="home-around-top-big-image">
                 <img
                     src={TopBigImage}
                     alt="Des personnes et des vêtements"
@@ -97,6 +97,7 @@ const Home = () => {
                         Commencer à vendre
                     </button>
                 </div>
+                <div className="home-tear-effect" />
             </div>
 
             {isDownloading ? (

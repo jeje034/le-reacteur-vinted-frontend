@@ -7,7 +7,6 @@ import App from "../App";
 import { IOffer } from "./Offer";
 
 import axiosMock from "axios";
-import { act } from "react-dom/test-utils";
 
 test("Home avant Axios", () => {
     const history = createMemoryHistory();

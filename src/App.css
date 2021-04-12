@@ -159,21 +159,37 @@
 /* HOME */
 /* ------------------- */
 
+.home-around-top-big-image {
+    position: relative;
+    height: 538px;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
 .home-top-big-image {
-    height: 455px;
+    height: 100%;
     width: 100%;
     object-fit: cover;
-    margin-bottom: 25px;
-    position: relative;
+}
+.home-tear-effect {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    right: 0;
+    background-image: url("../src/assets/images/tear-effect.svg");
+    background-position: bottom right;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 .home-div-dans-image {
     position: absolute;
     left: 130px;
-    top: 194px;
+    top: 140px;
     background-color: white;
     width: 400px;
-    height: 260px;
+    height: 258px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -198,6 +214,7 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
 .home-before-cards {
     display: flex;
     flex-wrap: wrap;
