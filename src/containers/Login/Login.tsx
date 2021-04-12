@@ -1,15 +1,15 @@
 import { SyntheticEvent, useState } from "react";
 import { useHistory, Link, useLocation } from "react-router-dom";
 import axios from "axios";
-import SaveUserIds from "../functions/SaveUserIds";
+import SaveUserIds from "../../functions/SaveUserIds";
 
-import { useAppSelector, useAppDispatch } from "../app/hooks";
-import { AppThunk, RootState } from "../app/store";
+import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import { AppThunk, RootState } from "../../app/store";
 import {
     loginRequest,
     loginSucces,
     loginFail,
-} from "../app/connectedUserSlice";
+} from "../../app/connectedUserSlice";
 
 const Login = () => {
     const [email, setEmail] = useState("");

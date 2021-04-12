@@ -1,10 +1,10 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { store } from "../app/store";
+import { store } from "../../app/store";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
-import App from "../App";
-import { IOffer } from "../sharedInterfaces/IOffer";
+import App from "../../App";
+import { IOffer } from "../../sharedInterfaces/IOffer";
 import axiosMock from "axios";
 
 test("Home avant Axios", () => {

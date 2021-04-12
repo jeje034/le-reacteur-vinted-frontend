@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import axios from "axios";
-import { RootState } from "../app/store";
-import { useAppSelector } from "../app/hooks";
-import { IOffer } from "../sharedInterfaces/IOffer";
+import { RootState } from "../../app/store";
+import { useAppSelector } from "../../app/hooks";
+import { IOffer } from "../../sharedInterfaces/IOffer";
 
 const GetId = () => {
     const { id }: { id: string } = useParams();

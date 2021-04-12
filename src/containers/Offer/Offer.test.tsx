@@ -1,9 +1,9 @@
 import React from "react";
 import { render, waitFor } from "@testing-library/react";
 import Offer from "./Offer";
-import { IOffer } from "../sharedInterfaces/IOffer";
+import { IOffer } from "../../sharedInterfaces/IOffer";
 import { Provider } from "react-redux";
-import { store } from "../app/store";
+import { store } from "../../app/store";
 
 import axiosMock from "axios";
 import { act } from "react-dom/test-utils";

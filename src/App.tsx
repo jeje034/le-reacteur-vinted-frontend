@@ -4,11 +4,11 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import Cookies from "js-cookie";
-import Home from "./containers/Home";
-import Offer from "./containers/Offer";
+import Home from "./containers/Home/Home";
+import Offer from "./containers/Offer/Offer";
 import Header from "./components/Header";
 import Signup from "./containers/Signup";
-import Login from "./containers/Login";
+import Login from "./containers/Login/Login";
 import Publish from "./containers/Publish";
 import Payment from "./containers/Payment";
 
