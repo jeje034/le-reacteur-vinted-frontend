@@ -37,6 +37,7 @@ const FilterAndSortTool = () => {
                     ></path>
                 </svg>
                 <input
+                    data-testid="filter-and-sort-tool-title-search"
                     type="text"
                     className="filter-and-sort-tool-title-search"
                     placeholder="Rechercher des articles"

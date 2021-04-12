@@ -1,17 +1,16 @@
-import React from "react";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
 import App from "./App";
 
-test("Prêts à faire du tri dans vos placards ? should be in the document", () => {
+test("App", () => {
     const { getByText } = render(
         <Provider store={store}>
             <App />
         </Provider>
     );
 
-    //OK même si texte partiel, même si casse KO
+    //OK même si texte partiel, même si casse KO (grâce au i final)
     expect(
         getByText(/Prêts à faire du tri dans vos placards ?/i)
     ).toBeInTheDocument();
