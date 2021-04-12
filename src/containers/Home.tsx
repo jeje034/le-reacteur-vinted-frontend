@@ -136,7 +136,10 @@ const Home = () => {
                                         ) : (
                                             <div>Sans image</div>
                                         )}
-                                        <div className="home-price">
+                                        <div
+                                            className="home-price"
+                                            data-testid="home-price"
+                                        >
                                             {"" + offer.product_price + " €"}
                                         </div>
                                         <div className="home-taille-marque">

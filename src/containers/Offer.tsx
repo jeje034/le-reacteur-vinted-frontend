@@ -15,6 +15,7 @@ export interface IProductImage {
 }
 
 export interface IOffer {
+    _id: string;
     product_pictures: IProductPicture[];
     product_name: string;
     product_image: IProductImage;
@@ -33,6 +34,7 @@ const GetId = () => {
 
 const Offer = ({ isTesting }: { isTesting?: boolean }) => {
     const defaultOffer: IOffer = {
+        _id: "",
         product_name: "",
         product_price: 0,
         product_pictures: [],
