@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import TopBigImage from "../assets/images/hero.09bfd0f9.jpg";
 import NavigationBar from "../components/NavigationBar";
-import { IProductDetail } from "./Offer";
+import { IProductDetail } from "../sharedInterfaces/IOffer";
 import { useAppSelector } from "../app/hooks";
 import { RootState } from "../app/store";
 import HomeOfferOwner from "../components/HomeOfferOwner";

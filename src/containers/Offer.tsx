@@ -3,29 +3,7 @@ import { useHistory, useParams } from "react-router-dom";
 import axios from "axios";
 import { RootState } from "../app/store";
 import { useAppSelector } from "../app/hooks";
-
-export interface IProductDetail {
-    [name: string]: string;
-}
-export interface IProductPicture {
-    secure_url: string;
-}
-export interface IProductImage {
-    secure_url: string;
-}
-
-export interface IOffer {
-    _id: string;
-    product_pictures: IProductPicture[];
-    product_name: string;
-    product_image: IProductImage;
-    product_price: number;
-    product_details: IProductDetail[];
-    product_description: string;
-    owner: {
-        account: { avatar: { secure_url: string }; username: string };
-    };
-}
+import { IOffer } from "../sharedInterfaces/IOffer";
 
 const GetId = () => {
     const { id }: { id: string } = useParams();

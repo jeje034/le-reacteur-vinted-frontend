@@ -4,8 +4,7 @@ import { store } from "../app/store";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
 import App from "../App";
-import { IOffer } from "./Offer";
-
+import { IOffer } from "../sharedInterfaces/IOffer";
 import axiosMock from "axios";
 
 test("Home avant Axios", () => {

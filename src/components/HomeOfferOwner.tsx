@@ -1,4 +1,4 @@
-import { IOffer } from "../containers/Offer";
+import { IOffer } from "../sharedInterfaces/IOffer";
 import AvatarFemme from "../assets/images/avatarFemme.jpg";
 
 const HomeOfferOwner = ({ offer }: { offer: IOffer }) => {

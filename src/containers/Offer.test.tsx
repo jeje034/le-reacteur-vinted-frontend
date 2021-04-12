@@ -1,7 +1,7 @@
 import React from "react";
 import { render, waitFor } from "@testing-library/react";
 import Offer from "./Offer";
-import { IOffer } from "./Offer";
+import { IOffer } from "../sharedInterfaces/IOffer";
 import { Provider } from "react-redux";
 import { store } from "../app/store";
 
@@ -10,6 +10,7 @@ import { act } from "react-dom/test-utils";
 
 test("Product details mockes", async () => {
     const mockedOffer: IOffer = {
+        _id: "60292e0369c3fa0015c8d795",
         product_name: "Tongs Roxy bleues",
         product_price: 0,
         product_pictures: [],
