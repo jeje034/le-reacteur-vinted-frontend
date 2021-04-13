@@ -6,6 +6,7 @@ import { Router } from "react-router-dom";
 import App from "../../App";
 import { IOffer } from "../../sharedInterfaces/IOffer";
 import axiosMock from "axios";
+import userEvent from "@testing-library/user-event";
 
 test("Home avant Axios", () => {
     const history = createMemoryHistory();
@@ -33,11 +34,11 @@ test("Home avant Axios", () => {
     expect(screen.getByText("Commencer à vendre")).toBeInTheDocument();
 });
 
-test("Home Axios", async () => {
+test("Home avec page suivante", async () => {
     const mockedOffer: IOffer = {
-        _id: "60292e0369c3fa0015c8d795",
+        _id: "60292e0369c3fa0015c8d79500",
         product_name: "Tongs Roxy bleues",
-        product_price: 5,
+        product_price: 25,
         product_pictures: [],
         product_image: { secure_url: "" },
         product_details: [],
@@ -47,7 +48,14 @@ test("Home Axios", async () => {
 
     let mockedOffers: IOffer[] = [];
 
-    mockedOffers.push(mockedOffer);
+    for (let i = 0; i < 11; i++) {
+        mockedOffer._id = mockedOffer._id.substring(0, 24) + i;
+
+        mockedOffer.product_price = 25 + i; //Ainsi,
+        //on aura un seul 25 € dans le document et expect(screen.getByText("25 €")).toBeInTheDocument(); fonctionnera
+
+        mockedOffers.push({ ...mockedOffer });
+    }
 
     axiosMock.get.mockResolvedValueOnce({ data: { offers: mockedOffers } });
 
@@ -71,9 +79,25 @@ test("Home Axios", async () => {
 
     //On attend la simulation de retour d'Axios
     await waitFor(() => {
-        expect(screen.getByTestId("home-price")).toBeInTheDocument();
+        expect(screen.getByText("25 €")).toBeInTheDocument();
     });
 
-    //On teste la présence à l'écran des valeurs issues de la simulation du get Axios
-    expect(screen.getByText("5 €")).toBeInTheDocument();
+    const leftClick = { button: 0 };
+    userEvent.click(
+        screen.getByTestId("navigation-bar-next-page-button"),
+        leftClick
+    );
+    expect(screen.getByText("35 €")).toBeInTheDocument();
+
+    userEvent.click(
+        screen.getByTestId("navigation-bar-previous-page-button"),
+        leftClick
+    );
+    expect(screen.getByText("25 €")).toBeInTheDocument();
+
+    userEvent.click(
+        screen.getByTestId("navigation-bar-previous-page-button"),
+        leftClick
+    );
+    expect(screen.getByText("25 €")).toBeInTheDocument();
 });

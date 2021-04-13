@@ -26,6 +26,7 @@ const NavigationBar = ({
         <div className="navigation-bar-main container">
             <button
                 className="navigation-bar-left-button navigation-bar-button"
+                data-testid="navigation-bar-previous-page-button"
                 onClick={() => {
                     changePage(-1);
                 }}
@@ -34,6 +35,7 @@ const NavigationBar = ({
             </button>
             <button
                 className="navigation-bar-right-button navigation-bar-button"
+                data-testid="navigation-bar-next-page-button"
                 onClick={() => {
                     changePage(1);
                 }}
