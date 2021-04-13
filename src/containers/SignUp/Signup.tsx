@@ -2,11 +2,11 @@ import { SyntheticEvent, useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import axios from "axios";
 
-import { useAppDispatch } from "../app/hooks";
-import { setUserIds } from "../app/connectedUserSlice";
-import SaveUserIds from "../functions/SaveUserIds";
-import { RootState } from "../app/store";
-import { useAppSelector } from "../app/hooks";
+import { useAppDispatch } from "../../app/hooks";
+import { setUserIds } from "../../app/connectedUserSlice";
+import SaveUserIds from "../../functions/SaveUserIds";
+import { RootState } from "../../app/store";
+import { useAppSelector } from "../../app/hooks";
 
 const Signup = () => {
     const [username, setUsername] = useState("");

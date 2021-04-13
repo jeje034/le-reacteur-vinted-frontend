@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 import Home from "./containers/Home/Home";
 import Offer from "./containers/Offer/Offer";
 import Header from "./components/Header";
-import Signup from "./containers/Signup";
+import Signup from "./containers/SignUp/Signup";
 import Login from "./containers/Login/Login";
 import Publish from "./containers/Publish/Publish";
 import Payment from "./containers/Payment";

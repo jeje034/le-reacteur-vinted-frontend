@@ -28,8 +28,12 @@ test("Login page screen content and link to Signup page", () => {
     ).toBeInTheDocument();
     expect(screen.getByText(/Email/i)).toBeInTheDocument();
     expect(screen.getByText(/Mot de passe/i)).toBeInTheDocument();
-    const emailInput = screen.getByTestId("login-email-input");
-    const passwordInput = screen.getByTestId("login-password-input");
+    const emailInput = screen.getByTestId(
+        "login-email-input"
+    ) as HTMLInputElement;
+    const passwordInput = screen.getByTestId(
+        "login-password-input"
+    ) as HTMLInputElement;
 
     fireEvent.change(emailInput, { target: { value: "j3@s.fr" } });
     expect(emailInput.value).toBe("j3@s.fr");
