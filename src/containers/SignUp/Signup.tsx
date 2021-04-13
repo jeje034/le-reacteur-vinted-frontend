@@ -5,8 +5,7 @@ import axios from "axios";
 import { useAppDispatch } from "../../app/hooks";
 import { setUserIds } from "../../app/connectedUserSlice";
 import SaveUserIds from "../../functions/SaveUserIds";
-import { RootState } from "../../app/store";
-import { useAppSelector } from "../../app/hooks";
+import * as Constants from "../../constants/constants";
 
 const Signup = () => {
     const [username, setUsername] = useState("");
@@ -15,8 +14,6 @@ const Signup = () => {
     const [password, setPassword] = useState("");
     const [newsletterSubscription, setNewsletterSubscription] = useState(false);
 
-    const { baseUrl } = useAppSelector((state: RootState) => state.environment);
-
     let history = useHistory();
 
     const dispatch = useAppDispatch();
@@ -24,11 +21,14 @@ const Signup = () => {
     const handleToken = async () => {
         let newToken = null;
         try {
-            const response = await axios.post(baseUrl + "/user/signup", {
-                username: username,
-                email: email,
-                password: password,
-            });
+            const response = await axios.post(
+                Constants.BASE_URL + "/user/signup",
+                {
+                    username: username,
+                    email: email,
+                    password: password,
+                }
+            );
             newToken = response.data.token;
             dispatch(setUserIds({ token: newToken, id: response.data._id }));
             SaveUserIds(newToken, response.data._id);

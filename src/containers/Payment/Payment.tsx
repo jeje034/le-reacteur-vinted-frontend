@@ -4,9 +4,9 @@ import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { useAppSelector } from "../../app/hooks";
 import { StripeElements } from "@stripe/stripe-js";
+import * as Constants from "../../constants/constants";
 
 const Payment = () => {
-    const { baseUrl } = useAppSelector((state) => state.environment);
     const { id, token } = useAppSelector((state) => state.connectedUser);
 
     interface ICustomState {
@@ -19,7 +19,6 @@ const Payment = () => {
     const customState = location.state as ICustomState;
 
     const { price, productName } = customState;
-    //const { price, productName } = location.state;
 
     const stripe = useStripe();
     const elements: StripeElements | null = useElements();
@@ -55,7 +54,7 @@ const Payment = () => {
             const stripeToken = stripeResponse?.token.id;
 
             // Envoi vers le backend Vinted du token reçu depuis l'API Stripe
-            const response = await axios.post(baseUrl + "/payment", {
+            const response = await axios.post(Constants.BASE_URL + "/payment", {
                 stripeToken: stripeToken,
                 productName: productName,
                 amount: amount, //Si la transaction s'est bien passée, elle sera visible en https://dashboard.stripe.com/test/events

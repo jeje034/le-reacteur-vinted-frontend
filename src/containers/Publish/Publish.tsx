@@ -5,6 +5,7 @@ import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { useAppSelector } from "../../app/hooks";
 import { RootState } from "../../app/store";
+import * as Constants from "../../constants/constants";
 
 interface iFileWithPreview extends File {
     preview: string;
@@ -22,7 +23,6 @@ const Publish = () => {
     const [price, setPrice] = useState("");
     const [interestedInExchanges, setInterestedInExchanges] = useState(false);
 
-    const { baseUrl } = useAppSelector((state) => state.environment);
     const { token } = useAppSelector((state: RootState) => state.connectedUser);
 
     const onDrop = useCallback((acceptedFiles) => {
@@ -114,7 +114,7 @@ const Publish = () => {
 
         try {
             const response = await axios.post(
-                baseUrl + "/offer/publish",
+                Constants.BASE_URL + "/offer/publish",
                 formData,
                 {
                     headers: {

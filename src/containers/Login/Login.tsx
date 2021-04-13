@@ -10,6 +10,7 @@ import {
     loginSucces,
     loginFail,
 } from "../../app/connectedUserSlice";
+import * as Constants from "../../constants/constants";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -17,7 +18,6 @@ const Login = () => {
     const { loginError } = useAppSelector(
         (state: RootState) => state.connectedUser
     );
-    const { baseUrl } = useAppSelector((state: RootState) => state.environment);
 
     const dispatch = useAppDispatch();
 
@@ -32,10 +32,13 @@ const Login = () => {
             dispatch(loginRequest());
 
             //Puis on appelle l'API
-            const response = await axios.post(baseUrl + "/user/login", {
-                email: email,
-                password: password,
-            });
+            const response = await axios.post(
+                Constants.BASE_URL + "/user/login",
+                {
+                    email: email,
+                    password: password,
+                }
+            );
             if (response.data.token) {
                 dispatch(loginSucces(response.data));
                 SaveUserIds(response.data.token, response.data._id);

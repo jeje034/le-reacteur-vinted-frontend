@@ -14,7 +14,6 @@ import Payment from "./containers/Payment/Payment";
 
 import { useAppDispatch } from "./app/hooks";
 import { initToken } from "./app/connectedUserSlice";
-import { setBaseUrl } from "./app/environmentSlice";
 
 const stripePromise = loadStripe(
     //Clé plublique
@@ -27,9 +26,6 @@ function App() {
     useEffect(() => {
         let token = Cookies.get("token");
         dispatch(initToken(token));
-        dispatch(setBaseUrl("https://le-reacteur-vinted.herokuapp.com")); //Site distant Jérôme
-        //dispatch(setBaseUrl("https://lereacteur-vinted-api.herokuapp.com")); //Site distant Le Reacteur
-        //dispatch(setBaseUrl("http://localhost:3001")); //Site local Jérôme
     }, [dispatch]);
 
     return (

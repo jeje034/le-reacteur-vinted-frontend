@@ -7,6 +7,7 @@ import { IProductDetail } from "../../sharedInterfaces/IOffer";
 import { useAppSelector } from "../../app/hooks";
 import { RootState } from "../../app/store";
 import HomeOfferOwner from "../../components/HomeOfferOwner";
+import * as Constants from "../../constants/constants";
 
 const Home = () => {
     const [isDownloading, setIsDownloading] = useState(true);
@@ -17,7 +18,6 @@ const Home = () => {
     const { priceRange, titleSearch } = useAppSelector(
         (state: RootState) => state.offerFilter
     );
-    const { baseUrl } = useAppSelector((state: RootState) => state.environment);
 
     const limit = 10;
     let history = useHistory();
@@ -28,7 +28,7 @@ const Home = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            let request = baseUrl + "/offers";
+            let request = Constants.BASE_URL + "/offers";
 
             request += `?priceMin=${priceRange[0]}&priceMax=${priceRange[1]}&page=${page}&limit=${limit}`;
 
@@ -37,23 +37,20 @@ const Home = () => {
             }
 
             try {
-                if (baseUrl) {
-                    //Sans ce if (baseUrl), la requête se lance une 1ere fois avec une baseUrl vide (avant que baseUrl ait eu le temps d'être initialisé)
-                    const response = await axios.get(request);
+                const response = await axios.get(request);
 
-                    //if (response) ajouté pour les tests
-                    if (response) {
-                        setOffers(response.data.offers);
-                        setNumberOfOffers(response.data.count);
-                        setIsDownloading(false);
-                    }
+                //if (response) ajouté pour les tests
+                if (response) {
+                    setOffers(response.data.offers);
+                    setNumberOfOffers(response.data.count);
+                    setIsDownloading(false);
                 }
             } catch (error) {
                 console.log("An error occured :", error.message);
             }
         };
         fetchData();
-    }, [titleSearch, priceRange, baseUrl, page]);
+    }, [titleSearch, priceRange, page]);
 
     const getPoductDetail = (
         productDetails: IProductDetail[],

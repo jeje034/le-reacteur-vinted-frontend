@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import axios from "axios";
-import { RootState } from "../../app/store";
-import { useAppSelector } from "../../app/hooks";
 import { IOffer } from "../../sharedInterfaces/IOffer";
+import * as Constants from "../../constants/constants";
 
 const GetId = () => {
     const { id }: { id: string } = useParams();
@@ -22,13 +21,10 @@ const Offer = ({ isTesting }: { isTesting?: boolean }) => {
         owner: { account: { avatar: { secure_url: "" }, username: "" } },
     };
 
-    let { baseUrl } = useAppSelector((state: RootState) => state.environment);
-
     const [isDownloading, setIsDownloading] = useState(true);
     let id: string;
     if (isTesting) {
         id = "falseIdForTests";
-        baseUrl = "notEmptyForTests";
     } else {
         id = GetId();
     }
@@ -40,15 +36,14 @@ const Offer = ({ isTesting }: { isTesting?: boolean }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                if (baseUrl) {
-                    //Sans ce if (baseUrl), la requête se lance une 1ere fois avec une baseUrl vide (avant que baseUrl ait eu le temps d'être initialisé)
-                    const response = await axios.get(baseUrl + "/offer/" + id);
+                const response = await axios.get(
+                    Constants.BASE_URL + "/offer/" + id
+                );
 
-                    //if (response) ajouté pour les tests
-                    if (response) {
-                        setOffer(response.data);
-                        setIsDownloading(false);
-                    }
+                //if (response) ajouté pour les tests
+                if (response) {
+                    setOffer(response.data);
+                    setIsDownloading(false);
                 }
             } catch (error) {
                 console.log("An error occured:", error.message);
@@ -56,7 +51,7 @@ const Offer = ({ isTesting }: { isTesting?: boolean }) => {
         };
 
         fetchData();
-    }, [id, baseUrl]);
+    }, [id]);
 
     return (
         <div className="offer-main" data-testid="offer-debug-id">
