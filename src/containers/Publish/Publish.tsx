@@ -3,8 +3,8 @@ import { Redirect, useHistory } from "react-router-dom";
 import axios from "axios";
 import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
-import { useAppSelector } from "../app/hooks";
-import { RootState } from "../app/store";
+import { useAppSelector } from "../../app/hooks";
+import { RootState } from "../../app/store";
 
 interface iFileWithPreview extends File {
     preview: string;

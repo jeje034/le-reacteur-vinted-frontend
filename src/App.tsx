@@ -9,7 +9,7 @@ import Offer from "./containers/Offer/Offer";
 import Header from "./components/Header";
 import Signup from "./containers/Signup";
 import Login from "./containers/Login/Login";
-import Publish from "./containers/Publish";
+import Publish from "./containers/Publish/Publish";
 import Payment from "./containers/Payment";
 
 import { useAppDispatch } from "./app/hooks";
