@@ -10,7 +10,7 @@ import Header from "./components/Header";
 import Signup from "./containers/SignUp/Signup";
 import Login from "./containers/Login/Login";
 import Publish from "./containers/Publish/Publish";
-import Payment from "./containers/Payment";
+import Payment from "./containers/Payment/Payment";
 
 import { useAppDispatch } from "./app/hooks";
 import { initToken } from "./app/connectedUserSlice";
