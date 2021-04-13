@@ -40,10 +40,8 @@ test("Login page screen content and link to Signup page", () => {
     fireEvent.change(passwordInput, { target: { value: "j" } });
     expect(passwordInput.value).toBe("j");
 
-    userEvent.click(screen.getByText(/Pas encore de compte ?/i), leftClick);
+    userEvent.click(screen.getByTestId("login-switch-to-signup"), leftClick);
 
-    // check that the content changed to the new page
-    expect(
-        screen.getByText("Tu as déjà un compte ? Connecte-toi !")
-    ).toBeInTheDocument();
+    // On vérifie qu'on arrive sur la nouvelle page
+    expect(screen.getByTestId("signup-switch-to-login")).toBeInTheDocument();
 });

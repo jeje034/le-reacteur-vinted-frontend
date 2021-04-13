@@ -44,7 +44,10 @@ const Header = () => {
                 <div className="header-button-group">
                     {!token && (
                         <Link to="/signup">
-                            <button className="header-sign-up-login">
+                            <button
+                                className="header-sign-up-login"
+                                data-testid="header-signup-button"
+                            >
                                 S'inscrire
                             </button>
                         </Link>

@@ -132,7 +132,11 @@ const Login = () => {
                 </button>
             </form>
             {
-                <Link to="/signup" className="signup-login-switch">
+                <Link
+                    to="/signup"
+                    className="signup-login-switch"
+                    data-testid="login-switch-to-signup"
+                >
                     <div>Pas encore de compte ? Inscris-toi !</div>
                 </Link>
             }

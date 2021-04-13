@@ -19,7 +19,7 @@ test("Redirection to home page and store after login", async () => {
     );
 
     const leftClick = { button: 0 };
-    userEvent.click(screen.getByText(/Se connecter/i), leftClick);
+    userEvent.click(screen.getByTestId("header-login-button"), leftClick);
 
     axiosMock.post.mockResolvedValueOnce({ data: MockedLogin });
 

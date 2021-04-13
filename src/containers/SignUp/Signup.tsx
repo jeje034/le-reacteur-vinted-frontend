@@ -104,6 +104,7 @@ const Signup = () => {
                     value={username}
                     onChange={handleUsernameChange}
                     className="signup-login-input"
+                    data-testid="signup-username-input"
                 />
                 <input
                     type="email"
@@ -112,6 +113,7 @@ const Signup = () => {
                     value={email}
                     onChange={handleEmailChange}
                     className="signup-login-input"
+                    data-testid="signup-email-input"
                 />
                 {errorMessage && (
                     <div className="signup-login-error-message">
@@ -125,6 +127,7 @@ const Signup = () => {
                     value={password}
                     onChange={handlePasswordChange}
                     className="signup-login-input"
+                    data-testid="signup-password-input"
                     autoComplete="off"
                 />
                 <input
@@ -142,11 +145,19 @@ const Signup = () => {
                     Conditions et Politique de Confidentialité de Vinted. Je
                     confirme avoir au moins 18 ans.
                 </div>
-                <button type="submit" className="signup-login-button">
+                <button
+                    type="submit"
+                    className="signup-login-button"
+                    data-testid="signup-signup-button"
+                >
                     S'inscrire
                 </button>
             </form>
-            <Link to="/login" className="signup-login-switch">
+            <Link
+                to="/login"
+                className="signup-login-switch"
+                data-testid="signup-switch-to-login"
+            >
                 <div>Tu as déjà un compte ? Connecte-toi !</div>
             </Link>
         </div>
