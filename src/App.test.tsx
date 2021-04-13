@@ -11,5 +11,5 @@ test("App", () => {
     );
 
     //On vérifie qu'on arrive bien sur l'écran d'accueil
-    expect(screen.getByTestId("button-text-to-sell")).toBeInTheDocument();
+    expect(screen.getByTestId("home-sell-button")).toBeInTheDocument();
 });

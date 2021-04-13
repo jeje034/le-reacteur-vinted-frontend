@@ -1,5 +1,4 @@
-import React from "react";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { store } from "../../app/store";
 import userEvent from "@testing-library/user-event";
@@ -7,6 +6,7 @@ import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
 import App from "../../App";
 import axiosMock from "axios";
+import { MockedLogin } from "../../sharedObjetcs/MockedLogin";
 
 test("Redirection to home page and store after login", async () => {
     const history = createMemoryHistory();
@@ -21,24 +21,17 @@ test("Redirection to home page and store after login", async () => {
     const leftClick = { button: 0 };
     userEvent.click(screen.getByText(/Se connecter/i), leftClick);
 
-    const testLoginId = "falseIdForTests";
-    const testLoginTocken = "falseTokenForTests";
-
-    const mockedLogin = {
-        _id: testLoginId,
-        token: testLoginTocken,
-    };
-    axiosMock.post.mockResolvedValueOnce({ data: mockedLogin });
+    axiosMock.post.mockResolvedValueOnce({ data: MockedLogin });
 
     userEvent.click(screen.getByTestId("login-connection-button"), leftClick);
 
     await waitFor(() => {
-        expect(screen.getByTestId("button-text-to-sell")).toBeInTheDocument();
+        expect(screen.getByTestId("home-sell-button")).toBeInTheDocument();
     });
 
     const rootStore = store.getState();
-    expect(rootStore.connectedUser.token).toEqual(testLoginTocken);
-    expect(rootStore.connectedUser.id).toEqual(testLoginId);
+    expect(rootStore.connectedUser.token).toEqual(MockedLogin.token);
+    expect(rootStore.connectedUser.id).toEqual(MockedLogin._id);
     expect(rootStore.connectedUser.loginError).toEqual("");
     expect(rootStore.connectedUser.isLoading).toEqual(false);
 });

@@ -201,7 +201,7 @@
     padding-right: 25px;
 }
 
-.button-text-to-sell {
+.home-sell-button {
     font-size: 16px;
     background-color: var(--vinted-color);
     color: var(--opposite-of-vinted-color);

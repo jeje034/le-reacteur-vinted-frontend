@@ -5,7 +5,6 @@ import userEvent from "@testing-library/user-event";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
 import App from "../../App";
-import axiosMock from "axios";
 
 test("Login page screen content and link to Signup page", () => {
     const history = createMemoryHistory();
@@ -21,7 +20,7 @@ test("Login page screen content and link to Signup page", () => {
 
     //On clique sur le bouton "Se connecter"
     const leftClick = { button: 0 };
-    userEvent.click(screen.getByText(/Se connecter/i), leftClick);
+    userEvent.click(screen.getByTestId("header-login-button"), leftClick);
 
     //On vérifie le text à l'écran et les input
     expect(

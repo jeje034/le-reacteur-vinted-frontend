@@ -52,7 +52,10 @@ const Header = () => {
 
                     {!token && (
                         <Link to="/login">
-                            <button className="header-sign-up-login">
+                            <button
+                                className="header-sign-up-login"
+                                data-testid="header-login-button"
+                            >
                                 Se connecter
                             </button>
                         </Link>

@@ -89,8 +89,8 @@ const Home = () => {
                         Prêts à faire du tri dans vos placards ?
                     </div>
                     <button
-                        className="button-text-to-sell"
-                        data-testid="button-text-to-sell"
+                        className="home-sell-button"
+                        data-testid="home-sell-button"
                         onClick={() => {
                             handleSellButtonClick();
                         }}
