@@ -10,13 +10,6 @@ test("App", () => {
         </Provider>
     );
 
-    //OK même si texte partiel, même si casse KO (grâce au i final)
-    expect(
-        getByText(/Prêts à faire du tri dans vos placards ?/i)
-    ).toBeInTheDocument();
-
-    // //Ko si casse KO, si texte partiel. Par exemple ("tri") est KO
-    // expect(
-    //     getByText("Prêts à faire du tri dans vos placards ?")
-    // ).toBeInTheDocument();
+    //On vérifie qu'on arrive bien sur l'écran d'accueil
+    expect(screen.getByTestId("button-text-to-sell")).toBeInTheDocument();
 });

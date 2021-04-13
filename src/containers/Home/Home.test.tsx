@@ -17,11 +17,6 @@ test("Home avant Axios", () => {
         </Provider>
     );
 
-    //On vérifie qu'on est sur la bonne page
-    expect(
-        screen.getByText(/Prêts à faire du tri dans vos placards ?/i)
-    ).toBeInTheDocument();
-
     //On vérifie qu'on a tous les éléments du Header
     expect(
         screen.getByTestId("filter-and-sort-tool-title-search")
@@ -32,6 +27,9 @@ test("Home avant Axios", () => {
     expect(screen.getByText("Vends tes produits")).toBeInTheDocument();
 
     //On vérifie les autres élements chargés avant l'appel d'Axios
+    expect(
+        screen.getByText("Prêts à faire du tri dans vos placards ?")
+    ).toBeInTheDocument();
     expect(screen.getByText("Commencer à vendre")).toBeInTheDocument();
 });
 

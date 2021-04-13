@@ -102,6 +102,7 @@ const Login = () => {
                     value={email}
                     onChange={handleEmailChange}
                     className="signup-login-input"
+                    data-testid="login-email-input"
                 />
                 <input
                     type="password"
@@ -111,6 +112,7 @@ const Login = () => {
                     onChange={handlePasswordChange}
                     className="signup-login-input"
                     autoComplete="off"
+                    data-testid="login-password-input"
                 />
                 <div
                     className={
@@ -121,7 +123,11 @@ const Login = () => {
                 >
                     Email ou mot de passe incorrect
                 </div>
-                <button type="submit" className="signup-login-button">
+                <button
+                    type="submit"
+                    className="signup-login-button"
+                    data-testid="login-connection-button"
+                >
                     Se connecter
                 </button>
             </form>

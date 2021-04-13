@@ -90,6 +90,7 @@ const Home = () => {
                     </div>
                     <button
                         className="button-text-to-sell"
+                        data-testid="button-text-to-sell"
                         onClick={() => {
                             handleSellButtonClick();
                         }}
