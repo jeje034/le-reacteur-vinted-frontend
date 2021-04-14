@@ -70,7 +70,7 @@ const Payment = () => {
     };
 
     return (
-        <div className="payment-main">
+        <div className="payment-main" data-testid="payment-main">
             {token ? (
                 <div>
                     <div className="payment-margin-top"></div>

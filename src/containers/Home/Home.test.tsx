@@ -7,6 +7,7 @@ import App from "../../App";
 import { IOffer } from "../../sharedInterfaces/IOffer";
 import axiosMock from "axios";
 import userEvent from "@testing-library/user-event";
+import SaveUserIds from "../../functions/SaveUserIds";
 
 test("Home avant Axios", () => {
     const history = createMemoryHistory();
@@ -24,7 +25,7 @@ test("Home avant Axios", () => {
     ).toBeInTheDocument();
     expect(screen.getByText("Prix entre 0 et 500 € :")).toBeInTheDocument();
     expect(screen.getByText("S'inscrire")).toBeInTheDocument();
-    expect(screen.getByText("Se connecter")).toBeInTheDocument();
+    expect(screen.getByTestId("header-login-button")).toBeInTheDocument();
     expect(screen.getByText("Vends tes produits")).toBeInTheDocument();
 
     //On vérifie les autres élements chargés avant l'appel d'Axios
@@ -34,7 +35,7 @@ test("Home avant Axios", () => {
     expect(screen.getByText("Commencer à vendre")).toBeInTheDocument();
 });
 
-test("Home avec page suivante", async () => {
+test("Home avec navigation", async () => {
     const mockedOffer: IOffer = {
         _id: "60292e0369c3fa0015c8d79500",
         product_name: "Tongs Roxy bleues",
@@ -99,4 +100,19 @@ test("Home avec page suivante", async () => {
         leftClick
     );
     expect(screen.getByText("25 €")).toBeInTheDocument();
+});
+
+test("Home avec utilisateur déjà connecté", () => {
+    SaveUserIds({ userToken: "fakeUserToken", userId: "fakeUserId" });
+    const history = createMemoryHistory();
+    render(
+        <Provider store={store}>
+            <Router history={history}>
+                <App />
+            </Router>
+        </Provider>
+    );
+
+    //La présence de ce bouton indique qu'on est connecté
+    expect(screen.getByTestId("header-log-out-button")).toBeInTheDocument();
 });

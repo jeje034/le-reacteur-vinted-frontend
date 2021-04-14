@@ -18,12 +18,6 @@ const connectedUserSlice = createSlice({
     name: "connectedUser",
     initialState: initialState,
     reducers: {
-        initToken(state, action) {
-            state.token = action.payload;
-            state.id = "";
-            state.isLoading = false;
-            state.loginError = "";
-        },
         setUserIds(state, action) {
             state.token = action.payload.token;
             state.id = action.payload.id;
@@ -63,7 +57,6 @@ export default connectedUserSlice.reducer;
 
 //Actions
 export const {
-    initToken,
     setUserIds,
     loginRequest,
     loginSucces,

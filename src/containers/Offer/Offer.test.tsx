@@ -4,9 +4,7 @@ import { IOffer } from "../../sharedInterfaces/IOffer";
 import { Provider } from "react-redux";
 import { store } from "../../app/store";
 import { BrowserRouter as Router, MemoryRouter, Route } from "react-router-dom";
-
 import axiosMock from "axios";
-import { act } from "react-dom/test-utils";
 
 test("Product details mockes", async () => {
     const mockedOffer: IOffer = {

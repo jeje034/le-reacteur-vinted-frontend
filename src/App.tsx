@@ -13,7 +13,7 @@ import Publish from "./containers/Publish/Publish";
 import Payment from "./containers/Payment/Payment";
 
 import { useAppDispatch } from "./app/hooks";
-import { initToken } from "./app/connectedUserSlice";
+import { setUserIds } from "./app/connectedUserSlice";
 
 const stripePromise = loadStripe(
     //Clé plublique
@@ -24,8 +24,9 @@ function App() {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        let token = Cookies.get("token");
-        dispatch(initToken(token));
+        let userToken = Cookies.get("token");
+        let userId = Cookies.get("userId");
+        dispatch(setUserIds({ token: userToken, id: userId }));
     }, [dispatch]);
 
     return (

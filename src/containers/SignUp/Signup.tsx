@@ -31,7 +31,7 @@ const Signup = () => {
             );
             newToken = response.data.token;
             dispatch(setUserIds({ token: newToken, id: response.data._id }));
-            SaveUserIds(newToken, response.data._id);
+            SaveUserIds({ userToken: newToken, userId: response.data._id });
             if (newToken) {
                 history.push("/");
             }
@@ -57,7 +57,7 @@ const Signup = () => {
                 }
             }
             dispatch(setUserIds({ token: "", id: "" }));
-            SaveUserIds("", "");
+            SaveUserIds({ userToken: "", userId: "" });
         }
     };
 

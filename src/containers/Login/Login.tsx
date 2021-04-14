@@ -41,7 +41,10 @@ const Login = () => {
             );
             if (response.data.token) {
                 dispatch(loginSucces(response.data));
-                SaveUserIds(response.data.token, response.data._id);
+                SaveUserIds({
+                    userToken: response.data.token,
+                    userId: response.data._id,
+                });
 
                 interface ICustomState {
                     fromPublish: boolean;
@@ -65,11 +68,11 @@ const Login = () => {
                 }
             } else {
                 dispatch(loginFail("Impossible de se connecter : token vide."));
-                SaveUserIds("", "");
+                SaveUserIds({ userToken: "", userId: "" });
             }
         } catch (err) {
             dispatch(loginFail(err.message));
-            SaveUserIds("", "");
+            SaveUserIds({ userToken: "", userId: "" });
         }
     };
 

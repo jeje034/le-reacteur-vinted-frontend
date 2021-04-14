@@ -1,3 +1,6 @@
+//C'est ainsi que l'api Vinted renvoie ces "offers".
+//Il n'y a pas obligatoirement toutes les propriétés renvoyées par l'API.
+
 export interface IProductDetail {
     [name: string]: string;
 }

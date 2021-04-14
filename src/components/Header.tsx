@@ -67,9 +67,10 @@ const Header = () => {
                     {token && (
                         <button
                             className="header-sign-up-login header-log-out"
+                            data-testid="header-log-out-button"
                             onClick={() => {
                                 dispatch(disconnect());
-                                SaveUserIds("", "");
+                                SaveUserIds({ userToken: "", userId: "" });
                             }}
                         >
                             Se déconnecter

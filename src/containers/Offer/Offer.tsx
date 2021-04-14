@@ -144,6 +144,7 @@ const Offer = ({ isTesting }: { isTesting?: boolean }) => {
                         </div>
                         <button
                             className="offer-buy"
+                            data-testid="offer-buy"
                             onClick={() => {
                                 history.push("/payment", {
                                     price: offer.product_price,

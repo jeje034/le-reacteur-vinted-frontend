@@ -1,9 +1,10 @@
 import Cookies from "js-cookie";
+import { IUserIds } from "../sharedInterfaces/IUserIds";
 
-const SaveUserIds = (userToken: string, userId: string) => {
-    if (userToken) {
-        Cookies.set("token", userToken, { expires: 7 });
-        Cookies.set("userId", userId, { expires: 7 });
+const SaveUserIds = (userIds: IUserIds) => {
+    if (userIds && userIds.userToken) {
+        Cookies.set("token", userIds.userToken, { expires: 7 });
+        Cookies.set("userId", userIds.userId, { expires: 7 });
     } else {
         Cookies.remove("token");
         Cookies.remove("userId");
