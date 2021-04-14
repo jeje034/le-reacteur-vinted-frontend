@@ -3,8 +3,10 @@ import { useHistory, useParams } from "react-router-dom";
 import axios from "axios";
 import { IOffer } from "../../sharedInterfaces/IOffer";
 import * as Constants from "../../constants/constants";
+import { useAppSelector } from "../../app/hooks";
+import { IUserIds } from "../../sharedInterfaces/IUserIds";
 
-const Offer = ({ isTesting }: { isTesting?: boolean }) => {
+const Offer = () => {
     const defaultOffer: IOffer = {
         _id: "",
         product_name: "",
@@ -17,8 +19,9 @@ const Offer = ({ isTesting }: { isTesting?: boolean }) => {
     };
 
     const [isDownloading, setIsDownloading] = useState(true);
-    const { id }: { id: string } = useParams();
+    const { productId }: { productId: string } = useParams();
     const [offer, setOffer] = useState<IOffer>(defaultOffer);
+    const { id, token } = useAppSelector((state) => state.connectedUser);
 
     let history = useHistory();
 
@@ -26,7 +29,7 @@ const Offer = ({ isTesting }: { isTesting?: boolean }) => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(
-                    Constants.BASE_URL + "/offer/" + id
+                    Constants.BASE_URL + "/offer/" + productId
                 );
 
                 //if (response) ajouté pour les tests
@@ -40,7 +43,22 @@ const Offer = ({ isTesting }: { isTesting?: boolean }) => {
         };
 
         fetchData();
-    }, [id]);
+    }, [productId]);
+
+    const goToPaymentPage = () => {
+        if (token) {
+            const userIds: IUserIds = {
+                userToken: token,
+                userId: id,
+            };
+            const parameters = {
+                price: offer.product_price,
+                productName: offer.product_name || "(Sans nom)",
+                userIds,
+            };
+            history.push("/payment", parameters);
+        }
+    };
 
     return (
         <div className="offer-main" data-testid="offer-debug-id">
@@ -145,13 +163,7 @@ const Offer = ({ isTesting }: { isTesting?: boolean }) => {
                         <button
                             className="offer-buy"
                             data-testid="offer-buy"
-                            onClick={() => {
-                                history.push("/payment", {
-                                    price: offer.product_price,
-                                    productName:
-                                        offer.product_name || "(Sans nom)",
-                                });
-                            }}
+                            onClick={goToPaymentPage}
                         >
                             Acheter
                         </button>

@@ -33,7 +33,7 @@ function App() {
         <Router>
             <Header />
             <Switch>
-                <Route path="/offer/:id">
+                <Route path="/offer/:productId">
                     <Offer />
                 </Route>
                 <Route path="/signup">

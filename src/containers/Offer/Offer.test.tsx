@@ -23,7 +23,7 @@ test("Product details mockes", async () => {
         <Provider store={store}>
             <Router>
                 <MemoryRouter initialEntries={[`/offer/${mockedOffer._id}`]}>
-                    <Route path="/offer/:id">
+                    <Route path="/offer/:productId">
                         <Offer />
                     </Route>
                 </MemoryRouter>

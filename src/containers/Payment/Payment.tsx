@@ -2,23 +2,23 @@ import { SyntheticEvent, useState } from "react";
 import { Redirect, useLocation } from "react-router-dom";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import axios from "axios";
-import { useAppSelector } from "../../app/hooks";
 import { StripeElements } from "@stripe/stripe-js";
 import * as Constants from "../../constants/constants";
+import { IUserIds } from "../../sharedInterfaces/IUserIds";
 
 const Payment = () => {
-    const { id, token } = useAppSelector((state) => state.connectedUser);
-
     interface ICustomState {
         price: number;
         productName: string;
+        userIds: IUserIds;
     }
 
     const location = useLocation();
 
     const customState = location.state as ICustomState;
 
-    const { price, productName } = customState;
+    const { price, productName, userIds } = customState;
+    //console.log("customState", customState);
 
     const stripe = useStripe();
     const elements: StripeElements | null = useElements();
@@ -40,7 +40,7 @@ const Payment = () => {
 
         // Demande de création d'un token via l'API Stripe. On envoie les données bancaires dans la requête
         const stripeResponse = await stripe?.createToken(cardElement, {
-            name: id,
+            name: userIds.userId,
         });
 
         if (stripeResponse?.error) {
@@ -71,8 +71,8 @@ const Payment = () => {
 
     return (
         <div className="payment-main" data-testid="payment-main">
-            {token ? (
-                <div>
+            {userIds && userIds.userToken ? (
+                <div data-testid="payment-with-token">
                     <div className="payment-margin-top"></div>
                     <div className="payment-container">
                         <h1>Résumé de la commande</h1>
