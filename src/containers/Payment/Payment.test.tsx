@@ -1,12 +1,14 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { store } from "../../app/store";
-import SaveUserIds from "../../functions/SaveUserIds";
 import { Router, MemoryRouter, Route } from "react-router-dom";
 import Payment from "./Payment";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import { createMemoryHistory } from "history";
+import userEvent from "@testing-library/user-event";
+import axiosMock from "axios";
+import * as Constants from "../../constants/constants";
 
 const stripePromise = loadStripe(
     //Clé plublique
@@ -27,7 +29,8 @@ test("Payment", async () => {
                                 productName: "Tongs01",
                                 userIds: {
                                     userToken: "fakeUserToken",
-                                    userId: "fakeUserId",
+                                    userId:
+                                        Constants.FAKE_USER_ID_FOR_STRIPE_IN_JEST,
                                 },
                             },
                         },
@@ -48,4 +51,22 @@ test("Payment", async () => {
         expect(screen.getByText("Résumé de la commande")).toBeInTheDocument();
     });
     expect(screen.getByText(fakePrice.toFixed(2) + " €")).toBeInTheDocument();
+    expect(screen.getByTestId("payment-button-pay")).toBeInTheDocument();
+
+    // jest.spyOn(window, "alert").mockImplementation((alertMessage) => {
+    //     console.log(`alert: ${alertMessage}`);
+    // });
+
+    const leftClick = { button: 0 };
+    userEvent.click(screen.getByTestId("payment-button-pay"), leftClick);
+
+    const mockedResponse = {
+        status: "succeeded",
+    };
+    axiosMock.post.mockResolvedValueOnce({ data: mockedResponse });
+    await waitFor(() => {
+        expect(
+            screen.getByText("Paiement effectué. Merci pour votre achat.")
+        ).toBeInTheDocument();
+    });
 });
