@@ -59,7 +59,6 @@ test("Home avec page suivante", async () => {
 
     axiosMock.get.mockResolvedValueOnce({ data: { offers: mockedOffers } });
 
-    //await act(async () => {
     const history = createMemoryHistory();
     render(
         <Provider store={store}>

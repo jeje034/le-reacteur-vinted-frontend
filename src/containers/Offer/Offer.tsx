@@ -4,11 +4,6 @@ import axios from "axios";
 import { IOffer } from "../../sharedInterfaces/IOffer";
 import * as Constants from "../../constants/constants";
 
-const GetId = () => {
-    const { id }: { id: string } = useParams();
-    return id;
-};
-
 const Offer = ({ isTesting }: { isTesting?: boolean }) => {
     const defaultOffer: IOffer = {
         _id: "",
@@ -22,13 +17,7 @@ const Offer = ({ isTesting }: { isTesting?: boolean }) => {
     };
 
     const [isDownloading, setIsDownloading] = useState(true);
-    let id: string;
-    if (isTesting) {
-        id = "falseIdForTests";
-    } else {
-        id = GetId();
-    }
-
+    const { id }: { id: string } = useParams();
     const [offer, setOffer] = useState<IOffer>(defaultOffer);
 
     let history = useHistory();

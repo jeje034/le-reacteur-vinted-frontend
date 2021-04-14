@@ -1,9 +1,9 @@
-import React from "react";
 import { render, waitFor } from "@testing-library/react";
 import Offer from "./Offer";
 import { IOffer } from "../../sharedInterfaces/IOffer";
 import { Provider } from "react-redux";
 import { store } from "../../app/store";
+import { BrowserRouter as Router, MemoryRouter, Route } from "react-router-dom";
 
 import axiosMock from "axios";
 import { act } from "react-dom/test-utils";
@@ -21,30 +21,28 @@ test("Product details mockes", async () => {
     };
     axiosMock.get.mockResolvedValueOnce({ data: mockedOffer });
 
-    await act(async () => {
-        //Impossible de faire fonctionner ce mock de useParams()
-        // jest.mock("react-router-dom", () => ({
-        //     ...jest.requireActual("react-router-dom"),
-        //     useParams: () => ({ id: "60292e0369c3fa0015c8d795" }),
-        // }));
+    const { getByTestId } = render(
+        <Provider store={store}>
+            <Router>
+                <MemoryRouter initialEntries={[`/offer/${mockedOffer._id}`]}>
+                    <Route path="/offer/:id">
+                        <Offer />
+                    </Route>
+                </MemoryRouter>
+            </Router>
+        </Provider>
+    );
+    expect(getByTestId("offer-debug-id")).toBeInTheDocument();
 
-        const { getByTestId } = render(
-            <Provider store={store}>
-                <Offer isTesting={true} />
-            </Provider>
-        );
-        expect(getByTestId("offer-debug-id")).toBeInTheDocument();
+    expect(getByTestId("offer-is-downloading")).toHaveTextContent(
+        "Chargement en cours ..."
+    );
 
-        expect(getByTestId("offer-is-downloading")).toHaveTextContent(
-            "Chargement en cours ..."
-        );
-
-        await waitFor(() => {
-            expect(getByTestId("offer-is-downloaded")).toBeInTheDocument();
-        });
-
-        expect(getByTestId("offer-product-name")).toHaveTextContent(
-            "Tongs Roxy bleues"
-        );
+    await waitFor(() => {
+        expect(getByTestId("offer-is-downloaded")).toBeInTheDocument();
     });
+
+    expect(getByTestId("offer-product-name")).toHaveTextContent(
+        "Tongs Roxy bleues"
+    );
 });
