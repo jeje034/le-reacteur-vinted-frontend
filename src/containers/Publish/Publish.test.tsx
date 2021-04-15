@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { store } from "../../app/store";
 import userEvent from "@testing-library/user-event";
@@ -47,4 +47,22 @@ test("Publish", async () => {
         screen.getByText("Je suis intéressé(e) par les échanges")
     ).toBeInTheDocument();
     expect(screen.getByText("Ajouter")).toBeInTheDocument();
+
+    const titleInput = screen.getByTestId("publish-title") as HTMLInputElement;
+    fireEvent.change(titleInput, { target: { value: "myTitle" } });
+    expect(titleInput.value).toBe("myTitle");
+
+    const brandInput = screen.getByTestId("publish-brand") as HTMLInputElement;
+    fireEvent.change(brandInput, { target: { value: "myBrand" } });
+    expect(brandInput.value).toBe("myBrand");
+
+    const descriptionInput = screen.getByTestId(
+        "publish-description"
+    ) as HTMLInputElement;
+    fireEvent.change(descriptionInput, { target: { value: "myDescription" } });
+    expect(descriptionInput.value).toBe("myDescription");
+
+    const colorInput = screen.getByTestId("publish-color") as HTMLInputElement;
+    fireEvent.change(colorInput, { target: { value: "myColor" } });
+    expect(colorInput.value).toBe("myColor");
 });

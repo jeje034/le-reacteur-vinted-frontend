@@ -46,37 +46,31 @@ const Publish = () => {
     let history = useHistory();
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-        setTitle(value);
+        setTitle(event.target.value);
     };
 
     const handleDescriptionChange = (
         event: React.ChangeEvent<HTMLTextAreaElement>
     ) => {
-        const value = event.target.value;
-        setDescription(value);
+        setDescription(event.target.value);
     };
 
     const handleBrandChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-        setBrand(value);
+        setBrand(event.target.value);
     };
 
     const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-        setColor(value);
+        setColor(event.target.value);
     };
 
     const handleConditionChange = (
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
-        const value = event.target.value;
-        setCondition(value);
+        setCondition(event.target.value);
     };
 
     const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-        setCity(value);
+        setCity(event.target.value);
     };
 
     const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -93,7 +87,6 @@ const Publish = () => {
     const handleSubmit = async (event: SyntheticEvent) => {
         event.preventDefault();
 
-        alert(price);
         if (isNaN(Number(price))) {
             alert("Le prix saisi est incorrect.");
             return;
@@ -177,6 +170,7 @@ const Publish = () => {
                                     placeholder="ex: Chemise Sézanne verte"
                                     value={title}
                                     onChange={handleTitleChange}
+                                    data-testid="publish-title"
                                 />
                             </div>
 
@@ -189,6 +183,7 @@ const Publish = () => {
                                     placeholder="ex: porté quelquefois, taille correctement"
                                     value={description}
                                     onChange={handleDescriptionChange}
+                                    data-testid="publish-description"
                                 />
                             </div>
                         </section>
@@ -204,6 +199,7 @@ const Publish = () => {
                                     placeholder="ex: Zara"
                                     value={brand}
                                     onChange={handleBrandChange}
+                                    data-testid="publish-brand"
                                 />
                             </div>
 
@@ -217,6 +213,7 @@ const Publish = () => {
                                     placeholder="ex: Fusia"
                                     value={color}
                                     onChange={handleColorChange}
+                                    data-testid="publish-color"
                                 />
                             </div>
 
