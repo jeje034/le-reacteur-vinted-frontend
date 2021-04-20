@@ -42,7 +42,7 @@ const connectedUserSlice = createSlice({
             state.isLoading = false;
             state.loginError = action.payload
                 ? action.payload
-                : "Uen erreur est survenue lors de la connexion.";
+                : "Une erreur est survenue lors de la connexion.";
         },
         disconnect(state) {
             state.token = "";

@@ -22,7 +22,7 @@ test("Signup page screen content and link to Login page", () => {
     const leftClick = { button: 0 };
     userEvent.click(screen.getByTestId("header-signup-button"), leftClick);
 
-    //On vérifie le text à l'écran et les input
+    //On vérifie le texte à l'écran et les input
     expect(
         screen.getByText("Tu as déjà un compte ? Connecte-toi !")
     ).toBeInTheDocument();
