@@ -1,16 +1,10 @@
 import { SyntheticEvent, useState } from "react";
 import { useHistory, Link, useLocation } from "react-router-dom";
-import axios from "axios";
 import SaveUserIds from "../../functions/SaveUserIds";
 
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
-import { AppThunk, RootState } from "../../app/store";
-import {
-    loginRequest,
-    loginSucces,
-    loginFail,
-} from "../../app/connectedUserSlice";
-import * as Constants from "../../constants/constants";
+import { RootState } from "../../app/store";
+import { tryToLog } from "../../app/connectedUserSlice";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -24,65 +18,45 @@ const Login = () => {
     let history = useHistory();
     let location = useLocation();
 
-    const loginUser = (email: string, password: string): AppThunk => async (
-        dispatch
-    ) => {
-        try {
-            //D'abord on indique que la requête est en cours
-            dispatch(loginRequest());
+    const loginUser = async (email: string, password: string) => {
+        const resultAction = await dispatch(
+            tryToLog({ email: email, password: password })
+        );
 
-            //Puis on appelle l'API
-            const response = await axios.post(
-                Constants.BASE_URL + "/user/login",
-                {
-                    email: email,
-                    password: password,
-                }
-            );
-            if (response.data.token) {
-                dispatch(loginSucces(response.data));
-                SaveUserIds({
-                    userToken: response.data.token,
-                    userId: response.data._id,
-                });
+        if (resultAction?.payload?.token) {
+            SaveUserIds({
+                userToken: resultAction?.payload?.token,
+                userId: resultAction?.payload?._id,
+            });
 
-                interface ICustomState {
-                    fromPublish: boolean;
-                    fromPayment: boolean;
-                }
+            interface ICustomState {
+                fromPublish: boolean;
+                fromPayment: boolean;
+            }
 
-                if (location) {
-                    const customState = location.state as ICustomState;
+            if (location) {
+                const customState = location.state as ICustomState;
 
-                    if (customState && customState.fromPublish) {
-                        //msgjs21 Il faudrait aussi regarder la redirection depuis l'inscription
-                        history.push("/publish");
-                    } else if (customState && customState.fromPayment) {
-                        //history.push("/payment"); msgjs21 : si je vais vers payment, il me manque les paramètres (prix, produit) => je fais pour l'instant un go back
-                        history.goBack();
-                    } else {
-                        history.push("/");
-                    }
+                if (customState && customState.fromPublish) {
+                    //msgjs21 Il faudrait aussi regarder la redirection depuis l'inscription
+                    history.push("/publish");
+                } else if (customState && customState.fromPayment) {
+                    //history.push("/payment"); msgjs21 : si je vais vers payment, il me manque les paramètres (prix, produit) => je fais pour l'instant un go back
+                    history.goBack();
                 } else {
                     history.push("/");
                 }
             } else {
-                dispatch(loginFail("Impossible de se connecter : token vide."));
-                SaveUserIds({ userToken: "", userId: "" });
+                history.push("/");
             }
-        } catch (err) {
-            dispatch(loginFail(err.message));
+        } else {
             SaveUserIds({ userToken: "", userId: "" });
         }
     };
 
-    const handleToken = async () => {
-        dispatch(loginUser(email, password));
-    };
-
     const handleSubmit = (event: SyntheticEvent) => {
         event.preventDefault();
-        handleToken();
+        loginUser(email, password);
     };
 
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -127,7 +101,7 @@ const Login = () => {
                             : "signup-login-error-message visibility-hidden"
                     }
                 >
-                    Email ou mot de passe incorrect
+                    {loginError}
                 </div>
                 <button
                     type="submit"
