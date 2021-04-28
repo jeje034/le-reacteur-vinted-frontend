@@ -8,3 +8,5 @@ Principaux développements suivants :
 
 -   utilisation de Redux Toolkit (à partir du 06/04/21).
 -   tests unitaire avec Jest et Testing Library (à partir du 11/04/21).
+
+Par contre, il y a toujours un seul fichier CSS. Désormais, je développe avec un fichier .SCSS par composant.
