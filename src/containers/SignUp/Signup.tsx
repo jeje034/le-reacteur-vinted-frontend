@@ -6,6 +6,7 @@ import { useAppDispatch } from "../../app/hooks";
 import { setUserIds } from "../../app/connectedUserSlice";
 import SaveUserIds from "../../functions/SaveUserIds";
 import * as Constants from "../../constants/constants";
+import GetBackendBaseUrl from "../../functions/GetBackendBaseUrl";
 
 const Signup = () => {
     const [username, setUsername] = useState("");
@@ -22,7 +23,7 @@ const Signup = () => {
         let newToken = null;
         try {
             const response = await axios.post(
-                Constants.BASE_URL + "/user/signup",
+                GetBackendBaseUrl() + "/user/signup",
                 {
                     username: username,
                     email: email,

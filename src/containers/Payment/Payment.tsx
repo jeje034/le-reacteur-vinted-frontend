@@ -5,6 +5,7 @@ import axios from "axios";
 import { StripeElements } from "@stripe/stripe-js";
 import * as Constants from "../../constants/constants";
 import { IUserIds } from "../../sharedInterfaces/IUserIds";
+import GetBackendBaseUrl from "../../functions/GetBackendBaseUrl";
 
 const Payment = () => {
     interface ICustomState {
@@ -64,11 +65,14 @@ const Payment = () => {
             const stripeToken = stripeResponse?.token.id;
 
             // Envoi vers le backend Vinted du token reçu depuis l'API Stripe
-            const response = await axios.post(Constants.BASE_URL + "/payment", {
-                stripeToken: stripeToken,
-                productName: productName,
-                amount: amount, //Si la transaction s'est bien passée, elle sera visible en https://dashboard.stripe.com/test/events
-            });
+            const response = await axios.post(
+                GetBackendBaseUrl() + "/payment",
+                {
+                    stripeToken: stripeToken,
+                    productName: productName,
+                    amount: amount, //Si la transaction s'est bien passée, elle sera visible en https://dashboard.stripe.com/test/events
+                }
+            );
 
             //console.log("response.data", response.data);
 

@@ -8,6 +8,7 @@ import { useAppSelector } from "../../app/hooks";
 import { RootState } from "../../app/store";
 import HomeOfferOwner from "../../components/HomeOfferOwner";
 import * as Constants from "../../constants/constants";
+import GetBackendBaseUrl from "../../functions/GetBackendBaseUrl";
 
 const Home = () => {
     const [isDownloading, setIsDownloading] = useState(true);
@@ -28,7 +29,7 @@ const Home = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            let request = Constants.BASE_URL + "/offers";
+            let request = GetBackendBaseUrl() + "/offers";
 
             request += `?priceMin=${priceRange[0]}&priceMax=${priceRange[1]}&page=${page}&limit=${limit}`;
 

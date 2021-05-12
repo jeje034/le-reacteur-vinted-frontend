@@ -5,6 +5,7 @@ import { IOffer } from "../../sharedInterfaces/IOffer";
 import * as Constants from "../../constants/constants";
 import { useAppSelector } from "../../app/hooks";
 import { IUserIds } from "../../sharedInterfaces/IUserIds";
+import GetBackendBaseUrl from "../../functions/GetBackendBaseUrl";
 
 const Offer = () => {
     const defaultOffer: IOffer = {
@@ -29,7 +30,7 @@ const Offer = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(
-                    Constants.BASE_URL + "/offer/" + productId
+                    GetBackendBaseUrl() + "/offer/" + productId
                 );
 
                 //if (response) ajouté pour les tests

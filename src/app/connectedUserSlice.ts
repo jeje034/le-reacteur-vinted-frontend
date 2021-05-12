@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import * as Constants from "../constants/constants";
+import GetBackendBaseUrl from "../functions/GetBackendBaseUrl";
 
 interface ConnectedUserState {
     token: string | null;
@@ -21,7 +22,7 @@ export const tryToLog = createAsyncThunk(
     async (arg: { email: string; password: string }, { rejectWithValue }) => {
         try {
             const response = await axios.post(
-                Constants.BASE_URL + "/user/login",
+                GetBackendBaseUrl() + "/user/login",
                 {
                     email: arg.email,
                     password: arg.password,

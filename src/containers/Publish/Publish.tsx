@@ -6,6 +6,7 @@ import { useDropzone } from "react-dropzone";
 import { useAppSelector } from "../../app/hooks";
 import { RootState } from "../../app/store";
 import * as Constants from "../../constants/constants";
+import GetBackendBaseUrl from "../../functions/GetBackendBaseUrl";
 
 interface iFileWithPreview extends File {
     preview: string;
@@ -107,7 +108,7 @@ const Publish = () => {
 
         try {
             const response = await axios.post(
-                Constants.BASE_URL + "/offer/publish",
+                GetBackendBaseUrl() + "/offer/publish",
                 formData,
                 {
                     headers: {
