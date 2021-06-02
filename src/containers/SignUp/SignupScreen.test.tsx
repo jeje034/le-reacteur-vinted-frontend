@@ -26,9 +26,11 @@ test("Signup page screen content and link to Login page", () => {
     expect(
         screen.getByText("Tu as déjà un compte ? Connecte-toi !")
     ).toBeInTheDocument();
-    // expect(screen.getByText(/Nom d'utilisateur/i)).toBeInTheDocument();
-    //expect(screen.getByText("Email")).toBeInTheDocument();
-    //expect(screen.getByText("Mot de passe")).toBeInTheDocument();
+    expect(
+        screen.getByPlaceholderText(/Nom d'utilisateur/i)
+    ).toBeInTheDocument();
+    expect(screen.getByPlaceholderText("Email")).toBeInTheDocument();
+    expect(screen.getByPlaceholderText("Mot de passe")).toBeInTheDocument();
     expect(
         screen.getByText("S'inscrire à notre newsletter")
     ).toBeInTheDocument();

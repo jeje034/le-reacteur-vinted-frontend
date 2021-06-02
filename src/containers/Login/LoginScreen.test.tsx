@@ -26,8 +26,8 @@ test("Login page screen content and link to Signup page", () => {
     expect(
         screen.getByText("Pas encore de compte ? Inscris-toi !")
     ).toBeInTheDocument();
-    expect(screen.getByText(/Email/i)).toBeInTheDocument();
-    expect(screen.getByText(/Mot de passe/i)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/Email/i)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/Mot de passe/i)).toBeInTheDocument();
     const emailInput = screen.getByTestId(
         "login-email-input"
     ) as HTMLInputElement;
