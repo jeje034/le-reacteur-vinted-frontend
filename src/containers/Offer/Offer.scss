@@ -1,0 +1,112 @@
+.offer-main {
+    background-color: var(--background-color-publish-offer-payment);
+    height: 100vh;
+}
+.offer-main-when-downloading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - var(--header-min-height));
+}
+
+.offer-main-when-downloaded {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: calc(100vh - var(--header-min-height));
+}
+
+.offer-big-picture {
+    width: 400px;
+    height: 600px;
+    object-fit: cover;
+}
+
+.offer-big-text-zone {
+    width: 400px;
+    height: 600px;
+    background-color: white;
+    padding: 40px;
+    box-sizing: border-box; /* Pour que le padding n'agrandisse pas le rectangle; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.offer-top-description {
+    width: 100%;
+    /* background-color: #2baeb7; */
+}
+
+.offer-price {
+    font-size: 24px;
+    margin-bottom: 25px;
+}
+
+.offer-product-details {
+    font-size: 14px;
+}
+
+.offer-product-detail {
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.offer-product-detail-key {
+    color: #999;
+    width: 50%;
+}
+
+.offer-product-detail-value {
+    color: #666;
+    width: 50%;
+}
+.offer-delimiter {
+    width: 100%;
+    border: 1px solid #e5e5e5;
+}
+
+.offer-bottom-description {
+    width: 100%;
+    /* background-color: #2baeb7; */
+}
+
+.offer-title {
+    font-size: 16px;
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+
+.offer-description {
+    font-size: 16px;
+    color: #666;
+    font-weight: normal;
+    margin-bottom: 17px;
+}
+
+/* Zone de l'image et du pseudo du propriétaire de l'article. */
+.offer-owner-image-and-surname {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.offer-avatar-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.offer-buy {
+    color: var(--opposite-of-vinted-color);
+    background-color: var(--vinted-color);
+    border: 1px solid var(--vinted-color);
+    border-radius: 4px;
+    width: 100%;
+    font-size: 16px;
+    height: 36px;
+    cursor: pointer;
+}

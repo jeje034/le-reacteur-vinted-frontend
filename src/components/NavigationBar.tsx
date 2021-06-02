@@ -1,3 +1,5 @@
+import "./NavigationBar.scss";
+
 const NavigationBar = ({
     page,
     setPage,

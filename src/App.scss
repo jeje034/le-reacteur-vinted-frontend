@@ -1,0 +1,127 @@
+/* ------------------- */
+/* GLOBAL RULES */
+/* ------------------- */
+:root {
+    --vinted-color: #2baeb7;
+    --opposite-of-vinted-color: white;
+    --background-color-publish-offer-payment: #ebedee;
+    --header-min-height: 50px;
+    --header-max-height: 120px;
+    font-family: "Maison Neue";
+}
+
+.container {
+    width: 1240px;
+    margin: 0 auto;
+    /* background-color: red; */
+}
+
+.container-login-signup {
+    width: 275px;
+    margin: 0 auto;
+    /* background-color: red; */
+}
+
+.visibility-hidden {
+    visibility: hidden;
+}
+
+@font-face {
+    font-family: "Maison Neue";
+    src: url("./assets/fonts/MaisonNeue.woff2") format("woff2"),
+        url("./assets/fonts/MaisonNeue.woff") format("woff");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Maison Neue";
+    src: url("./assets/fonts/MaisonNeue.woff2") format("woff2"),
+        url("./assets/fonts/MaisonNeue.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Maison Neue";
+    src: url("./assets/fonts/MaisonNeue.woff2") format("woff2"),
+        url("./assets/fonts/MaisonNeue.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ------------------- */
+/* SIGN UP AND LOGIN */
+/* ------------------- */
+.signup-login-page-title {
+    font-size: 24px;
+    color: #111;
+    font-weight: 500;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 35px;
+    padding-top: 50px;
+}
+
+.signup-login-input {
+    border: none;
+    border-bottom: 1px solid rgba(17, 17, 17, 0.08);
+    height: 35px;
+    margin-bottom: 20px;
+    outline: none;
+    width: 100%;
+    font-size: 14px;
+}
+
+.signup-login-error-message {
+    color: red;
+    font-size: 9px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.signup-checkbox {
+    transform: scale(2);
+    margin-right: 20px;
+    margin-bottom: 15px;
+}
+.signup-checkbox-label {
+    color: #666;
+    font-size: 16px;
+}
+
+.signup-i-confirm-sentence {
+    text-align: left;
+    color: #999;
+    font-size: 12px;
+    margin-bottom: 40px;
+}
+
+.signup-login-button {
+    font-size: 16px;
+    font-weight: 500;
+    height: 45px;
+    width: 100%;
+    color: var(--opposite-of-vinted-color);
+    background-color: var(--vinted-color);
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    color: #fff;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.signup-login-switch {
+    color: var(--vinted-color);
+    font-size: 12px;
+    text-align: center;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

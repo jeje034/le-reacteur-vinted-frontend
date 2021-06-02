@@ -1,0 +1,59 @@
+.header-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: var(--header-min-height);
+    background-color: var(--opposite-of-vinted-color);
+}
+
+.header-max-size {
+    height: var(--header-max-height);
+}
+
+.header-logo {
+    height: 30px;
+    cursor: pointer;
+}
+
+.header-button-group {
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+}
+
+.header-sign-up-login {
+    color: var(--vinted-color);
+    background-color: var(--opposite-of-vinted-color);
+    width: 117px;
+    height: 27px;
+    border-color: var(--vinted-color);
+    cursor: pointer;
+    outline: none;
+    border-radius: 5px;
+}
+
+.header-log-out {
+    color: white;
+    background-color: #c2175b;
+    border-color: #c2175b;
+}
+.header-sell-your-products {
+    color: var(--opposite-of-vinted-color);
+    background-color: var(--vinted-color);
+    width: 117px;
+    height: 27px;
+    cursor: pointer;
+
+    border: 1px solid var(--vinted-color) a;
+    border-radius: 5px;
+
+    font-size: 12px;
+    outline: none;
+}
+
+/*
+.header-horizontal-line {
+    width: calc(100% - 2px);
+    border: 1px solid #e5e5e5;
+}
+*/

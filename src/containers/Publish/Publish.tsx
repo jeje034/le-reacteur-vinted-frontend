@@ -1,3 +1,4 @@
+import "./Publish.scss";
 import { useState, SyntheticEvent } from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import axios from "axios";

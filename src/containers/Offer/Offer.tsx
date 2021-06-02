@@ -1,3 +1,4 @@
+import "./Offer.scss";
 import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import axios from "axios";
@@ -6,6 +7,7 @@ import * as Constants from "../../constants/constants";
 import { useAppSelector } from "../../app/hooks";
 import { IUserIds } from "../../sharedInterfaces/IUserIds";
 import GetBackendBaseUrl from "../../functions/GetBackendBaseUrl";
+import { Console } from "node:console";
 
 const Offer = () => {
     const defaultOffer: IOffer = {

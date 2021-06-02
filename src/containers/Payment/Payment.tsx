@@ -1,3 +1,4 @@
+import "./Payment.scss";
 import { SyntheticEvent, useState } from "react";
 import { Redirect, useLocation } from "react-router-dom";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";

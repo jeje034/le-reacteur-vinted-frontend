@@ -1,0 +1,25 @@
+.navigation-bar-main {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    margin-top: 40px;
+}
+
+.navigation-bar-left-button {
+    margin-right: 40px;
+}
+.navigation-bar-left-button {
+    margin-left: 40px;
+}
+
+.navigation-bar-button {
+    font-size: 16px;
+    background-color: var(--vinted-color);
+    color: var(--opposite-of-vinted-color);
+    width: 187px;
+    height: 45px;
+    outline: none;
+    border-color: var(--vinted-color);
+    border-radius: 5px;
+    cursor: pointer;
+}

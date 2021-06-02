@@ -1,0 +1,108 @@
+.home-around-top-big-image {
+    position: relative;
+    height: 538px;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.home-top-big-image {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.home-tear-effect {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    right: 0;
+    background-image: url("../../../src/assets/images/tear-effect.svg");
+    background-position: bottom right;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.home-div-dans-image {
+    position: absolute;
+    left: 130px;
+    top: 140px;
+    background-color: white;
+    width: 400px;
+    height: 258px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.home-text-to-sell {
+    font-size: 34px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.home-sell-button {
+    font-size: 16px;
+    background-color: var(--vinted-color);
+    color: var(--opposite-of-vinted-color);
+    margin-left: 25px;
+    margin-right: 25px;
+    width: 187px;
+    height: 45px;
+    outline: none;
+    border-color: var(--vinted-color);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.home-before-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.home-card {
+    display: flex;
+    flex-direction: column;
+    width: 232px;
+    height: 450px;
+    margin-bottom: 30px;
+    margin-right: 20px;
+}
+
+.home-card-no-margin-right {
+    margin-right: 0;
+}
+
+.home-offer-owner-main {
+    display: flex;
+    text-decoration: none;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+.home-offer-owner-photo {
+    width: 25px;
+    height: 25px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 50px;
+}
+
+.home-offer-owner-unsername {
+    text-decoration: none;
+    font-size: 12px;
+}
+.home-card-photo {
+    width: 100%;
+    height: 360px;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.home-price {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+.home-taille-marque {
+    font-size: 12px;
+    margin-bottom: 5px;
+}

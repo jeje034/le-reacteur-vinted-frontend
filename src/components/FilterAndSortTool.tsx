@@ -1,3 +1,4 @@
+import "./FilterAndSortTool.scss";
 import { Range } from "react-range";
 import * as Constants from "../constants/constants";
 import { useAppDispatch, useAppSelector } from "../app/hooks";

@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.scss";
 import { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";

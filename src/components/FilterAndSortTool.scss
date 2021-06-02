@@ -1,0 +1,38 @@
+.filter-and-sort-tool-main {
+    display: flex;
+    flex-direction: column;
+}
+.filter-and-sort-tool-search-group {
+    display: flex;
+    align-items: center;
+    height: 50%;
+}
+.filter-and-sort-tool-search-icon {
+    width: 18px;
+    height: 18px;
+    padding: 9px;
+    object-fit: cover;
+    color: #bbb;
+    background-color: #f5f6f7;
+    /* background-color: red; */
+}
+.filter-and-sort-tool-title-search {
+    width: 590px;
+    background-color: #f5f6f7;
+    border-radius: 5px;
+    height: 36px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+}
+
+.filter-and-sort-tool-bottom-group {
+    width: 620px;
+    display: flex;
+    align-items: center;
+    height: 50px;
+}
+.filter-and-sort-tool-price-range-text {
+    font-size: 12px;
+    width: 200px;
+}
