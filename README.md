@@ -7,7 +7,6 @@ Il a ensuite été converti en **TypeScript** après la formation. Je n'arrête 
 Principaux développements suivants :
 
 -   utilisation de Redux Toolkit (à partir du 06/04/21).
--   tests unitaire avec Jest et Testing Library (à partir du 11/04/21).
--   fichiers de configuration pour déploiement avec Docker en local ou sur Heroku.
-
-Par contre, il y a toujours un seul fichier CSS. Désormais, je développe avec un fichier .SCSS par composant.
+-   tests unitaires avec Jest et Testing Library (à partir du 11/04/21).
+-   possibilité de déployer en local, sur Heroku ou sur un VPS avec une même image Docker. La même image permet de pointer sur différents backend (par exemple un backend pour les développeurs, un backend pour les testeurs et un backend de production) grâce à une variable d'environnement.
+-   plusieurs fichiers .scss au lieu d'un fichier .css.
