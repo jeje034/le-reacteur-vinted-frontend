@@ -1,5 +1,5 @@
 import "./FilterAndSortTool.scss";
-import { Range } from "react-range";
+import { Range, getTrackBackground } from "react-range";
 import * as Constants from "../constants/constants";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { setPriceRange, setTitleSearch } from "../app/offerFilterSlice";
@@ -49,7 +49,8 @@ const FilterAndSortTool = () => {
             <div className="filter-and-sort-tool-bottom-group">
                 <div className="filter-and-sort-tool-price-range-text">{`Prix entre ${priceRange[0]} et ${priceRange[1]} € :`}</div>
 
-                {/* Cette Balise Range provient du package react-range de Vojtech Miksu : https://www.npmjs.com/package/react-range.*/}
+                {/* Cette Balise Range provient du package react-range de Vojtech Miksu : https://www.npmjs.com/package/react-range.
+                    C'est grâce au tableau colors de getTrackBackground qu'on peut griser la partie en dehors de la fourchette de prix. */}
                 <Range
                     step={5}
                     min={Constants.MIN_PRICE_IN_FILTER}
@@ -65,7 +66,16 @@ const FilterAndSortTool = () => {
                                 ...props.style,
                                 height: "5px",
                                 width: "100%",
-                                background: "rgb(44, 177, 186)",
+                                background: getTrackBackground({
+                                    values: priceRange,
+                                    colors: [
+                                        "#ccc",
+                                        "rgb(44, 177, 186)",
+                                        "#ccc",
+                                    ],
+                                    min: Constants.MIN_PRICE_IN_FILTER,
+                                    max: Constants.MAX_PRICE_IN_FILTER,
+                                }),
                             }}
                         >
                             {children}
